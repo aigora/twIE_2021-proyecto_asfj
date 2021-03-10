@@ -1,10 +1,10 @@
-# [Título del trabajo]
+# [Título]
 
 [Descripción breve del proyecto a realizar (2-3 frases).]
 
 ## Integrantes del equipo
 
-[Nombres, apellidos, y usuario GitHub de los integrantes del equipo.]
+Julia Moya Godoy, Sergio Mingo Jiménez, Fabio Lebrón Castillo y Azucena Montalvo Martínez.
 
 ## Objetivos del trabajo
 
