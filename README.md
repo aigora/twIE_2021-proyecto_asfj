@@ -1,6 +1,6 @@
-# [Título]
+# [Reloj inteligente]
 
-[Descripción breve del proyecto a realizar (2-3 frases).]
+[Vamos a programar varias funciones que se pueden encontrar en un reloj inteligente y otras que pensamos que podrían ser útiles]
 
 ## Integrantes del equipo
 
@@ -8,4 +8,12 @@ Julia Moya Godoy, Sergio Mingo Jiménez, Fabio Lebrón Castillo y Azucena Montal
 
 ## Objetivos del trabajo
 
-[Lista de los objetivos que se persiguen con el trabajo propuesto.]
+[Las funciones que queremos que haga nuestro reloj son las siguientes:
+1.Hora
+2.Fecha
+3.Cronometro
+4.Temporizador
+5.Ciclos de tiempo
+6.Gps
+7.Calendario
+8.Calculadora sencilla]
