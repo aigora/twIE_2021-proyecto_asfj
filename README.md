@@ -4,10 +4,10 @@ Vamos a programar varias funciones que se pueden encontrar en un reloj inteligen
 
 ## Integrantes del equipo
 
-* Julia Moya Godoy--------------------> (https://github.com/juliamgy)
-* Sergio Mingo Jiménez----------------> 
-* Fabio Lebrón Castillo---------------> (https://github.com/FabioLebron)
-* Azucena Montalvo Martínez-----------> (https://github.com/Azuazuazu)
+* Julia Moya Godoy ---------------> https://github.com/juliamgy
+* Sergio Mingo Jiménez ----------> https://github.com/Sergio-MJ
+* Fabio Lebrón Castillo -----------> https://github.com/FabioLebron
+* Azucena Montalvo Martínez ---> https://github.com/Azuazuazu
 
 ## Objetivos del trabajo
 
