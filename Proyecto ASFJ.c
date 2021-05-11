@@ -15,8 +15,8 @@ int main(){
             y=1;
         else{
 
-            printf("%s\n¡Hola de nuevo, Usuario!\n",ctime(&hora));
-            printf("¿En qué te puedo ayudar?\n1-.Temporizadores\n2-.Calendario\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesión\n");
+            printf("%s\n%cHola de nuevo, Usuario!\n",ctime(&hora),173);
+            printf("%cEn qu%c te puedo ayudar?\n1-.Temporizadores\n2-.Calend%crio\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn\n",168,130,160,162);
             a=0;
             b=0;
 
@@ -30,26 +30,27 @@ int main(){
                     switch (menu)
                             {
                         case 1:
-                            printf ("Temporizadores:\n1-.Cronómetro\n2-.Cuenta atras\n3-.Ciclos de tiempo\n4-.Atras\n");
+                            system("cls");
+                            printf ("TEMPORIZADORES:\n1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs\n",162,160,160);
                             do {
                             scanf ("%i",&tempo);
                             switch (tempo)
                             {
                                 case 1:
-                                    printf ("Cronómetro\n");
+                                    printf ("Cron%cmetro\n",162);
                                 break;
                                 case 2:
-                                    printf ("Cuenta atrás\n");
+                                    printf ("Cuenta atr%cs\n",160);
                                 break;
                                 case 3:
                                     printf ("Ciclos de tiempo\n");
                                 break;
                                 case 4:
                                     a=1;
-                                    printf ("\n");
+                                    system("cls");
                                 break;
                                 default:
-                                     printf("Introduce un número válido\n");
+                                     printf("Introduzca un n%cmero v%clido\n",163,160);
                                 break;
 
                             }
@@ -61,7 +62,8 @@ int main(){
 
 
                         case 2:
-                            printf ("Calendario:\n1-.Recordatorios\n2-.Crear recordatorio\n3-.Editar recordatorio existente\n4-.Atras\n");
+                            system("cls");
+                            printf ("CALENDARIO:\n1-.Recordatorios\n2-.Crear recordatorio\n3-.Editar recordatorio existente\n4-.Atr%cs\n",160);
                             do{
                             scanf ("%i",&calen);
                             switch (calen)
@@ -77,10 +79,10 @@ int main(){
                                 break;
                                 case 4:
                                     a=1;
-                                    printf ("\n");
+                                    system("cls");
                                 break;
                                 default:
-                                     printf("Introduce un número válido\n");
+                                     printf("Introduzca un n%cmero v%clido\n",163,160);
                                 break;
                             }
                             }
@@ -89,7 +91,8 @@ int main(){
 
 
                         case 3:
-                            printf ("GPS\n1-.Radar covid\n2-.Ruta mas corta\n3-.Localizacion\n4-.Atras\n");
+                            system("cls");
+                            printf ("GPS\n1-.Radar covid\n2-.Ruta mas corta\n3-.Localizaci%cn\n4-.Atr%cs\n",162,160);
                             do {
                             scanf ("%i",&gp);
                             switch (gp)
@@ -101,14 +104,14 @@ int main(){
                                     printf ("Ruta mas corta\n");
                                 break;
                                 case 3:
-                                    printf ("Localizacion\n");
+                                    printf ("Localizaci%cn\n",162);
                                 break;
                                 case 4:
                                     a=1;
-                                    printf ("\n");
+                                    system("cls");
                                 break;
                                 default:
-                                     printf("Introduce un número válido\n");
+                                     printf("Introduzca un n%cmero v%clido\n",163,160);
                                 break;
 
                             }
@@ -118,7 +121,8 @@ int main(){
 
 
                         case 4:
-                            printf ("Calculadora\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Atras\n");
+                            system("cls");
+                            printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Atr%cs\n",160);
                             do{
                             scanf ("%i",&calc);
                             switch (calc)
@@ -137,10 +141,10 @@ int main(){
                                 break;
                                 case 5:
                                     a=1;
-                                    printf ("\n");
+                                    system("cls");
                                 break;
                                 default:
-                                     printf("Introduce un número válido\n");
+                                     printf("Introduzca un n%cmero v%clido\n",163,160);
                                 break;
 
                             }
@@ -151,13 +155,14 @@ int main(){
 
 
                         case 5:
+                            system("cls");
                             b=1;
-                            printf ("Hasta luego\n");
+                            printf ("Hasta luego!\n");
                         break;
 
 
                         default:
-                            printf("Introduce un número válido\n");
+                            printf("Introduzca un n%cmero v%clido\n",163,160);
                         break;
                             }
                         }
