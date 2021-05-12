@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <time.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <conio.h>
+#include <windows.h>
 
  float potencia(float base, int exponente);
 
@@ -42,6 +46,39 @@ int main(){
                                 break;
                                 case 2:
                                     printf ("Cuenta atr%cs\n",160);
+                                        int i = 0;
+                                        int segundos, minutos, horas, total;
+
+                                        printf("Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
+                                        scanf("%i %i %i",&segundos,&minutos,&horas);
+                                        total=segundos + 60*minutos + 3600*horas;
+                                        printf("El programa terminara %i en segundos.\n", total);
+
+
+
+
+                                        for(i=0; i<total; i++){
+                                            Sleep(1000);
+                                            //printf("%i\n", i+1);
+
+                                            system("cls");
+                                                printf("\n\n\n\t\t\t[ %.2d:%.2d:%.2d ]", horas, minutos, segundos);
+
+
+                                            segundos=segundos-1;
+                                            if(segundos==0&&minutos>0) {
+                                                    minutos=minutos-1;
+                                                    segundos=59;
+                                            }
+                                            if (minutos==0&&horas>0) {
+                                                    horas=horas-1;
+                                                    minutos=59;
+                                            }
+
+
+                                            }
+
+                                                return 0;
                                 break;
                                 case 3:
                                     printf ("Ciclos de tiempo\n");
