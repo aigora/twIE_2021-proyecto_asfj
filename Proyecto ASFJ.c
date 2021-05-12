@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
+#define N 51
 
 int main(){
     time_t hora;
@@ -105,6 +107,39 @@ int main(){
                                 break;
                                 case 3:
                                     printf ("Localizaci%cn\n",162);
+                                    int i=0,j=0, x=25,y=25;     //Define la posición del usuario en el centro del mapa.
+                                    srand(time(NULL));
+                                    int x1 = (rand()%N+1) ;
+                                    int y1 = (rand()%N+1) ;
+                                    int x2 = (rand()%N+1) ;     //Define las posiciones aleatorias de la universidad y la casa.
+                                    int y2 = (rand()%N+1) ;
+                                    while(x1==x2||y1==y2){      //Comprueba que la universidad y la casa no están en el mismo sitio.
+                                    int x1 = (rand()%N+1) ;
+                                    int y1 = (rand()%N+1) ;
+                                    }
+
+                                    for(i=0;i<N;i++){
+                                        printf("\n");        //Representa gráficamente.
+                                        for(j=0;j<N;j++)
+                                            if(j==x&&i==y)
+                                                printf("X ");
+                                    else if (i==x1&&j==y1)
+                                            printf("C ");
+                                    else if (i==x2&&j==y2)
+                                            printf("U ");
+                                    else
+                                    printf(". ");
+                                    }
+
+                                    printf("\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",x,y,x1,y1,x2,y2); //Imprime coordenadas
+
+                                if(x==x1&&y==y1)
+                                    printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
+                                else if(x==x2&&y==y2)
+                                        printf("\nHa llegado a su universidad.");
+                                return 0;
+
+
                                 break;
                                 case 4:
                                     a=1;
