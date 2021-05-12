@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <time.h>
 
+ float potencia(float base, int exponente);
+
 int main(){
     time_t hora;
     time(&hora);
     int menu,y=0;
     int a=0,b=0;
     int tempo,calen,calc,gp;
-
 
     do{
 
@@ -16,7 +17,7 @@ int main(){
         else{
 
             printf("%s\n%cHola de nuevo, Usuario!\n",ctime(&hora),173);
-            printf("%cEn qu%c te puedo ayudar?\n1-.Temporizadores\n2-.Calend%crio\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn\n",168,130,160,162);
+            printf("%cEn qu%c te puedo ayudar?\n1-.Temporizadores\n2-.Calendario\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn\n",168,130,162);
             a=0;
             b=0;
 
@@ -122,24 +123,72 @@ int main(){
 
                         case 4:
                             system("cls");
-                            printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Atr%cs\n",160);
+                            printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
                             do{
                             scanf ("%i",&calc);
+
+                            float x, y, resultado;
+                            int valido = 1;
+
                             switch (calc)
                             {
                                 case 1:
                                     printf ("Sumar\n");
+
+                                    printf("Ingrese x: ");
+                                    scanf("%f", &x);
+                                    printf("Ingrese y: ");
+                                    scanf("%f", &y);
+
+                                    resultado = x + y;
+                                    printf("El resultado es %f\n", resultado);
                                 break;
                                 case 2:
                                     printf ("Restar\n");
+
+                                    printf("Ingrese x: ");
+                                    scanf("%f", &x);
+                                    printf("Ingrese y: ");
+                                    scanf("%f", &y);
+
+                                    resultado = x - y;
+                                    printf("El resultado es %f\n", resultado);
                                 break;
                                 case 3:
                                     printf ("Multiplicar\n");
+
+                                    printf("Ingrese x: ");
+                                    scanf("%f", &x);
+                                    printf("Ingrese y: ");
+                                    scanf("%f", &y);
+
+                                    resultado = x * y;
+                                    printf("El resultado es %f\n", resultado);
                                 break;
                                 case 4:
                                     printf ("Dividir\n");
+
+                                    printf("Ingrese x: ");
+                                    scanf("%f", &x);
+                                    printf("Ingrese y: ");
+                                    scanf("%f", &y);
+
+                                    resultado = x / y;
+                                    printf("El resultado es %f\n", resultado);
                                 break;
                                 case 5:
+                                    printf ("Potencia\n");
+
+                                    printf("Ingrese base: ");
+                                    scanf("%f", &x);
+                                    printf("Ingrese exponente: ");
+                                    scanf("%f", &y);
+
+                                    resultado = potencia(x, (int) y);
+                                    printf("El resultado es %f\n", resultado);
+
+                                break;
+                                case 6:
                                     a=1;
                                     system("cls");
                                 break;
@@ -179,3 +228,21 @@ int main(){
 return 0;
 
 }
+
+
+            //Función de potencia para la calculadora
+
+            float potencia(float base, int exponente)
+            {
+                float resultado = 1;
+                int i;
+                for (i = 0; i < exponente; ++i) {
+                    resultado *= base;
+                }
+                return resultado;
+            }
+
+            //Funcion para ingresar x e y en la calculadora
+
+
+
