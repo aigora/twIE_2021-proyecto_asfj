@@ -8,20 +8,38 @@
  float potencia(float base, int exponente);
 
 int main(){
-    time_t hora;
-    time(&hora);
-    int menu,y=0;
-    int a=0,b=0;
+
+    time_t t;
+    struct tm *tm;
+    char fechayhora[100];
+    int d,m,y;
+    int menu,p=0,a=0,b=0; //variables para controlar la posición en el menú
     int tempo,calen,calc,gp;
+
+    //dar la hora y dia en pantalla
+    t=time(NULL);
+    tm=localtime(&t);
+    strftime(fechayhora, 100, "%H:%M\t\t%d/%m/%Y", tm);
+    printf ("\n\t %s \n",fechayhora);
+
+    //asigno en variables la fecha para luego usarlas en el calendario
+    d=tm->tm_mday;
+    m=1+tm->tm_mon;
+    y=1900+tm->tm_year;
+    //printf("%d\n",d);
+    //printf("%d\n",m);
+    //printf("%d\n",y);
+
+
 
     do{
 
         if((a==0)&&(b==1))
-            y=1;
+            p=1;
         else{
 
-            printf("%s\n%cHola de nuevo, Usuario!\n",ctime(&hora),173);
-            printf("%cEn qu%c te puedo ayudar?\n1-.Temporizadores\n2-.Calendario\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn\n",168,130,162);
+            printf("\n%cHola de nuevo, Usuario!\n",173);
+            printf("%cEn qu%c te puedo ayudar?\n\n1-.Temporizadores\n2-.Calendario\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn\n",168,130,162);
             a=0;
             b=0;
 
@@ -260,26 +278,26 @@ int main(){
 
         }
     }
-    while (y!=1);
+    while (p!=1);
 
 return 0;
 
 }
 
 
-            //Función de potencia para la calculadora
+//Función de potencia para la calculadora
 
-            float potencia(float base, int exponente)
-            {
-                float resultado = 1;
-                int i;
-                for (i = 0; i < exponente; ++i) {
-                    resultado *= base;
-                }
-                return resultado;
-            }
+float potencia(float base, int exponente)
+{
+    float resultado = 1;
+    int i;
+    for (i = 0; i < exponente; ++i) {
+        resultado *= base;
+    }
+    return resultado;
+}
 
-            //Funcion para ingresar x e y en la calculadora
+//Funcion para ingresar x e y en la calculadora
 
 
 
