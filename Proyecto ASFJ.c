@@ -13,7 +13,7 @@ int main(){
     struct tm *tm;
     char fechayhora[100];
     int d,m,y;
-    int menu,p=0,a=0,b=0; //variables para controlar la posición en el menú
+    int menu,p=0,a=0,b=0; //variables para controlar la posiciÃ³n en el menÃº
     int tempo,calen,calc,gp;
 
     //dar la hora y dia en pantalla
@@ -61,6 +61,26 @@ int main(){
                             {
                                 case 1:
                                     printf ("Cron%cmetro\n",162);
+                                    int segundos=0,minutos=0,horas=0;
+                                    printf("Â¡Bienvenido al cronÃ³metro!\n Pulsa espacio para iniciar:\n[%.2i:%.2i:%.2i]",horas,minutos,segundos);
+                                    system("pause ->NULL");
+                                    while (1){
+                                    segundos++;
+                                    if(segundos==60){
+                                    segundos=0;
+                                    minutos=minutos+1;
+                                    if (minutos==60){
+                                    minutos=0;
+                                    horas++;
+                                    }
+                                    }
+
+                                    system("cls");
+                                    printf("[%.2d:%.2d:%.2d]",horas,minutos,segundos);
+                                    Sleep(1000);
+                                     }
+                                     }
+
                                 break;
                                 case 2:
                                     printf ("Cuenta atr%cs\n",160);
@@ -285,7 +305,7 @@ return 0;
 }
 
 
-//Función de potencia para la calculadora
+//FunciÃ³n de potencia para la calculadora
 
 float potencia(float base, int exponente)
 {
