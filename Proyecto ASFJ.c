@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <time.h>
 #include <conio.h>
 #include <windows.h>
 #define N 51
@@ -9,7 +8,6 @@
 float potencia(float base, int exponente);
 int aniado_recordatorio (int n);
 int escribir_recordatorio (int n);
-
 
 int main(){
 
@@ -233,7 +231,6 @@ int main(){
                                 break;
                                 case 3:
                                     printf ("Localizaci%cn\n",162);
-
 
 
                                         int i=0,j=0, x=25,y=25;     //Define la posición del usuario en el centro del mapa.
