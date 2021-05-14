@@ -6,7 +6,26 @@
 #include <windows.h>
 #define N 51
 
- float potencia(float base, int exponente);
+
+typedef struct
+{
+    int d, m, a;
+}fecha;
+
+typedef struct
+{
+    char tipo[50];
+    char recordatorio[50];
+    fecha fechaRec;
+}evento;
+
+
+float potencia(float base, int exponente);
+int aniado_recordatorio (int n);
+int escribir_recordatorio (int n);
+void printEvento(evento x);
+int compFecha(fecha f1, fecha f2);
+
 
 int main(){
 
@@ -14,7 +33,8 @@ int main(){
     struct tm *tm;
     char fechayhora[100];
     int d,m,y;
-    int menu,p=0,a=0,b=0; //variables para controlar la posición en el menú
+    int n,v;                  // variables para calendario
+    int menu,p=0,a=0,b=0;     //variables para controlar la posición en el menú
     int tempo,calen,calc,gp;
     int se=0,mi=0,ho=0;
 
@@ -63,32 +83,33 @@ int main(){
                             switch (tempo)
                             {
                                 case 1:
-
+                                    printf ("CRONOMETRO\n",160);
+                                 //Función de cronómetro
                                    printf("Pulsa espacio para iniciar y para pausar si es necesario:\n[%.2i:%.2i:%.2i]\n",ho,mi,se);
                                    system("pause ->NULL");
                                    while (1){
-                                    while(!kbhit()){
-                                     se++;
+                                    while(!kbhit()){ //la función espera a que se presione una tecla en específico
+                                     se++; //paso del tiempo
                                      if (se==60){
                                       se=0;
-                                      mi++;
+                                      mi++; //pasa de 59 segundos a 1:00
                                        if (mi==60){
                                         mi=0;
                                         ho++;
                                        }
                                       }
-                                     system("cls");
+                                     system("cls"); //ESTO DEBE CAMBIARSE, SÓLO FUNCIONA EN WINDOWS
                                      printf("[%.2i:%.2i:%.2i]",ho, mi, se);
-                                     Sleep(1000);
+                                     Sleep(1000); //Un segundo de refresco
                                      }
                                      char pausa=getch();
-                                     if(pausa==32){
+                                     if(pausa==32){ //pausa si pulsa el espacio
                                      getch();
                                     }
                                    }
                                  system("pause");
-
                                 break;
+
                                 case 2:
                                     printf ("Cuenta atr%cs\n",160);
                                         int i = 0;
@@ -146,21 +167,62 @@ int main(){
 
                         case 2:
                             system("cls");
-                            printf ("CALENDARIO:\n1-.Recordatorios\n2-.Crear recordatorio\n3-.Editar recordatorio existente\n4-.Atr%cs\n",160);
-                            do{
+                            printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A�adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);                            do{
+
                             scanf ("%i",&calen);
                             switch (calen)
                             {
+
                                 case 1:
                                     printf ("Recordatorios\n");
                                 break;
+
+
                                 case 2:
-                                    printf ("Crear recordatorio\n");
-                                break;
+                                    printf ("A�adir recordatorio\n");
+
+                                    printf ("Cuantos recordatorios desea a�adir?\n");
+                                    scanf("%d",&n);
+                                    v=aniadir_recordatorio(n);            // funcion para a�adir recordatorios al fichero existente
+  /*A�ADO FICH*/
+                                    if(v==-1) break;
+                                    else{
+
+                                    system("cls");
+                                    printf("Ya se han a�adido!\nPuede continuar usando el ");
+                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A�adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
+
+
+                                   // return v;    //v ser� -1 o 0 segun lo que devuelva la funcion (-1 cuando no se abre el fichero)
+
+
+                                    break;
+                                    }
+
                                 case 3:
                                     printf ("Editar recordatorio existente\n");
                                 break;
+
                                 case 4:
+                                    system("cls");
+                                    printf ("Eliminar recordatorios existentes y empezar a crear de nuevo:\n");
+
+                                    int i;
+                                    char *recordatorio,c;
+  /*CREO FICH*/                         int n, v;
+                                        printf ("Cuantos recordatorios desea crear?\n");
+                                        scanf("%d",&n);
+                                        v=escribir_recordatorio(n);
+
+                                        if(v==-1) break;
+                                        else{
+                                        system("cls");
+                                        printf("Ya se han creado!\nPuede continuar usando el ");
+                                        printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A�adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
+                                        break;
+                                        }
+
+                                case 5:
                                     a=1;
                                     system("cls");
                                 break;
@@ -169,7 +231,7 @@ int main(){
                                 break;
                             }
                             }
-                            while(calen!=4);
+                            while(calen!=5);
                         break;
 
 
@@ -362,3 +424,83 @@ float potencia(float base, int exponente)
 //Funcion para ingresar x e y en la calculadora
 
 
+int aniadir_recordatorio (int n)              // NO FUNCIONA BIEN
+{
+    int i;
+    int dia, mes, anio;
+    char rec[30];
+    FILE *pf;
+    pf=fopen("Recordatorios_calendario.txt","a"); //abro fichero en modo a�adir
+
+    if(pf==NULL)                             //compruebo que se abre bien
+    {
+        printf("Error al abrir el fichero.");
+        return -1;
+    }else
+    {
+        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma num�rica: dia mes a�o recordatorio\n");
+        for(i=0;i<n;i++)
+        {
+            scanf("%d %d %d %s",                       //asigno valores a los vectores
+                &dia,&mes,&anio,&rec);
+
+            fprintf(pf,"%d;%d;%d;%s\n",                 //escribo en el fichero
+                    dia,mes,anio,rec);
+        }
+
+        fclose(pf);                           //cierro fichero
+        return 0;
+
+        }
+
+    }
+
+
+int escribir_recordatorio (int n)
+{
+    int i;
+    int dia, mes, anio;
+    char rec[30];
+    FILE *pf;
+    pf=fopen("Recordatorios_calendario.txt","w"); //creo fichero en modo escritura
+
+    if(pf==NULL)                             //compruebo que se abre bien
+    {
+        printf("Error al abrir el fichero.");
+        return -1;
+    }else
+    {
+        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma num�rica: dia mes a�o recordatorio\n");
+        for(i=0;i<n;i++)                                                  // FUNCION PARA ESCRIBIR EN EL FICHEROOO
+        {
+            scanf("%d %d %d %s",                       //asigno valores a los vectores
+                &dia,&mes,&anio,&rec);
+
+            fprintf(pf,"%d;%d;%d;%s\n",                 //escribo en el fichero
+                    dia,mes,anio,rec);
+
+        }
+    fclose(pf);                           //cierro fichero
+    return 0;
+    }
+
+}
+
+void printEvento(evento x)
+{
+  printf("%s %s\t",
+	 x.tipo,
+	 x.recordatorio);
+  printf("(%i/%i/%i) \n",
+	 x.fechaRec.d,
+	 x.fechaRec.m,
+	 x.fechaRec.a);
+}
+
+int compFecha(fecha f1, fecha f2)
+{
+  if (f1.a == f2.a && f1.m==f2.m && f1.d==f2.d)
+        return -1;
+  else
+        return 1;
+}
