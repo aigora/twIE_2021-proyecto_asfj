@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <conio.h>
 #include <windows.h>
+#define N 51
 
 float potencia(float base, int exponente);
 int aniado_recordatorio (int n);
@@ -16,9 +17,11 @@ int main(){
     struct tm *tm;
     char fechayhora[100];
     int d,m,y;
-    int menu,p=0,a=0,b=0; //variables para controlar la posición en el menú
+    int menu,p=0,a=0,b=0; //variables para controlar la posiciÃ³n en el menÃº
     int tempo,calen,calc,gp;
     int n, v;  // variables para calendario
+    int se=0,mi=0,ho=0;
+
 
     //dar la hora y dia en pantalla
     t=time(NULL);
@@ -57,6 +60,7 @@ int main(){
                     switch (menu)
                             {
                         case 1:
+
                             system("cls");
                             printf ("TEMPORIZADORES:\n1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs\n",162,160,160);
                             do {
@@ -64,16 +68,40 @@ int main(){
                             switch (tempo)
                             {
                                 case 1:
-                                    printf ("Cron%cmetro\n",162);
+
+                                   printf("Pulsa espacio para iniciar y para pausar si es necesario:\n[%.2i:%.2i:%.2i]\n",ho,mi,se);
+                                   system("pause ->NULL");
+                                   while (1){
+                                    while(!kbhit()){
+                                     se++;
+                                     if (se==60){
+                                      se=0;
+                                      mi++;
+                                       if (mi==60){
+                                        mi=0;
+                                        ho++;
+                                       }
+                                      }
+                                     system("cls");
+                                     printf("[%.2i:%.2i:%.2i]",ho, mi, se);
+                                     Sleep(1000);
+                                     }
+                                     char pausa=getch();
+                                     if(pausa==32){
+                                     getch();
+                                    }
+                                   }
+                                 system("pause");
+
                                 break;
                                 case 2:
                                     printf ("Cuenta atr%cs\n",160);
                                         int i = 0;
-                                        int segundos, minutos, horas, total;
+                                        int total;
 
                                         printf("Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
-                                        scanf("%i %i %i",&segundos,&minutos,&horas);
-                                        total=segundos + 60*minutos + 3600*horas;
+                                        scanf("%i %i %i",&se,&mi,&ho);
+                                        total=se + 60*mi + 3600*ho;
                                         printf("El programa terminara %i en segundos.\n", total);
 
 
@@ -84,17 +112,17 @@ int main(){
                                             //printf("%i\n", i+1);
 
                                             system("cls");
-                                                printf("\n\n\n\t\t\t[ %.2d:%.2d:%.2d ]", horas, minutos, segundos);
+                                                printf("\n\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
 
 
-                                            segundos=segundos-1;
-                                            if(segundos==0&&minutos>0) {
-                                                    minutos=minutos-1;
-                                                    segundos=59;
+                                            se=se-1;
+                                            if(se==0&&mi>0) {
+                                                    mi=mi-1;
+                                                    se=59;
                                             }
-                                            if (minutos==0&&horas>0) {
-                                                    horas=horas-1;
-                                                    minutos=59;
+                                            if (mi==0&&ho>0) {
+                                                    ho=ho-1;
+                                                    mi=59;
                                             }
 
 
@@ -123,7 +151,7 @@ int main(){
 
                         case 2:
                             system("cls");
-                            printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.Añadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
+                            printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.Aï¿½adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
                             do{
                             scanf ("%i",&calen);
                             switch (calen)
@@ -133,21 +161,21 @@ int main(){
                                 break;
 
                                 case 2:
-                                    printf ("Añadir recordatorio\n");
+                                    printf ("Aï¿½adir recordatorio\n");
 
-                                    printf ("Cuantos recordatorios desea añadir?\n");
+                                    printf ("Cuantos recordatorios desea aï¿½adir?\n");
                                     scanf("%d",&n);
-                                    v=aniadir_recordatorio(n);            // funcion para añadir recordatorios al fichero existente
-  /*AÑADO FICH*/
+                                    v=aniadir_recordatorio(n);            // funcion para aï¿½adir recordatorios al fichero existente
+  /*Aï¿½ADO FICH*/
                                     if(v==-1) break;
                                     else{
 
                                     system("cls");
-                                    printf("Ya se han añadido!\nPuede continuar usando el ");
-                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.Añadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
+                                    printf("Ya se han aï¿½adido!\nPuede continuar usando el ");
+                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.Aï¿½adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
 
 
-                                   // return v;    //v será -1 o 0 segun lo que devuelva la funcion (-1 cuando no se abre el fichero)
+                                   // return v;    //v serï¿½ -1 o 0 segun lo que devuelva la funcion (-1 cuando no se abre el fichero)
 
 
                                     break;
@@ -173,7 +201,7 @@ int main(){
                                         else{
                                         system("cls");
                                         printf("Ya se han creado!\nPuede continuar usando el ");
-                                        printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.Añadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
+                                        printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.Aï¿½adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
                                         break;
                                         }
 
@@ -205,6 +233,41 @@ int main(){
                                 break;
                                 case 3:
                                     printf ("Localizaci%cn\n",162);
+
+
+
+                                        int i=0,j=0, x=25,y=25;     //Define la posiciÃ³n del usuario en el centro del mapa.
+                                        srand(time(NULL));
+                                        int x1 = (rand()%N+1) ;
+                                        int y1 = (rand()%N+1) ;
+                                        int x2 = (rand()%N+1) ;     //Define las posiciones aleatorias de la universidad y la casa.
+                                        int y2 = (rand()%N+1) ;
+                                        while(x1==x2||y1==y2){      //Comprueba que la universidad y la casa no estÃ¡n en el mismo sitio.
+                                        int x1 = (rand()%N+1) ;
+                                        int y1 = (rand()%N+1) ;
+                                        }
+
+                                        for(i=0;i<N;i++){
+                                            printf("\n");        //Representa grÃ¡ficamente.
+                                                for(j=0;j<N;j++)
+                                                    if(j==x&&i==y)
+                                                        printf("X ");
+                                                    else if (i==x1&&j==y1)
+                                                        printf("C ");
+                                                    else if (i==x2&&j==y2)
+                                                        printf("U ");
+                                                    else
+                                                        printf(". ");
+                                            }
+
+                                        printf("\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",x,y,x1,y1,x2,y2); //Imprime coordenadas
+
+                                        if(x==x1&&y==y1)
+                                            printf("\nHa llegado a casa.");                     //Comprueba si el usuario estÃ¡ en una de las coordenadas.
+                                        else if(x==x2&&y==y2)
+                                            printf("\nHa llegado a su universidad.");
+                                        return 0;
+
                                 break;
                                 case 4:
                                     a=1;
@@ -329,7 +392,7 @@ return 0;
 }
 
 
-//Función de potencia para la calculadora
+//FunciÃ³n de potencia para la calculadora
 
 float potencia(float base, int exponente)
 {
@@ -344,13 +407,14 @@ float potencia(float base, int exponente)
 //Funcion para ingresar x e y en la calculadora
 
 
+
 int aniadir_recordatorio (int n)              // NO FUNCIONA BIEN
 {
     int i;
     int dia, mes, anio;
     char rec[30];
     FILE *pf;
-    pf=fopen("Recordatorios_calendario","a"); //abro fichero en modo añadir
+    pf=fopen("Recordatorios_calendario","a"); //abro fichero en modo aï¿½adir
 
     if(pf==NULL)                             //compruebo que se abre bien
     {
@@ -358,7 +422,7 @@ int aniadir_recordatorio (int n)              // NO FUNCIONA BIEN
         return -1;
     }else
     {
-        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma numérica: dia mes año recordatorio\n");
+        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma numï¿½rica: dia mes aï¿½o recordatorio\n");
         for(i=0;i<n;i++)
         {
             scanf("%d %d %d %s",                       //asigno valores a los vectores
@@ -390,7 +454,7 @@ int escribir_recordatorio (int n)
         return -1;
     }else
     {
-        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma numérica: dia mes año recordatorio\n");
+        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma numï¿½rica: dia mes aï¿½o recordatorio\n");
         for(i=0;i<n;i++)                                                  // FUNCION PARA ESCRIBIR EN EL FICHEROOO
         {
             scanf("%d %d %d %s",                       //asigno valores a los vectores
