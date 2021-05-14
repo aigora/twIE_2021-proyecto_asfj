@@ -190,7 +190,7 @@ int main(){
                                     system("cls");
                                     printf ("Eliminar recordatorios existentes y empezar a crear de nuevo:\n");
 
-                                    int i,N;
+                                    int i;
                                     char *recordatorio,c;
   /*CREO FICH*/                         int n, v;
                                         printf ("Cuantos recordatorios desea crear?\n");
