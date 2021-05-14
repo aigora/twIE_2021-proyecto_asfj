@@ -13,7 +13,7 @@ int main(){
     struct tm *tm;
     char fechayhora[100];
     int d,m,y;
-    int menu,p=0,a=0,b=0; //variables para controlar la posición en el menú
+    int menu,p=0,a=0,b=0; //variables para controlar la posiciÃ³n en el menÃº
     int tempo,calen,calc,gp;
 
     //dar la hora y dia en pantalla
@@ -60,7 +60,31 @@ int main(){
                             switch (tempo)
                             {
                                 case 1:
-                                    printf ("Cron%cmetro\n",162);
+                                   int segundos=58,minutos=59,horas=0;
+                                   printf("Pulsa espacio para iniciar y para pausar si es necesario:\n[%.2i:%.2i:%.2i]\n",horas,minutos,segundos);
+                                   system("pause ->NULL");
+                                   while (1){
+                                    while(!kbhit()){
+                                     segundos++;
+                                     if (segundos==60){
+                                      segundos=0;
+                                      minutos++;
+                                       if (minutos==60){
+                                        minutos=0;
+                                        horas++;
+                                       }
+                                      }
+                                     system("cls");
+                                     printf("[%.2i:%.2i:%.2i]",horas, minutos, segundos);
+                                     Sleep(1000);
+                                     }
+                                     char pausa=getch();
+                                     if(pausa==32){
+                                     getch();
+                                    }
+                                   }
+                                 system("pause");
+
                                 break;
                                 case 2:
                                     printf ("Cuenta atr%cs\n",160);
@@ -285,7 +309,7 @@ return 0;
 }
 
 
-//Función de potencia para la calculadora
+//FunciÃ³n de potencia para la calculadora
 
 float potencia(float base, int exponente)
 {
