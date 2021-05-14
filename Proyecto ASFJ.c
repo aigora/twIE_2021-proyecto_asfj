@@ -60,26 +60,30 @@ int main(){
                             switch (tempo)
                             {
                                 case 1:
-                                    printf ("Cron%cmetro\n",162);
-                                    int segundos=0,minutos=0,horas=0;
-                                    printf("¡Bienvenido al cronómetro!\n Pulsa espacio para iniciar:\n[%.2i:%.2i:%.2i]",horas,minutos,segundos);
-                                    system("pause ->NULL");
-                                    while (1){
-                                    segundos++;
-                                    if(segundos==60){
-                                    segundos=0;
-                                    minutos=minutos+1;
-                                    if (minutos==60){
-                                    minutos=0;
-                                    horas++;
-                                    }
-                                    }
-
-                                    system("cls");
-                                    printf("[%.2d:%.2d:%.2d]",horas,minutos,segundos);
-                                    Sleep(1000);
+                                   int segundos=58,minutos=59,horas=0;
+                                   printf("Pulsa espacio para iniciar y para pausar si es necesario:\n[%.2i:%.2i:%.2i]\n",horas,minutos,segundos);
+                                   system("pause ->NULL");
+                                   while (1){
+                                    while(!kbhit()){
+                                     segundos++;
+                                     if (segundos==60){
+                                      segundos=0;
+                                      minutos++;
+                                       if (minutos==60){
+                                        minutos=0;
+                                        horas++;
+                                       }
+                                      }
+                                     system("cls");
+                                     printf("[%.2i:%.2i:%.2i]",horas, minutos, segundos);
+                                     Sleep(1000);
                                      }
-                                     }
+                                     char pausa=getch();
+                                     if(pausa==32){
+                                     getch();
+                                    }
+                                   }
+                                 system("pause");
 
                                 break;
                                 case 2:
