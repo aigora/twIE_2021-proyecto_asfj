@@ -1,13 +1,28 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
+#include <stdlib.h>
+#include <windows.h>
 #include <conio.h>
 #include <windows.h>
 #define N 51
 
+typedef struct
+{
+  int d, m, a;
+} fecha;
+
+typedef struct
+{
+  char tipo[50];
+  char recordatorio[50];
+  fecha fechaRec;
+} evento;
+
 float potencia(float base, int exponente);
 int aniado_recordatorio (int n);
 int escribir_recordatorio (int n);
+void printEvento(evento x);
+int compFecha(fecha f1, fecha f2);
 
 int main(){
 
@@ -231,6 +246,7 @@ int main(){
                                 break;
                                 case 3:
                                     printf ("Localizaci%cn\n",162);
+
 
 
                                         int i=0,j=0, x=25,y=25;     //Define la posición del usuario en el centro del mapa.
@@ -464,6 +480,26 @@ int escribir_recordatorio (int n)
     fclose(pf);                           //cierro fichero
     return 0;
     }
+
+}
+
+void printEvento(evento x)
+{
+  printf("%s %s\t",
+	 x.tipo,
+	 x.recordatorio);
+  printf("(%i/%i/%i) \n",
+	 x.fechaRec.d,
+	 x.fechaRec.m,
+	 x.fechaRec.a);
+}
+
+int compFecha(fecha f1, fecha f2)
+{
+  if (f1.a == f2.a && f1.m==f2.m && f1.d==f2.d)
+        return -1;
+  else
+        return 1;
 
 }
 
