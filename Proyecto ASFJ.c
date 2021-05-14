@@ -60,7 +60,7 @@ int main(){
                             switch (tempo)
                             {
                                 case 1:
-                                   int segundos=58,minutos=59,horas=0;
+                                   int segundos=0,minutos=0,horas=0;
                                    printf("Pulsa espacio para iniciar y para pausar si es necesario:\n[%.2i:%.2i:%.2i]\n",horas,minutos,segundos);
                                    system("pause ->NULL");
                                    while (1){
