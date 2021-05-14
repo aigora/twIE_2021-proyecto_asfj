@@ -83,7 +83,7 @@ int main(){
                             switch (tempo)
                             {
                                 case 1:
-                                    printf ("CRONOMETRO\n",160);
+                                    printf ("CRONOMETRO\n");
                                  //Función de cronómetro
                                    printf("Pulsa espacio para iniciar y para pausar si es necesario:\n[%.2i:%.2i:%.2i]\n",ho,mi,se);
                                    system("pause ->NULL");
