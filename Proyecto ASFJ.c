@@ -63,26 +63,26 @@ int main(){
                             switch (tempo)
                             {
                                 case 1:
-
+                                 //Función de cronómetro
                                    printf("Pulsa espacio para iniciar y para pausar si es necesario:\n[%.2i:%.2i:%.2i]\n",ho,mi,se);
                                    system("pause ->NULL");
                                    while (1){
-                                    while(!kbhit()){
-                                     se++;
+                                    while(!kbhit()){ //la función espera a que se presione una tecla en específico
+                                     se++; //paso del tiempo
                                      if (se==60){
                                       se=0;
-                                      mi++;
+                                      mi++; //pasa de 59 segundos a 1:00
                                        if (mi==60){
                                         mi=0;
                                         ho++;
                                        }
                                       }
-                                     system("cls");
-                                     printf("[%.2i:%.2i:%.2i]",ho, mi, se);
-                                     Sleep(1000);
+                                     system("cls"); //ESTO DEBE CAMBIARSE, SÓLO FUNCIONA EN WINDOWS
+                                     printf("[%.2i:%.2i:%.2i]",ho, mi, se); 
+                                     Sleep(1000); //Un segundo de refresco
                                      }
                                      char pausa=getch();
-                                     if(pausa==32){
+                                     if(pausa==32){ //pausa si pulsa el espacio
                                      getch();
                                     }
                                    }
