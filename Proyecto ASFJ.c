@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <windows.h>
 #include <conio.h>
 #include <windows.h>
 #define N 51
@@ -81,7 +82,6 @@ int main(){
                             {
                                 case 1:
 
-<<<<<<< Updated upstream
                                    printf("Pulsa espacio para iniciar y para pausar si es necesario:\n[%.2i:%.2i:%.2i]\n",ho,mi,se);
                                    system("pause ->NULL");
                                    while (1){
@@ -105,47 +105,8 @@ int main(){
                                     }
                                    }
                                  system("pause");
-=======
-
-                                    printf ("Cron%cmetro\n",162);
-
-                                            int segundos=0, minutos=0, horas=0;
-                                            printf ("Iniciar:");
-                                            system ("Pause -> NUL");
-                                            while (1){
-
-                                                while (!kbhit()){
-                                                segundos ++;
-
-                                                    if (segundos==60){
-                                                    segundos=0;
-                                                    minutos++;
-                                                        if (minutos==60){
-                                                        minutos=0;
-                                                        horas++;
-                                                        }
-
-                                                    }
-
-                                                    system("cls");
-                                                    printf("\n\n\n\t\t\t[ %.2d:%.2d:%.2d ]", horas, minutos, segundos);
-                                                    Sleep(1000);
-                                                }
-                                            }
-
-                                            char terminar = getch();
-                                                if(terminar=='t'){
-                                                    getch();
-                                                }
-                                            system("pause");
-
-                                        }
-
->>>>>>> Stashed changes
 
                                 break;
-
-
                                 case 2:
                                     printf ("Cuenta atr%cs\n",160);
                                         int i = 0;
@@ -155,6 +116,9 @@ int main(){
                                         scanf("%i %i %i",&se,&mi,&ho);
                                         total=se + 60*mi + 3600*ho;
                                         printf("El programa terminara %i en segundos.\n", total);
+
+
+
 
                                         for(i=0; i<total; i++){
                                             Sleep(1000);
@@ -190,7 +154,8 @@ int main(){
                                      printf("Introduzca un n%cmero v%clido\n",163,160);
                                 break;
 
-
+                            }
+                            }
                             while (tempo!=4);
                             menu=6;
 
