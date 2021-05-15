@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <conio.h>
 #include <windows.h>
-#define N 51
+#define N 51              //constante para la dimension del mapa del gps
 
 
 typedef struct
@@ -21,8 +21,7 @@ typedef struct
 
 
 float potencia(float base, int exponente);
-int aniado_recordatorio (int n);
-int escribir_recordatorio (int n);
+int escribir_recordatorio (int n,char modo);
 void printEvento(evento x);
 int compFecha(fecha f1, fecha f2);
 
@@ -32,8 +31,9 @@ int main(){
     time_t t;
     struct tm *tm;
     char fechayhora[100];
-    int d,m,y;
-    int n,v;                  // variables para calendario
+    int d,m,y;                //variables que alamcenaran la fecha del dia actual
+    int n,v;
+    char modo;                  // variables para calendario
     int menu,p=0,a=0,b=0;     //variables para controlar la posición en el menú
     int tempo,calen,calc,gp;
     int se=0,mi=0,ho=0;
@@ -44,7 +44,7 @@ int main(){
     strftime(fechayhora, 100, "%H:%M\t\t%d/%m/%Y", tm);
     printf ("\n\t %s \n",fechayhora);
 
-    //asigno en variables la fecha para luego usarlas en el calendario
+    //asigno en variables la fecha actual
     d=tm->tm_mday;
     m=1+tm->tm_mon;
     y=1900+tm->tm_year;
@@ -174,7 +174,69 @@ int main(){
                             {
 
                                 case 1:
-                                    printf ("Recordatorios\n");
+                                    printf ("Ver recordatorios\n");
+
+                                    int j,iComp,Nu=0;
+                                    int dia, mes, anio;
+                                    char c;
+                                    FILE *pf;
+                                    evento eventos[2];             // Vector que almacena los eventos                                    //forma de puntero para asignacion dinamica de memoria
+                                    eventos[0].fechaRec.d=d;
+                                    eventos[0].fechaRec.m=m;
+                                    eventos[0].fechaRec.a=y;
+
+                                    pf=fopen("Recordatorios_calendario.txt","r");
+
+                                    if(pf==NULL)                          //compruebo que se abre bien
+                                    {
+                                        printf("Error al abrir el fichero.");
+                                        return -1;
+                                    }else
+                                    {
+                                        while (fscanf(pf,"%c",&c)!=EOF)  //cuento numero de lineas (cada linea un recordatorio)
+                                            if(c=='\n') Nu++;
+
+                                        printf("Hay %d registrados.\n",Nu);
+
+                                        fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
+
+
+                                        for(j=0;j<Nu;j++)                   //leo el fichero
+                                        {
+                                            fscanf(pf,"%d;%d;%d;%c;%c\n",
+                                                   &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
+                                            printf("hmm %d/%d/%d  %c %c\n",
+                                                   eventos[1].fechaRec.d,eventos[1].fechaRec.m,eventos[1].fechaRec.a,eventos[1].tipo, eventos[1].recordatorio);
+
+//                                        while(fscanf(pf,"%d;%d;%d;%c;%c\n",
+//                                                   &eventos[1].fechaRec.d,&eventos[1].fechaRec.m,&eventos[1].fechaRec.a,&eventos[1].tipo, &eventos[1].recordatorio)!=EOF)                  //leo el fichero
+//                                        {
+//
+//                                            printf(" existe: %d/%d/%d  %c %c\n",
+//                                                   eventos[1].fechaRec.d,eventos[1].fechaRec.m,eventos[1].fechaRec.a,eventos[1].tipo, eventos[1].recordatorio);
+
+
+
+
+                                            iComp = compFecha(eventos[0].fechaRec,
+                                            eventos[1].fechaRec);
+                                            switch(iComp)
+                                            {
+                                                case -1:
+                                                    printf("Recordatorio de hoy: ");
+                                                    printEvento(eventos[1]);
+                                                    break;
+                                                case 1:         //no coincide la fecha
+                                                    break;
+                                            }
+                                        }
+                                        fclose(pf);
+                                    }
+                                    printf("\nPuede continuar usando el ");
+                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A�adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
+
+
+
                                 break;
 
 
@@ -183,7 +245,8 @@ int main(){
 
                                     printf ("Cuantos recordatorios desea a�adir?\n");
                                     scanf("%d",&n);
-                                    v=aniadir_recordatorio(n);            // funcion para a�adir recordatorios al fichero existente
+                                    modo='a';
+                                    v=escribir_recordatorio(n,modo);            // funcion para a�adir recordatorios al fichero existente
   /*A�ADO FICH*/
                                     if(v==-1) break;
                                     else{
@@ -208,11 +271,11 @@ int main(){
                                     printf ("Eliminar recordatorios existentes y empezar a crear de nuevo:\n");
 
                                     int i;
-                                    char *recordatorio,c;
   /*CREO FICH*/                         int n, v;
                                         printf ("Cuantos recordatorios desea crear?\n");
                                         scanf("%d",&n);
-                                        v=escribir_recordatorio(n);
+                                        modo='e';
+                                        v=escribir_recordatorio(n,modo);            // funcion para crear fichero de recordatorios
 
                                         if(v==-1) break;
                                         else{
@@ -424,13 +487,16 @@ float potencia(float base, int exponente)
 //Funcion para ingresar x e y en la calculadora
 
 
-int aniadir_recordatorio (int n)              // NO FUNCIONA BIEN
+
+int escribir_recordatorio (int n, char modo)
 {
     int i;
     int dia, mes, anio;
-    char rec[30];
+    char tip[30], rec[30];
     FILE *pf;
-    pf=fopen("Recordatorios_calendario.txt","a"); //abro fichero en modo a�adir
+
+    if(modo=='e') pf=fopen("Recordatorios_calendario.txt","w"); //creo fichero en modo escritura
+    else pf=fopen("Recordatorios_calendario.txt","a");          //abro fichero en modo a�adir
 
     if(pf==NULL)                             //compruebo que se abre bien
     {
@@ -438,46 +504,14 @@ int aniadir_recordatorio (int n)              // NO FUNCIONA BIEN
         return -1;
     }else
     {
-        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma num�rica: dia mes a�o recordatorio\n");
-        for(i=0;i<n;i++)
-        {
-            scanf("%d %d %d %s",                       //asigno valores a los vectores
-                &dia,&mes,&anio,&rec);
-
-            fprintf(pf,"%d;%d;%d;%s\n",                 //escribo en el fichero
-                    dia,mes,anio,rec);
-        }
-
-        fclose(pf);                           //cierro fichero
-        return 0;
-
-        }
-
-    }
-
-
-int escribir_recordatorio (int n)
-{
-    int i;
-    int dia, mes, anio;
-    char rec[30];
-    FILE *pf;
-    pf=fopen("Recordatorios_calendario.txt","w"); //creo fichero en modo escritura
-
-    if(pf==NULL)                             //compruebo que se abre bien
-    {
-        printf("Error al abrir el fichero.");
-        return -1;
-    }else
-    {
-        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma num�rica: dia mes a�o recordatorio\n");
+        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma num%crica: d%ca mes a%co tipo_de_evento recordatorio\n",130,161,164);
         for(i=0;i<n;i++)                                                  // FUNCION PARA ESCRIBIR EN EL FICHEROOO
         {
-            scanf("%d %d %d %s",                       //asigno valores a los vectores
-                &dia,&mes,&anio,&rec);
+            scanf("%d %d %d %s %s",                       //asigno valores a los vectores
+                &dia,&mes,&anio,&tip,&rec);
 
-            fprintf(pf,"%d;%d;%d;%s\n",                 //escribo en el fichero
-                    dia,mes,anio,rec);
+            fprintf(pf,"%d;%d;%d;%s;%s\n",                 //escribo en el fichero
+                    dia,mes,anio,tip,rec);
 
         }
     fclose(pf);                           //cierro fichero

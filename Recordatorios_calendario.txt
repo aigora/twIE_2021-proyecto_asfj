@@ -1,5 +1,4 @@
-14;5;2002;cumpleSergioMingo
-6;3;2002;cumpleAzu
-11;6;2002;cumpleDario
-8;3;2001;cumpleFabio
-14;5;2002;cumpleJulia
+6;3;2002;cumple;azu
+27;5;2021;examen;estadistica
+28;5;2021;examen;informatica
+15;5;2021;festivo;sanIsidro
