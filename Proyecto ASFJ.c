@@ -174,11 +174,11 @@ int main(){
                             {
 
                                 case 1:
-                                    printf ("Ver recordatorios\n");
+                                    printf ("Ver recordatorios.\n");
 
                                     int j,iComp,Nu=0;
                                     int dia, mes, anio;
-                                    char c;
+                                    char c,opcion;
                                     FILE *pf;
                                     evento eventos[2];             // Vector que almacena los eventos                                    //forma de puntero para asignacion dinamica de memoria
                                     eventos[0].fechaRec.d=d;
@@ -193,49 +193,58 @@ int main(){
                                         return -1;
                                     }else
                                     {
+
                                         while (fscanf(pf,"%c",&c)!=EOF)  //cuento numero de lineas (cada linea un recordatorio)
                                             if(c=='\n') Nu++;
 
-                                        printf("Hay %d registrados.\n",Nu);
+                                        printf("Hay %d registrados.\n\n",Nu);
 
                                         fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
 
 
                                         for(j=0;j<Nu;j++)                   //leo el fichero
                                         {
-                                            fscanf(pf,"%d;%d;%d;%c;%c\n",
-                                                   &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
-                                            printf("hmm %d/%d/%d  %c %c\n",
-                                                   eventos[1].fechaRec.d,eventos[1].fechaRec.m,eventos[1].fechaRec.a,eventos[1].tipo, eventos[1].recordatorio);
-
-//                                        while(fscanf(pf,"%d;%d;%d;%c;%c\n",
-//                                                   &eventos[1].fechaRec.d,&eventos[1].fechaRec.m,&eventos[1].fechaRec.a,&eventos[1].tipo, &eventos[1].recordatorio)!=EOF)                  //leo el fichero
-//                                        {
-//
-//                                            printf(" existe: %d/%d/%d  %c %c\n",
-//                                                   eventos[1].fechaRec.d,eventos[1].fechaRec.m,eventos[1].fechaRec.a,eventos[1].tipo, eventos[1].recordatorio);
+                                            fscanf(pf,"%d;%d;%d;%[^;];%s\n",
+                                                   &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
 
 
-
-
-                                            iComp = compFecha(eventos[0].fechaRec,
+                                            iComp = compFecha(eventos[0].fechaRec,  //comparo fecha actual con la del recordatorio que estoy leyendo
                                             eventos[1].fechaRec);
                                             switch(iComp)
                                             {
-                                                case -1:
-                                                    printf("Recordatorio de hoy: ");
+                                                case -1:        //coincide la fecha
+                                                    printf("Recordatorio de hoy ");
                                                     printEvento(eventos[1]);
                                                     break;
                                                 case 1:         //no coincide la fecha
                                                     break;
                                             }
                                         }
+
+
+                                        printf("\nPulse 'r' para ver todos los recordatorios o cualquier otra tecla para volver atras.\n\n");
+
+                                        scanf(" %c",&opcion);
+                                        if(opcion=='r'||opcion=='R')
+                                        {
+                                            fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
+                                            printf("RECORDATORIOS:\n");
+                                            for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero
+                                            {
+                                            fscanf(pf,"%d;%d;%d;%[^;];%s\n",
+                                                   &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
+                                              printf("%c %.2d/%.2d/%.2d  %s %s\n",
+                                                     16, eventos[1].fechaRec.d, eventos[1].fechaRec.m, eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
+                                            }
+                                            printf("\n");
+                                        }else system("cls");
+
+
+
                                         fclose(pf);
                                     }
-                                    printf("\nPuede continuar usando el ");
+                                    printf("Puede continuar usando el ");
                                     printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A�adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
-
-
 
                                 break;
 
@@ -522,13 +531,13 @@ int escribir_recordatorio (int n, char modo)
 
 void printEvento(evento x)
 {
-  printf("%s %s\t",
-	 x.tipo,
-	 x.recordatorio);
-  printf("(%i/%i/%i) \n",
+  printf("(%i/%i/%i):\t",
 	 x.fechaRec.d,
 	 x.fechaRec.m,
 	 x.fechaRec.a);
+	 printf("%s %s\n",
+	 x.tipo,
+	 x.recordatorio);
 }
 
 int compFecha(fecha f1, fecha f2)

@@ -2,3 +2,7 @@
 27;5;2021;examen;estadistica
 28;5;2021;examen;informatica
 15;5;2021;festivo;sanIsidro
+11;6;2021;examen;ampli
+16;5;2021;prueba;1
+16;5;2021;prueba;2
+16;5;2021;prueba;3
