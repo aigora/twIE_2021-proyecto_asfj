@@ -31,7 +31,6 @@ int main(){
     time_t t;
     struct tm *tm;
     char fechayhora[100];
-    int d,m,y;                //variables que alamcenaran la fecha del dia actual
     int n,v;
     char modo;                  // variables para calendario
     int menu,p=0,a=0,b=0;     //variables para controlar la posición en el menú
@@ -43,15 +42,6 @@ int main(){
     tm=localtime(&t);
     strftime(fechayhora, 100, "%H:%M\t\t%d/%m/%Y", tm);
     printf ("\n\t %s \n",fechayhora);
-
-    //asigno en variables la fecha actual
-    d=tm->tm_mday;
-    m=1+tm->tm_mon;
-    y=1900+tm->tm_year;
-    //printf("%d\n",d);
-    //printf("%d\n",m);
-    //printf("%d\n",y);
-
 
 
     do{
@@ -167,23 +157,25 @@ int main(){
 
                         case 2:
                             system("cls");
-                            printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A�adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);                            do{
+                            printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n",164,160);                            do{
 
                             scanf ("%i",&calen);
                             switch (calen)
                             {
 
                                 case 1:
-                                    printf ("Ver recordatorios.\n");
+                                    system("cls");
+                                    printf ("Ver recordatorios:\n");
 
-                                    int j,iComp,Nu=0;
-                                    int dia, mes, anio;
-                                    char c,opcion;
+                                    int j,iComp,Nu=0,ev=0;  //Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
+                                //    int dia, mes, anio;
+                                    char c,opcion; // c para recorrer el fichero por caracteres y contar lineas; opcion para mostrar o no todos los recordatorios en pantalla
                                     FILE *pf;
-                                    evento eventos[2];             // Vector que almacena los eventos                                    //forma de puntero para asignacion dinamica de memoria
-                                    eventos[0].fechaRec.d=d;
-                                    eventos[0].fechaRec.m=m;
-                                    eventos[0].fechaRec.a=y;
+                                    evento eventos[2];             // Vector que almacena los eventos
+
+                                    eventos[0].fechaRec.d=tm->tm_mday;     //asigo en la primera posicion del vector de eventos la fecha actual
+                                    eventos[0].fechaRec.m=1+tm->tm_mon;
+                                    eventos[0].fechaRec.a=1900+tm->tm_year;
 
                                     pf=fopen("Recordatorios_calendario.txt","r");
 
@@ -215,19 +207,22 @@ int main(){
                                                 case -1:        //coincide la fecha
                                                     printf("Recordatorio de hoy ");
                                                     printEvento(eventos[1]);
+                                                    ev++;       //contador de los recordarorios de hoy
                                                     break;
                                                 case 1:         //no coincide la fecha
                                                     break;
                                             }
                                         }
+                                        if(ev==0) printf("No hay recordatorios para hoy.\n");
 
 
-                                        printf("\nPulse 'r' para ver todos los recordatorios o cualquier otra tecla para volver atras.\n\n");
+                                        printf("\nPulse 'r' para ver todos los recordatorios o cualquier otra letra para volver atr%cs.\n\n",160);
 
                                         scanf(" %c",&opcion);
                                         if(opcion=='r'||opcion=='R')
                                         {
                                             fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
+                                            system("cls");
                                             printf("RECORDATORIOS:\n");
                                             for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero
                                             {
@@ -244,15 +239,15 @@ int main(){
                                         fclose(pf);
                                     }
                                     printf("Puede continuar usando el ");
-                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A�adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
+                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n",164,160);
 
                                 break;
 
 
                                 case 2:
-                                    printf ("A�adir recordatorio\n");
+                                    printf ("A%cadir recordatorio\n",164);
 
-                                    printf ("Cuantos recordatorios desea a�adir?\n");
+                                    printf ("Cuantos recordatorios desea a%cadir?\n",164);
                                     scanf("%d",&n);
                                     modo='a';
                                     v=escribir_recordatorio(n,modo);            // funcion para a�adir recordatorios al fichero existente
@@ -261,8 +256,8 @@ int main(){
                                     else{
 
                                     system("cls");
-                                    printf("Ya se han a�adido!\nPuede continuar usando el ");
-                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A�adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
+                                    printf("Ya se han a%cadido!\nPuede continuar usando el ",164);
+                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",164,160);
 
 
                                    // return v;    //v ser� -1 o 0 segun lo que devuelva la funcion (-1 cuando no se abre el fichero)
@@ -290,7 +285,7 @@ int main(){
                                         else{
                                         system("cls");
                                         printf("Ya se han creado!\nPuede continuar usando el ");
-                                        printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A�adir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",160);
+                                        printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",164,160);
                                         break;
                                         }
 
