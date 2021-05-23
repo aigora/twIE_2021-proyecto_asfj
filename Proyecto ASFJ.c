@@ -385,7 +385,7 @@ int main(){
                                 break;
                                 case 2:
 
-                                    printf ("Ruta mas corta\n");
+                                    printf ("Direcci%cn\n",162);
                                     printf("1 para casa 2 para universidad 3 para punto concreto 4 para ir atrás\n");
                                     scanf("%i",&punto);
                                     switch (punto)
@@ -481,7 +481,7 @@ int main(){
                                                         printf(". ");
                                             }
 
-                                        printf("\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",x,y,c1,c2,u1,u2); //Imprime coordenadas
+                                        printf("\nCoordenadas   x: %i  y: %i.\nCoordenadas Casa:   x: %i  y: %i.\nCoordenadas Universidad:   x: %i  y: %i.",x-25,y-25,c1-25,c2-25,u1-25,u2-25); //Imprime coordenadas
 
                                         if(x==c1&&y==c2)
                                             printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
