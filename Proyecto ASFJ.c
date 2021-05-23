@@ -3,9 +3,21 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <conio.h>
-#include <windows.h>
+
 #define N 51              //constante para la dimension del mapa del gps
 
+#define AZUL "\x1b[34m"                  //colores de las letras
+#define CIAN "\x1b[36m"
+#define AZUL31 "\x1b[38;5;31m"
+#define NEGRO   "\x1b[30m"
+#define AZUL24 "\x1b[38;5;24m"
+
+#define FAZUL31 "\x1b[48;5;31m"           //colores del fondo
+#define  FAZUL "\x1b[44m"
+
+#define RESET   "\x1b[0m"  //resetear comandos de colores
+
+#define LIMP printf("\033[2J" "\033[H")   // "limpiar la pantalla" + empezar a escribir arriba
 
 typedef struct
 {
@@ -50,8 +62,9 @@ int main(){
             p=1;
         else{
 
-            printf("\n%cHola de nuevo, Usuario!\n",173);
-            printf("%cEn qu%c te puedo ayudar?\n\n1-.Temporizadores\n2-.Calendario\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn\n",168,130,162);
+
+            printf(FAZUL "%cHola de nuevo, Usuario!" RESET "\n",173);
+            printf(CIAN "%cEn qu%c te puedo ayudar?\n\n1-.Temporizadores\n2-.Calendario\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn" RESET "\n",168,130,162);
             a=0;
             b=0;
 
@@ -66,8 +79,8 @@ int main(){
                             {
                         case 1:
 
-                            system("cls");
-                            printf ("TEMPORIZADORES:\n1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs\n",162,160,160);
+                            LIMP;
+                            printf (FAZUL31 NEGRO "TEMPORIZADORES:\n" RESET AZUL31 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs" RESET "\n",162,160,160);
                             do {
                             scanf ("%i",&tempo);
                             switch (tempo)
@@ -141,7 +154,7 @@ int main(){
                                 break;
                                 case 4:
                                     a=1;
-                                    system("cls");
+                                    LIMP;
                                 break;
                                 default:
                                      printf("Introduzca un n%cmero v%clido\n",163,160);
@@ -156,15 +169,16 @@ int main(){
 
 
                         case 2:
-                            system("cls");
-                            printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n",164,160);                            do{
+                            LIMP;
+                            printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n",164,160);
+                            do{
 
                             scanf ("%i",&calen);
                             switch (calen)
                             {
 
                                 case 1:
-                                    system("cls");
+                                    LIMP;
                                     printf ("Ver recordatorios:\n");
 
                                     int j,iComp,Nu=0,ev=0;  //Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
@@ -222,7 +236,7 @@ int main(){
                                         if(opcion=='r'||opcion=='R')
                                         {
                                             fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
-                                            system("cls");
+                                            LIMP;
                                             printf("RECORDATORIOS:\n");
                                             for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero
                                             {
@@ -232,7 +246,7 @@ int main(){
                                                      16, eventos[1].fechaRec.d, eventos[1].fechaRec.m, eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
                                             }
                                             printf("\n");
-                                        }else system("cls");
+                                        }else LIMP;
 
 
 
@@ -255,7 +269,7 @@ int main(){
                                     if(v==-1) break;
                                     else{
 
-                                    system("cls");
+                                    LIMP;
                                     printf("Ya se han a%cadido!\nPuede continuar usando el ",164);
                                     printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",164,160);
 
@@ -271,7 +285,7 @@ int main(){
                                 break;
 
                                 case 4:
-                                    system("cls");
+                                    LIMP;
                                     printf ("Eliminar recordatorios existentes y empezar a crear de nuevo:\n");
 
                                     int i;
@@ -283,7 +297,7 @@ int main(){
 
                                         if(v==-1) break;
                                         else{
-                                        system("cls");
+                                        LIMP;
                                         printf("Ya se han creado!\nPuede continuar usando el ");
                                         printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",164,160);
                                         break;
@@ -291,7 +305,7 @@ int main(){
 
                                 case 5:
                                     a=1;
-                                    system("cls");
+                                    LIMP;
                                 break;
                                 default:
                                      printf("Introduzca un n%cmero v%clido\n",163,160);
@@ -460,7 +474,7 @@ int main(){
                             printf("Introduzca un n%cmero v%clido\n",163,160);
                         break;
                             }
-                        }
+                    }
 
 
 
