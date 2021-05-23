@@ -46,27 +46,25 @@ int escribir_recordatorio (int n,char modo);
 void printEvento(evento x);
 int compFecha(fecha f1, fecha f2);
 int random();
-
+void print_fyh();
 
 int main(){
 
-    time_t t;
-    struct tm *tm;
-    char fechayhora[100];
+
+
     int n,v;
     char modo;                  // variables para calendario
     int menu,p=0,a=0,b=0;     //variables para controlar la posición en el menú
     int tempo,calen,calc,gp;
     int se=0,mi=0,ho=0;
 
-    //dar la hora y dia en pantalla
+    time_t t;
+    struct tm *tm;
+    char fechayhora[100];
+
     t=time(NULL);
     tm=localtime(&t);
-    LIMP;
     strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
-    printf (FAZUL INVISIBLE "\n\t %s \n" RESET,fechayhora);
-    printf (FAZUL "\t %s \n",fechayhora);
-    printf (INVISIBLE "\t %s \n\n" RESET ,fechayhora);
 
 
     do{
@@ -75,6 +73,7 @@ int main(){
             p=1;
         else{
 
+            print_fyh();
             printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
             printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET CIAN "\n1-.Temporizadores\n2-.Calendario\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn" RESET "\n",168,130,162);
             a=0;
@@ -687,3 +686,17 @@ int random()
     return nrandom;
 }
 
+void print_fyh()    //dar la hora y dia en pantalla
+{
+    time_t t;
+    struct tm *tm;
+    char fechayhora[100];
+
+    t=time(NULL);
+    tm=localtime(&t);
+    LIMP;
+    strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
+    printf (FAZUL INVISIBLE "\n\t %s \n" RESET,fechayhora);
+    printf (FAZUL "\t %s \n",fechayhora);
+    printf (INVISIBLE "\t %s \n\n" RESET ,fechayhora);
+}
