@@ -7,15 +7,24 @@
 #define N 51              //constante para la dimension del mapa del gps
 
 #define AZUL "\x1b[34m"                  //colores de las letras
+#define BLANCO "\x1b[37m"
 #define CIAN "\x1b[36m"
 #define AZUL31 "\x1b[38;5;31m"
 #define NEGRO   "\x1b[30m"
 #define AZUL24 "\x1b[38;5;24m"
 
-#define FAZUL31 "\x1b[48;5;31m"           //colores del fondo
 #define  FAZUL "\x1b[44m"
 
-#define RESET   "\x1b[0m"  //resetear comandos de colores
+#define NEGRITA "\x1b[1m"               //comandos para el estilo del texto
+#define PARPADEO "\x1b[5m"
+#define ITALIC "\x1b[3m"
+#define SUBRAYADO "\x1b[4m"
+#define DIM "\x1b[2m"
+#define INVISIBLE "\x1b[8m"
+#define INVERSO "\x1b[7m" // intercambia color de las letras y de su fondo (ahorramos comandos para color de fondo)
+#define TACHADO "\x1b[9m"
+
+#define RESET   "\x1b[0m"  //resetear comandos de colores y estilos
 
 #define LIMP printf("\033[2J" "\033[H")   // "limpiar la pantalla" + empezar a escribir arriba
 
@@ -52,8 +61,11 @@ int main(){
     //dar la hora y dia en pantalla
     t=time(NULL);
     tm=localtime(&t);
-    strftime(fechayhora, 100, "%H:%M\t\t%d/%m/%Y", tm);
-    printf ("\n\t %s \n",fechayhora);
+    LIMP;
+    strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
+    printf (FAZUL INVISIBLE "\n\t %s \n" RESET,fechayhora);
+    printf (FAZUL "\t %s \n",fechayhora);
+    printf (INVISIBLE "\t %s \n\n" RESET ,fechayhora);
 
 
     do{
@@ -62,9 +74,8 @@ int main(){
             p=1;
         else{
 
-
-            printf(FAZUL "%cHola de nuevo, Usuario!" RESET "\n",173);
-            printf(CIAN "%cEn qu%c te puedo ayudar?\n\n1-.Temporizadores\n2-.Calendario\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn" RESET "\n",168,130,162);
+            printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
+            printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET CIAN "\n1-.Temporizadores\n2-.Calendario\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn" RESET "\n",168,130,162);
             a=0;
             b=0;
 
@@ -80,7 +91,7 @@ int main(){
                         case 1:
 
                             LIMP;
-                            printf (FAZUL31 NEGRO "TEMPORIZADORES:\n" RESET AZUL31 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs" RESET "\n",162,160,160);
+                            printf (AZUL31 INVERSO "TEMPORIZADORES:\n" RESET AZUL31 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs" RESET "\n",162,160,160);
                             do {
                             scanf ("%i",&tempo);
                             switch (tempo)
