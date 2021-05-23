@@ -45,6 +45,7 @@ float potencia(float base, int exponente);
 int escribir_recordatorio (int n,char modo);
 void printEvento(evento x);
 int compFecha(fecha f1, fecha f2);
+int random();
 
 
 int main(){
@@ -330,52 +331,163 @@ int main(){
                         case 3:
                             system("cls");
                             printf ("GPS\n1-.Radar covid\n2-.Ruta mas corta\n3-.Localizaci%cn\n4-.Atr%cs\n",162,160);
+                            int punto;
+                            int x1;
+                            int y1;
+                            int i=0,j=0, x=25,y=25;     //Define la posición del usuario en el centro del mapa.
+                            int c1 = random() ;
+                            int c2 = random() ;
+                            int u1 = random() ;     //Define las posiciones aleatorias de la universidad, la casa y los pacientes de covid.
+                            int u2 = random() ;
+                            int px = random() ;
+                            int py = random() ;
+                            int p1x = random() ;
+                            int p1y = random() ;
+                            int p2x = random() ;
+                            int p2y = random() ;
+                            int p3x = random() ;
+                            int p3y = random() ;
+                            while(c1==u1||c2==u2){      //Comprueba que la universidad y la casa no están en el mismo sitio.
+                            int c1 = random() ;
+                            int c2 = random() ;
+                            }
                             do {
                             scanf ("%i",&gp);
                             switch (gp)
                             {
                                 case 1:
                                     printf ("Radar covid\n");
-                                break;
-                                case 2:
-                                    printf ("Ruta mas corta\n");
-                                break;
-                                case 3:
-                                    printf ("Localizaci%cn\n",162);
 
-
-
-                                        int i=0,j=0, x=25,y=25;     //Define la posición del usuario en el centro del mapa.
                                         srand(time(NULL));
-                                        int x1 = (rand()%N+1) ;
-                                        int y1 = (rand()%N+1) ;
-                                        int x2 = (rand()%N+1) ;     //Define las posiciones aleatorias de la universidad y la casa.
-                                        int y2 = (rand()%N+1) ;
-                                        while(x1==x2||y1==y2){      //Comprueba que la universidad y la casa no están en el mismo sitio.
-                                        int x1 = (rand()%N+1) ;
-                                        int y1 = (rand()%N+1) ;
-                                        }
-
                                         for(i=0;i<N;i++){
                                             printf("\n");        //Representa gráficamente.
                                                 for(j=0;j<N;j++)
                                                     if(j==x&&i==y)
                                                         printf("X ");
-                                                    else if (i==x1&&j==y1)
+                                                    else if (i==px&&j==py)
+                                                        printf("P ");
+                                                    else if (i==p1x&&j==p1y)
+                                                        printf("P ");
+                                                    else if (i==p2x&&j==p2y)
+                                                        printf("P ");
+                                                    else if (i==p3x&&j==p3y)
+                                                        printf("P ");
+                                                    else
+                                                        printf(". ");
+                                            }
+                                             printf("\n");
+                                             if((22<px&&22<py)||(22<p1x&&22<p1y)||(22<p2x&&22<p2y)||(22<p3x&&22<p3y)) //Avisa al usuario de peligro en caso de encontrarse cerca de un paciente.
+                                             {
+                                               if((px<27&&py<27)||(p1x<27&&p1y<27)||(p2x<27&&p2y<27)||(p3x<27&&p3y<27)) //Avisa al usuario de peligro en caso de encontrarse cerca de un paciente.
+                                             {
+                                                printf("Tiene un paciente de covid peligrosamente cerca, aléjese de ahí");
+                                             }
+                                             }
+                                break;
+                                case 2:
+
+                                    printf ("Ruta mas corta\n");
+                                    printf("1 para casa 2 para universidad 3 para punto concreto 4 para ir atrás\n");
+                                    scanf("%i",&punto);
+                                    switch (punto)
+                                    {
+                                    case 1:
+                                        if(c1<x && c2<y)
+                                            printf("arriba izquierda");
+                                        else if(c1>x && c2>y)
+                                            printf("abajo derecha");
+                                        else if(c1>x && c2<y)
+                                            printf("arriba derecha");
+                                        else if(c1<x && c2>y)
+                                            printf("abajo izquierda");
+                                        else if(c1<x && c2==y)
+                                            printf("izquierda");
+                                        else if(c1==x && c2>y)
+                                            printf("abajo");
+                                        else if(c1==x && c2<y)
+                                            printf("arriba");
+                                        else if(c1>x && c2==y)
+                                            printf("derecha");
+                                        else
+                                            printf(".");
+                                        break;
+                                    case 2:
+                                        if(u1<x && u2<y)
+                                            printf("arriba izquierda");
+                                        else if(u1>x && u2>y)
+                                            printf("abajo derecha");
+                                        else if(u1>x && u2<y)
+                                            printf("arriba derecha");
+                                        else if(u1<x && u2>y)
+                                            printf("abajo izquierda");
+                                        else if(u1<x && y1==y)
+                                            printf("izquierda");
+                                        else if(u1==x && y1>y)
+                                            printf("abajo");
+                                        else if(x1==x && y1<y)
+                                            printf("arriba");
+                                        else if(u1>x && y1==y)
+                                            printf("derecha");
+                                        else
+                                            printf(".");
+                                        break;
+                                    case 3:
+                                        printf ("escriba las coordenadas x e y de punto que quiera.\n");
+                                        printf("x\n");
+                                        scanf("%i",&x1);
+                                        printf("\ny\n");
+                                        scanf("%i",&y1);
+                                        printf("\n");
+
+                                        if(x1<x && y1<y)
+                                            printf("arriba izquierda");
+                                        else if(x1>x && y1>y)
+                                            printf("abajo derecha");
+                                        else if(x1>x && y1<y)
+                                            printf("arriba derecha");
+                                        else if(x1<x && y1>y)
+                                            printf("abajo izquierda");
+                                        else if(x1<x && y1==y)
+                                            printf("izquierda");
+                                        else if(x1==x && y1>y)
+                                            printf("abajo");
+                                        else if(x1==x && y1<y)
+                                            printf("arriba");
+                                        else if(x1>x && y1==y)
+                                            printf("derecha");
+                                        else
+                                            printf(".");
+                                        break;
+                                    default:
+                                        printf("Introduzca un n%cmero v%clido\n",163,160);
+                                        break;
+
+                                    }
+                                break;
+                                case 3:
+                                    printf ("Localizaci%cn\n",162);
+
+
+                                        srand(time(NULL));
+                                        for(i=0;i<N;i++){
+                                            printf("\n");        //Representa gráficamente.
+                                                for(j=0;j<N;j++)
+                                                    if(j==x&&i==y)
+                                                        printf("X ");
+                                                    else if (i==c1&&j==c2)
                                                         printf("C ");
-                                                    else if (i==x2&&j==y2)
+                                                    else if (i==u1&&j==u2)
                                                         printf("U ");
                                                     else
                                                         printf(". ");
                                             }
 
-                                        printf("\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",x,y,x1,y1,x2,y2); //Imprime coordenadas
+                                        printf("\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",x,y,c1,c2,u1,u2); //Imprime coordenadas
 
-                                        if(x==x1&&y==y1)
+                                        if(x==c1&&y==c2)
                                             printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
-                                        else if(x==x2&&y==y2)
+                                        else if(x==u1&&y==u2)
                                             printf("\nHa llegado a su universidad.");
-                                        return 0;
 
                                 break;
                                 case 4:
@@ -567,3 +679,11 @@ int compFecha(fecha f1, fecha f2)
   else
         return 1;
 }
+
+int random()
+{
+    int nrandom;
+    nrandom=rand()%N+1;
+    return nrandom;
+}
+
