@@ -12,6 +12,7 @@
 #define AZUL31 "\x1b[38;5;31m"
 #define NEGRO   "\x1b[30m"
 #define AZUL24 "\x1b[38;5;24m"
+#define ROJO "\x1b[38;5;160m"
 
 #define  FAZUL "\x1b[44m"
 
@@ -329,7 +330,7 @@ int main(){
 
                         case 3:
                             system("cls");
-                            printf ("GPS\n1-.Radar covid\n2-.Ruta mas corta\n3-.Localizaci%cn\n4-.Atr%cs\n",162,160);
+                            printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
                             int punto;
                             int x1;
                             int y1;
@@ -362,15 +363,15 @@ int main(){
                                             printf("\n");        //Representa gráficamente.
                                                 for(j=0;j<N;j++)
                                                     if(j==x&&i==y)
-                                                        printf("X ");
+                                                        printf(NEGRITA "X " RESET);
                                                     else if (i==px&&j==py)
-                                                        printf("P ");
+                                                        printf(ROJO INVERSO"P "RESET);
                                                     else if (i==p1x&&j==p1y)
-                                                        printf("P ");
+                                                        printf(ROJO INVERSO"P "RESET);
                                                     else if (i==p2x&&j==p2y)
-                                                        printf("P ");
+                                                        printf(ROJO INVERSO"P "RESET);
                                                     else if (i==p3x&&j==p3y)
-                                                        printf("P ");
+                                                        printf(ROJO INVERSO"P "RESET);
                                                     else
                                                         printf(". ");
                                             }
@@ -379,59 +380,61 @@ int main(){
                                              {
                                                if((px<27&&py<27)||(p1x<27&&p1y<27)||(p2x<27&&p2y<27)||(p3x<27&&p3y<27)) //Avisa al usuario de peligro en caso de encontrarse cerca de un paciente.
                                              {
-                                                printf("Tiene un paciente de covid peligrosamente cerca, aléjese de ahí");
+                                                printf("Tiene un paciente de covid peligrosamente cerca, al%cjese de ahí.\n",130);
                                              }
+                                             else{printf("Est%c en zona segura\n",160);}
                                              }
+                                             printf (CIAN "\nGPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
                                 break;
                                 case 2:
 
-                                    printf ("Ruta mas corta\n");
-                                    printf("1 para casa 2 para universidad 3 para punto concreto 4 para ir atrás\n");
+                                    printf ("Direcci%n\n",162);
+                                    printf("1 para casa 2 para universidad 3 para punto concreto 4 para ir atr%cs\n",160);
                                     scanf("%i",&punto);
                                     switch (punto)
                                     {
                                     case 1:
                                         if(c1<x && c2<y)
-                                            printf("arriba izquierda");
+                                            printf("Arriba izquierda");
                                         else if(c1>x && c2>y)
-                                            printf("abajo derecha");
+                                            printf("Abajo derecha");
                                         else if(c1>x && c2<y)
-                                            printf("arriba derecha");
+                                            printf("Arriba derecha");
                                         else if(c1<x && c2>y)
-                                            printf("abajo izquierda");
+                                            printf("Abajo izquierda");
                                         else if(c1<x && c2==y)
-                                            printf("izquierda");
+                                            printf("Izquierda");
                                         else if(c1==x && c2>y)
-                                            printf("abajo");
+                                            printf("Abajo");
                                         else if(c1==x && c2<y)
-                                            printf("arriba");
+                                            printf("Arriba");
                                         else if(c1>x && c2==y)
-                                            printf("derecha");
+                                            printf("Derecha");
                                         else
                                             printf(".");
                                         break;
                                     case 2:
                                         if(u1<x && u2<y)
-                                            printf("arriba izquierda");
+                                            printf("Arriba izquierda");
                                         else if(u1>x && u2>y)
-                                            printf("abajo derecha");
+                                            printf("Abajo derecha");
                                         else if(u1>x && u2<y)
-                                            printf("arriba derecha");
+                                            printf("Arriba derecha");
                                         else if(u1<x && u2>y)
-                                            printf("abajo izquierda");
+                                            printf("Abajo izquierda");
                                         else if(u1<x && y1==y)
-                                            printf("izquierda");
+                                            printf("Izquierda");
                                         else if(u1==x && y1>y)
-                                            printf("abajo");
+                                            printf("Abajo");
                                         else if(x1==x && y1<y)
-                                            printf("arriba");
+                                            printf("Arriba");
                                         else if(u1>x && y1==y)
-                                            printf("derecha");
+                                            printf("Derecha");
                                         else
                                             printf(".");
                                         break;
                                     case 3:
-                                        printf ("escriba las coordenadas x e y de punto que quiera.\n");
+                                        printf ("Escriba las coordenadas x e y de punto que quiera.\n");
                                         printf("x\n");
                                         scanf("%i",&x1);
                                         printf("\ny\n");
@@ -439,28 +442,28 @@ int main(){
                                         printf("\n");
 
                                         if(x1<x && y1<y)
-                                            printf("arriba izquierda");
+                                            printf("Arriba izquierda");
                                         else if(x1>x && y1>y)
-                                            printf("abajo derecha");
+                                            printf("Abajo derecha");
                                         else if(x1>x && y1<y)
-                                            printf("arriba derecha");
+                                            printf("Arriba derecha");
                                         else if(x1<x && y1>y)
-                                            printf("abajo izquierda");
+                                            printf("Abajo izquierda");
                                         else if(x1<x && y1==y)
-                                            printf("izquierda");
+                                            printf("Izquierda");
                                         else if(x1==x && y1>y)
-                                            printf("abajo");
+                                            printf("Abajo");
                                         else if(x1==x && y1<y)
-                                            printf("arriba");
+                                            printf("Arriba");
                                         else if(x1>x && y1==y)
-                                            printf("derecha");
+                                            printf("Derecha");
                                         else
                                             printf(".");
                                         break;
                                     default:
                                         printf("Introduzca un n%cmero v%clido\n",163,160);
                                         break;
-
+                                    printf (CIAN "\n\nGPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
                                     }
                                 break;
                                 case 3:
@@ -472,23 +475,26 @@ int main(){
                                             printf("\n");        //Representa gráficamente.
                                                 for(j=0;j<N;j++)
                                                     if(j==x&&i==y)
-                                                        printf("X ");
+                                                        printf(NEGRITA"X "RESET);
                                                     else if (i==c1&&j==c2)
-                                                        printf("C ");
+                                                        printf(NEGRITA"C "RESET);
                                                     else if (i==u1&&j==u2)
-                                                        printf("U ");
+                                                        printf(NEGRITA"U "RESET);
                                                     else
                                                         printf(". ");
                                             }
 
-                                        printf("\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",x,y,c1,c2,u1,u2); //Imprime coordenadas
+                                        printf(CIAN "\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i." RESET,x,y,c1,c2,u1,u2); //Imprime coordenadas
 
                                         if(x==c1&&y==c2)
                                             printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
                                         else if(x==u1&&y==u2)
                                             printf("\nHa llegado a su universidad.");
 
+
+                                        printf (CIAN "\n\nGPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
                                 break;
+
                                 case 4:
                                     a=1;
                                     system("cls");
