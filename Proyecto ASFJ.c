@@ -100,9 +100,9 @@ int main(){
                                 case 1:
                                     printf ("CRONOMETRO\n");
                                  //Función de cronómetro
-                                   printf("Pulsa espacio para iniciar y para pausar si es necesario:\n[%.2i:%.2i:%.2i]\n",ho,mi,se);
+                                   printf("Pulse dos veces espacio para iniciar y una vez para pausar si es necesario.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,ho,mi,se);
                                    system("pause ->NULL");
-                                   while (1){
+                                   while (getch()!='t'){
                                     while(!kbhit()){ //la función espera a que se presione una tecla en específico
                                      se++; //paso del tiempo
                                      if (se==60){
@@ -122,7 +122,11 @@ int main(){
                                      getch();
                                     }
                                    }
-                                 system("pause");
+
+                                LIMP;
+                                printf("\n\nPuede continuar usando los ");
+                                printf (AZUL31 INVERSO "TEMPORIZADORES:\n" RESET AZUL31 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs" RESET "\n",162,160,160);
+
                                 break;
 
                                 case 2:
@@ -133,12 +137,14 @@ int main(){
                                         printf("Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
                                         scanf("%i %i %i",&se,&mi,&ho);
                                         total=se + 60*mi + 3600*ho;
+
+                                        if(se<0||mi<0||ho<0) {LIMP;
+                                            printf("No debe incluir tiempo negativo.");
+                                        }else{
+
                                         printf("El programa terminara %i en segundos.\n", total);
 
-
-
-
-                                        for(i=0; i<total; i++){
+                                        for(i=0; i<=total; i++){
                                             Sleep(1000);
                                             //printf("%i\n", i+1);
 
@@ -146,23 +152,50 @@ int main(){
                                                 printf("\n\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
 
 
-                                            se=se-1;
-                                            if(se==0&&mi>0) {
-                                                    mi=mi-1;
-                                                    se=59;
+
+                                            if(ho==0){
+                                                if(mi==0){
+                                                    if(se==0){
+                                                    }
+                                                    else se--;
+                                                }else{
+                                                    if(se==0){
+                                                        se=59;
+                                                        mi--;
+                                                    }else se--;
+                                                }
+                                            }else{
+                                                if(mi==0){
+                                                    if(se==0){
+                                                        se=59;
+                                                        mi=59;
+                                                        ho--;
+                                                    }else se--;
+                                                }else{
+                                                    if(se==0){
+                                                        se=59;
+                                                        mi--;
+                                                        ho--;
+                                                    }else se--;
+                                                }
+                                                }
+
                                             }
-                                            if (mi==0&&ho>0) {
-                                                    ho=ho-1;
-                                                    mi=59;
-                                            }
+                                        }
+
+                                printf("\n\nPuede continuar usando los ");
+                                printf (AZUL31 INVERSO "TEMPORIZADORES:\n" RESET AZUL31 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs" RESET "\n",162,160,160);
 
 
-                                            }
 
-                                                return 0;
                                 break;
                                 case 3:
                                     printf ("Ciclos de tiempo\n");
+
+
+
+                                    printf("\n\nPuede continuar usando los ");
+                                    printf (AZUL31 INVERSO "TEMPORIZADORES:\n" RESET AZUL31 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs" RESET "\n",162,160,160);
                                 break;
                                 case 4:
                                     a=1;
@@ -384,12 +417,14 @@ int main(){
                                              }
                                              else{printf("Est%c en zona segura\n",160);}
                                              }
-                                             printf (CIAN "\nGPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+
+                                             printf("\n\nPuede continuar usando el ");
+                                             printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
                                 break;
                                 case 2:
 
-                                    printf ("Direcci%n\n",162);
-                                    printf("1 para casa 2 para universidad 3 para punto concreto 4 para ir atr%cs\n",160);
+                                    printf ("Direcci%cn\n",162);
+                                    printf("1 para casa, 2 para universidad, 3 para punto concreto, 4 para ir atr%cs\n",160);
                                     scanf("%i",&punto);
                                     switch (punto)
                                     {
@@ -412,7 +447,10 @@ int main(){
                                             printf("Derecha");
                                         else
                                             printf(".");
-                                        break;
+                                        printf("\n\nPuede continuar usando el ");
+                                        printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                    break;
+
                                     case 2:
                                         if(u1<x && u2<y)
                                             printf("Arriba izquierda");
@@ -432,12 +470,15 @@ int main(){
                                             printf("Derecha");
                                         else
                                             printf(".");
-                                        break;
+                                        printf("\n\nPuede continuar usando el ");
+                                        printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                    break;
+
                                     case 3:
                                         printf ("Escriba las coordenadas x e y de punto que quiera.\n");
-                                        printf("x\n");
+                                        printf("x:\n");
                                         scanf("%i",&x1);
-                                        printf("\ny\n");
+                                        printf("\ny:\n");
                                         scanf("%i",&y1);
                                         printf("\n");
 
@@ -459,11 +500,20 @@ int main(){
                                             printf("Derecha");
                                         else
                                             printf(".");
-                                        break;
+                                        printf("\n\nPuede continuar usando el ");
+                                        printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                    break;
+
+                                    case 4:
+                                        printf("\n\nPuede continuar usando el ");
+                                        printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                    break;
+
                                     default:
                                         printf("Introduzca un n%cmero v%clido\n",163,160);
                                         break;
-                                    printf (CIAN "\n\nGPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                    printf("\n\nPuede continuar usando el ");
+                                    printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
                                     }
                                 break;
                                 case 3:
@@ -484,7 +534,7 @@ int main(){
                                                         printf(". ");
                                             }
 
-                                        printf(CIAN "\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i." RESET,x,y,c1,c2,u1,u2); //Imprime coordenadas
+                                        printf(CIAN "\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i." RESET,x-25,y-25,c1-25,c2-25,u1-25,u2-25); //Imprime coordenadas
 
                                         if(x==c1&&y==c2)
                                             printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
@@ -492,7 +542,8 @@ int main(){
                                             printf("\nHa llegado a su universidad.");
 
 
-                                        printf (CIAN "\n\nGPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                    printf("\n\nPuede continuar usando el ");
+                                    printf (CIAN "\n\nGPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
                                 break;
 
                                 case 4:
@@ -530,6 +581,10 @@ int main(){
 
                                     resultado = x + y;
                                     printf("El resultado es %f\n", resultado);
+
+                                    printf("\n\nPuede continuar usando la ");
+                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+
                                 break;
                                 case 2:
                                     printf ("Restar\n");
@@ -541,6 +596,10 @@ int main(){
 
                                     resultado = x - y;
                                     printf("El resultado es %f\n", resultado);
+
+                                    printf("\n\nPuede continuar usando la ");
+                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+
                                 break;
                                 case 3:
                                     printf ("Multiplicar\n");
@@ -552,6 +611,10 @@ int main(){
 
                                     resultado = x * y;
                                     printf("El resultado es %f\n", resultado);
+
+                                    printf("\n\nPuede continuar usando la ");
+                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+
                                 break;
                                 case 4:
                                     printf ("Dividir\n");
@@ -563,6 +626,10 @@ int main(){
 
                                     resultado = x / y;
                                     printf("El resultado es %f\n", resultado);
+
+                                    printf("\n\nPuede continuar usando la ");
+                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+
                                 break;
                                 case 5:
                                     printf ("Potencia\n");
@@ -575,6 +642,9 @@ int main(){
                                     resultado = potencia(x, (int) y);
                                     printf("El resultado es %f\n", resultado);
 
+                                    printf("\n\nPuede continuar usando la ");
+                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+
                                 break;
                                 case 6:
                                     a=1;
@@ -586,7 +656,7 @@ int main(){
 
                             }
                             }
-                            while(calc!=5);
+                            while(calc!=6);
 
                         break;
 
