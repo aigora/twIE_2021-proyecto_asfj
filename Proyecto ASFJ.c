@@ -673,7 +673,7 @@ int main(){
                                 break;
                                 case 6:
                                     a=1;
-                                    system("cls");
+                                   LIMP;
                                 break;
                                 default:
                                      printf("Introduzca un n%cmero v%clido\n",163,160);
@@ -687,7 +687,7 @@ int main(){
 
 
                         case 5:
-                            system("cls");
+                            LIMP;
                             b=1;
                             printf ("Hasta luego!\n");
                         break;
