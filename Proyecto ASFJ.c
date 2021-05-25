@@ -106,7 +106,7 @@ int main(){
                                     printf ("CRONOMETRO\n");
                                  //Función de cronómetro
                                    printf("Pulse dos veces espacio para iniciar y una vez para pausar si es necesario.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,ho,mi,se);
-                                   system("pause ->NULL");
+                                  LIMP;
                                    while (getch()!='t'){
                                     while(!kbhit()){ //la función espera a que se presione una tecla en específico
                                      se++; //paso del tiempo
