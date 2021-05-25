@@ -387,7 +387,7 @@ int main(){
 
 
                         case 3:
-                            system("cls");
+                            LIMP;
                             printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
                             int punto;
                             int x1;
@@ -573,7 +573,7 @@ int main(){
 
                                 case 4:
                                     a=1;
-                                    system("cls");
+                                    LIMP;
                                 break;
                                 default:
                                      printf("Introduzca un n%cmero v%clido\n",163,160);
@@ -586,7 +586,7 @@ int main(){
 
 
                         case 4:
-                            system("cls");
+                           LIMP;
                             printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
                             do{
                             scanf ("%i",&calc);
