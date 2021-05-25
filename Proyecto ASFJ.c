@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#include <windows.h>
+//#include <windows.h>
 #include <conio.h>
 
 #define N 51              //constante para la dimension del mapa del gps
@@ -48,6 +48,11 @@ void printEvento(evento x);
 int compFecha(fecha f1, fecha f2);
 int random();
 void print_fyh();
+int imprimir_fichero(int numeracion);
+void imprimir_tipo_rec (char c, int nu);
+void copio_fichero();
+void editar_fichero(int nu, int ed, char edit);
+char coincide (char a[]);
 
 int main(){
 
@@ -226,11 +231,11 @@ int main(){
                                     LIMP;
                                     printf ("Ver recordatorios:\n");
 
-                                    int j,iComp,Nu=0,ev=0;  //Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
-                                //    int dia, mes, anio;
-                                    char c,opcion; // c para recorrer el fichero por caracteres y contar lineas; opcion para mostrar o no todos los recordatorios en pantalla
+                                    int j,iComp,Nu=0,ev=0;  // Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
+                                    int noNumerado=0;
+                                    char coinc,c,opcion, re[15]; //coinc para comprobar si coincide el tipo de record que busco o no; c para recorrer el fichero por caracteres y contar lineas; opcion para mostrar o no todos los recordatorios en pantalla; compA y compB para comparar el tipo de rec que busco y los que existen
                                     FILE *pf;
-                                    evento eventos[2];             // Vector que almacena los eventos
+                                    evento eventos[3];             // Vector que almacena los eventos
 
                                     eventos[0].fechaRec.d=tm->tm_mday;     //asigo en la primera posicion del vector de eventos la fecha actual
                                     eventos[0].fechaRec.m=1+tm->tm_mon;
@@ -274,29 +279,20 @@ int main(){
                                         }
                                         if(ev==0) printf("No hay recordatorios para hoy.\n");
 
+                                        fclose(pf);
 
-                                        printf("\nPulse 'r' para ver todos los recordatorios o cualquier otra letra para volver atr%cs.\n\n",160);
 
+                                        printf("\nPulse:\n'c' para ver las fechas en las que hay cumplea%cos\n'e' para ver las fechas de examenes\n'f' para festivos\n'r' para ver todos los recordatorios\nCualquier otra letra para volver atr%cs.\n\n",164,160);
                                         scanf(" %c",&opcion);
+
                                         if(opcion=='r'||opcion=='R')
                                         {
-                                            fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
-                                            LIMP;
-                                            printf("RECORDATORIOS:\n");
-                                            for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero
-                                            {
-                                            fscanf(pf,"%d;%d;%d;%[^;];%s\n",
-                                                   &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
-                                              printf("%c %.2d/%.2d/%.2d  %s %s\n",
-                                                     16, eventos[1].fechaRec.d, eventos[1].fechaRec.m, eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
-                                            }
-                                            printf("\n");
-                                        }else LIMP;
+                                            imprimir_fichero(noNumerado);
+                                        }
+                                        else imprimir_tipo_rec (opcion, Nu);
 
-
-
-                                        fclose(pf);
                                     }
+
                                     printf("Puede continuar usando el ");
                                     printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n",164,160);
 
@@ -327,6 +323,35 @@ int main(){
 
                                 case 3:
                                     printf ("Editar recordatorio existente\n");
+
+                                    char editar;  //variable para saber si editar la fecha o el recordatorio
+                                    int numerado=1,ed,nu;  //ed es el numero de linea que se editara; nu es el numero de lineas totales del fichero
+
+                                    nu=imprimir_fichero(numerado);  //imprime todos los recordatorios numerados y devuelve el numero de lineas/recordatorios
+
+                                    while(1){
+                                        printf("%cQue n%cmero de recordatorio desea editar?\n",168,163);
+                                        scanf("%d",&ed);
+                                        if(ed>nu) printf("Ese n%cmero de recordatorio no existe.\n",163);
+                                        else break;
+                                    }
+
+                                    while(1){
+                                        printf("Pulse f si desea cambiar la fecha o r si desea cambiar el nombre del recordatorio.\n");
+                                        scanf(" %c",&editar);
+                                        if(editar!='r'&&editar!='f') printf("Esa letra no es v%clida.\n",160);
+                                        else break;
+                                    }
+
+                                    copio_fichero();  //copio los recordatorios en un fichero temporal
+
+                                    editar_fichero(nu, ed, editar);  //vuelvo a copiar en mi fichero de recordatorios pero haciendo las modificaciones
+
+                                    printf("Ya se ha editado!\nPuede continuar usando el ");
+                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",164,160);
+
+
+
                                 break;
 
                                 case 4:
@@ -776,3 +801,199 @@ void print_fyh()    //dar la hora y dia en pantalla
     printf (FAZUL "\t %s \n",fechayhora);
     printf (INVISIBLE "\t %s \n\n" RESET ,fechayhora);
 }
+
+
+
+int imprimir_fichero(int numeracion){
+
+    int j,Nu=0;  //Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
+    char c; // c para recorrer el fichero por caracteres y contar lineas; opcion para mostrar o no todos los recordatorios en pantalla
+    FILE *pf;
+    evento eventos[2];             // Vector que almacena los eventos
+
+
+    pf=fopen("Recordatorios_calendario.txt","r");
+
+    if(pf==NULL)                          //compruebo que se abre bien
+    {
+        printf("Error al abrir el fichero.");
+    }else
+    {
+
+        while (fscanf(pf,"%c",&c)!=EOF)  //cuento numero de lineas (cada linea un recordatorio)
+            if(c=='\n') Nu++;
+
+        printf("Hay %d registrados.\n\n",Nu);
+
+    fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
+    LIMP;
+    printf("RECORDATORIOS:\n");
+    if(numeracion==1){
+        for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero CON NUMERACION
+    {
+    fscanf(pf,"%d;%d;%d;%[^;];%s\n",
+           &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
+      printf("%d %c %.2d/%.2d/%.2d  %s %s\n",
+             j+1,16, eventos[1].fechaRec.d, eventos[1].fechaRec.m, eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
+    }
+    printf("\n");
+    }else{
+        for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero SIN NUMERACION
+        {
+        fscanf(pf,"%d;%d;%d;%[^;];%s\n",
+               &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
+          printf(" %c %.2d/%.2d/%.2d  %s %s\n",
+                 16, eventos[1].fechaRec.d, eventos[1].fechaRec.m, eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
+        }
+        printf("\n");
+    }
+
+    }
+    return Nu; //devuelvo el numero de lineas
+}
+
+
+void copio_fichero()                                              //copio el fichero de recordatorios en uno temporal
+{
+    char ce;
+    FILE *orig, *copia;
+    orig = fopen("Recordatorios_calendario.txt", "r");
+    if (orig == NULL) {
+        printf("Error al abrir el archivo origen.\n");
+
+    } else {
+        copia = fopen("Recordatorios_copia.txt", "w");
+        if (copia == NULL) {
+          printf("Error al abrir el archivo copia.\n");
+
+        } else {
+            while (fscanf(orig, "%c", &ce) != EOF)
+            {
+              fprintf(copia, "%c", ce); // Escribo el caracter en la copia
+            }
+
+              fclose(orig);  // Cierro ficheros
+              fclose(copia);
+              //printf("Copia finalizada con exito.\n");
+        }
+    }
+}
+
+void editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas totales; ed es el numero de linea que quiero modificar; edit decide si edito fecha o recordatorio
+{
+
+    int j,nd,nm,na;
+    char nuevoRec[10], nuevoTip[10];
+    FILE *orig, *co;
+    int d,m,a;
+    char rec[10], tip[10];
+    orig = fopen("Recordatorios_copia.txt", "r");
+    co = fopen("Recordatorios_calendario.txt", "w");
+
+
+    for(j=1;j<=nu;j++)                   //escribo todas las lineas del fichero
+    {
+        if(j==ed){
+                if(edit=='r'){
+                    printf("Escriba el nuvo nombre de recordatorio (tipo_de_recordatorio y recordatorio, separados por un espacio):\n");
+                    scanf("%s %s",&nuevoTip, &nuevoRec);
+                    fscanf(orig, "%i;%i;%i;%[^;];%s\n",
+                        &d, &m, &a, &tip, &rec);
+                    fprintf(co,"%i;%i;%i;%s;%s\n",
+                         d, m, a, nuevoTip, nuevoRec);
+                }else{
+                    printf("Escriba la nueva fecha (d%ca mes a%co, en forma num%crica y separadas por un espacio):\n",161,164,130);
+                    scanf("%i %i %i",&nd, &nm, &na);
+                    fscanf(orig, "%d;%d;%d;%[^;];%s\n",
+                        &d, &m, &a, &tip, &rec);
+                    fprintf(co,"%d;%d;%d;%s;%s\n",
+                         nd, nm, na, tip, rec);
+                }
+        }
+        else{
+            fscanf(orig, "%d;%d;%d;%[^;];%s\n",
+                &d, &m, &a, &tip, &rec);
+            fprintf(co,"%d;%d;%d;%s;%s\n",
+                d, m, a, tip, rec);
+        }
+
+    printf("\n");
+    }
+
+    fclose(orig); // Cierro ficheros
+    fclose(co);
+
+}
+
+char coincide (char a[])
+{
+    char x;
+
+    if((a[0]=='c'||a[0]=='C')&&(a[1]=='u'||a[1]=='U')&&(a[2]=='m'||a[2]=='M')&&(a[3]=='p'||a[3]=='P')&&(a[4]=='l'||a[4]=='L')&&(a[5]=='e'||a[5]=='E')) x='c';
+    else if((a[0]=='e'||a[0]=='E')&&(a[1]=='x'||a[1]=='X')&&(a[2]=='a'||a[2]=='A')&&(a[3]=='m'||a[3]=='M')) x='e';
+    else if((a[0]=='f'||a[0]=='F')&&(a[1]=='e'||a[1]=='E')&&(a[2]=='s'||a[2]=='S')&&(a[3]=='t'||a[3]=='T')&&(a[4]=='i'||a[4]=='I')&&(a[5]=='v'||a[5]=='V')&&(a[6]=='o'||a[6]=='O')) x='f';
+
+    else x='q';
+    return x;
+}
+
+
+ void imprimir_tipo_rec (char c, int Nu)
+ {
+    LIMP;
+    int j=0,d,m,a;
+    char tip[15],rec[15];
+    char coinc;
+    FILE *pf;
+    pf=fopen("Recordatorios_calendario.txt","r");
+
+    if(c=='c'||c=='C')
+    {
+        printf("CUMPLEA%cOS:\n",165);
+        for(j=0;j<Nu;j++)
+        {
+            fscanf(pf,"%d;%d;%d;%s;%s \n",
+               &d, &m, &a, &tip, &rec);
+
+            coinc=coincide (tip);
+            if(coinc=='c'){
+                printf("%c %s  %.2d/%.2d/%.2d\n",
+                     16, rec, d, m, a);
+                j++;
+            }
+        }
+    }else if(c=='e'||c=='E')
+    {
+        printf("EXAMENES:\n");
+        for(j=0;j<Nu;j++)
+        {
+            fscanf(pf,"%d;%d;%d;%s;%s \n",
+               &d, &m, &a, &tip, &rec);
+
+            coinc=coincide (tip);
+            if(coinc=='e'){
+                printf("%c %s  %.2d/%.2d/%.2d\n",
+                     16, rec, d, m, a);
+                j++;
+            }
+        }
+    }else if(c=='f'||c=='F')
+    {
+        printf("FESTIVOS:\n");
+        for(j=0;j<Nu;j++)
+        {
+            fscanf(pf,"%d;%d;%d;%s;%s \n",
+               &d, &m, &a, &tip, &rec);
+
+            coinc=coincide (tip);
+            if(coinc=='f'){
+                printf("%c %s  %.2d/%.2d/%.2d\n",
+                    16, rec, d, m, a);
+                j++;
+            }
+        }
+    }else j++;
+    printf("\n");
+    if(j==0) printf("No hay recordatorios de ese tipo.\n");
+}
+
