@@ -118,7 +118,7 @@ int main(){
                                         ho++;
                                        }
                                       }
-                                     system("cls"); //ESTO DEBE CAMBIARSE, SÓLO FUNCIONA EN WINDOWS
+                                     LIMP;
                                      printf("[%.2i:%.2i:%.2i]",ho, mi, se);
                                      Sleep(1000); //Un segundo de refresco
                                      }
@@ -153,7 +153,7 @@ int main(){
                                             Sleep(1000);
                                             //printf("%i\n", i+1);
 
-                                            system("cls");
+                                           LIMP;
                                                 printf("\n\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
 
 
