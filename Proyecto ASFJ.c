@@ -11,8 +11,11 @@
 #define CIAN "\x1b[36m"
 #define AZUL31 "\x1b[38;5;31m"
 #define NEGRO   "\x1b[30m"
-#define AZUL24 "\x1b[38;5;24m"
 #define ROJO "\x1b[38;5;160m"
+#define AZUL24 "\x1b[38;5;24m"
+#define AZUL69 "\x1b[38;5;69m"
+#define AZUL20 "\x1b[38;5;20m"
+#define AZUL45 "\x1b[38;5;45m"
 
 #define  FAZUL "\x1b[44m"
 
@@ -81,7 +84,7 @@ int main(){
 
             print_fyh();
             printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
-            printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET CIAN "\n1-.Temporizadores\n2-.Calendario\n3-.GPS\n4-.Calculadora\n5-.Cerrar sesi%cn" RESET "\n",168,130,162);
+            printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET BLANCO"5-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
             a=0;
             b=0;
 
@@ -97,15 +100,15 @@ int main(){
                         case 1:
 
                             LIMP;
-                            printf (AZUL31 INVERSO "TEMPORIZADORES:\n" RESET AZUL31 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs" RESET "\n",162,160,160);
+                            printf (AZUL24 INVERSO "TEMPORIZADORES:\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs""\n",162,160,160);
                             do {
                             scanf ("%i",&tempo);
                             switch (tempo)
                             {
                                 case 1:
-                                    printf ("CRONOMETRO\n");
+                                    printf (INVERSO"CRONOMETRO\n"RESET);
                                  //Función de cronómetro
-                                   printf("Pulse dos veces espacio para iniciar y una vez para pausar si es necesario.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,ho,mi,se);
+                                   printf(AZUL24"Pulse dos veces espacio para iniciar y una vez para pausar si es necesario.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,ho,mi,se);
                                   LIMP;
                                    while (getch()!='t'){
                                     while(!kbhit()){ //la función espera a que se presione una tecla en específico
@@ -119,7 +122,7 @@ int main(){
                                        }
                                       }
                                      LIMP;
-                                     printf("[%.2i:%.2i:%.2i]",ho, mi, se);
+                                     printf(AZUL24"[%.2i:%.2i:%.2i]"RESET,ho, mi, se);
                                      Sleep(1000); //Un segundo de refresco
                                      }
                                      char pausa=getch();
@@ -220,7 +223,7 @@ int main(){
 
                         case 2:
                             LIMP;
-                            printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n",164,160);
+                            printf (AZUL31 INVERSO"CALENDARIO:\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" ,164,160);
                             do{
 
                             scanf ("%i",&calen);
@@ -229,7 +232,7 @@ int main(){
 
                                 case 1:
                                     LIMP;
-                                    printf ("Ver recordatorios:\n");
+                                    printf (INVERSO"Ver recordatorios:\n"RESET);
 
                                     int j,iComp,Nu=0,ev=0;  // Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
                                     int noNumerado=0;
@@ -241,7 +244,7 @@ int main(){
                                     eventos[0].fechaRec.m=1+tm->tm_mon;
                                     eventos[0].fechaRec.a=1900+tm->tm_year;
 
-                                    pf=fopen("Recordatorios_calendario.txt","r");
+                                    pf=fopen(AZUL31"Recordatorios_calendario.txt","r");
 
                                     if(pf==NULL)                          //compruebo que se abre bien
                                     {
@@ -300,9 +303,9 @@ int main(){
 
 
                                 case 2:
-                                    printf ("A%cadir recordatorio\n",164);
+                                    printf (INVERSO"A%cadir recordatorio\n"RESET,164);
 
-                                    printf ("Cuantos recordatorios desea a%cadir?\n",164);
+                                    printf (AZUL31"Cuantos recordatorios desea a%cadir?\n",164);
                                     scanf("%d",&n);
                                     modo='a';
                                     v=escribir_recordatorio(n,modo);            // funcion para a�adir recordatorios al fichero existente
@@ -322,7 +325,7 @@ int main(){
                                     }
 
                                 case 3:
-                                    printf ("Editar recordatorio existente\n");
+                                    printf (INVERSO"Editar recordatorio existente\n"RESET);
 
                                     char editar;  //variable para saber si editar la fecha o el recordatorio
                                     int numerado=1,ed,nu;  //ed es el numero de linea que se editara; nu es el numero de lineas totales del fichero
@@ -356,11 +359,11 @@ int main(){
 
                                 case 4:
                                     LIMP;
-                                    printf ("Eliminar recordatorios existentes y empezar a crear de nuevo:\n");
+                                    printf (INVERSO"Eliminar recordatorios existentes y empezar a crear de nuevo:\n"RESET);
 
                                     int i;
   /*CREO FICH*/                         int n, v;
-                                        printf ("Cuantos recordatorios desea crear?\n");
+                                        printf (AZUL31"Cuantos recordatorios desea crear?\n");
                                         scanf("%d",&n);
                                         modo='e';
                                         v=escribir_recordatorio(n,modo);            // funcion para crear fichero de recordatorios
@@ -388,7 +391,7 @@ int main(){
 
                         case 3:
                             LIMP;
-                            printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                            printf (AZUL69 "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n " RESET ,162,162,160);
                             int punto;
                             int x1;
                             int y1;
@@ -444,7 +447,7 @@ int main(){
                                              }
 
                                              printf("\n\nPuede continuar usando el ");
-                                             printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                             printf (AZUL69 "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
                                 break;
                                 case 2:
 
@@ -587,7 +590,7 @@ int main(){
 
                         case 4:
                            LIMP;
-                            printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+                            printf (AZUL20"CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n " RESET,160);
                             do{
                             scanf ("%i",&calc);
 
@@ -597,24 +600,24 @@ int main(){
                             switch (calc)
                             {
                                 case 1:
-                                    printf ("Sumar\n");
+                                    printf (AZUL20 INVERSO"Sumar\n"RESET);
 
-                                    printf("Ingrese x: ");
+                                    printf( AZUL20"Ingrese x: " );
                                     scanf("%f", &x);
-                                    printf("Ingrese y: ");
+                                    printf("Ingrese y: " );
                                     scanf("%f", &y);
 
                                     resultado = x + y;
-                                    printf("El resultado es %f\n", resultado);
+                                    printf("El resultado es %f\n"  , resultado);
 
                                     printf("\n\nPuede continuar usando la ");
-                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n"RESET,160);
 
                                 break;
                                 case 2:
-                                    printf ("Restar\n");
+                                    printf (AZUL20 INVERSO"Restar\n"RESET);
 
-                                    printf("Ingrese x: ");
+                                    printf(AZUL20"Ingrese x: ");
                                     scanf("%f", &x);
                                     printf("Ingrese y: ");
                                     scanf("%f", &y);
@@ -623,13 +626,13 @@ int main(){
                                     printf("El resultado es %f\n", resultado);
 
                                     printf("\n\nPuede continuar usando la ");
-                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n" RESET,160);
 
                                 break;
                                 case 3:
-                                    printf ("Multiplicar\n");
+                                    printf (AZUL20 INVERSO"Multiplicar\n"RESET);
 
-                                    printf("Ingrese x: ");
+                                    printf(AZUL20"Ingrese x: ");
                                     scanf("%f", &x);
                                     printf("Ingrese y: ");
                                     scanf("%f", &y);
@@ -638,13 +641,13 @@ int main(){
                                     printf("El resultado es %f\n", resultado);
 
                                     printf("\n\nPuede continuar usando la ");
-                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n"RESET,160);
 
                                 break;
                                 case 4:
-                                    printf ("Dividir\n");
+                                    printf (AZUL20 INVERSO"Dividir\n"RESET);
 
-                                    printf("Ingrese x: ");
+                                    printf(AZUL20"Ingrese x: ");
                                     scanf("%f", &x);
                                     printf("Ingrese y: ");
                                     scanf("%f", &y);
@@ -653,22 +656,22 @@ int main(){
                                     printf("El resultado es %f\n", resultado);
 
                                     printf("\n\nPuede continuar usando la ");
-                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n"RESET,160);
 
                                 break;
                                 case 5:
-                                    printf ("Potencia\n");
+                                    printf (AZUL20 INVERSO"Potencia\n"RESET);
 
-                                    printf("Ingrese base: ");
+                                    printf(AZUL20"Ingrese base: ");
                                     scanf("%f", &x);
-                                    printf("Ingrese exponente: ");
+                                    printf("Ingrese exponente: " );
                                     scanf("%f", &y);
 
                                     resultado = potencia(x, (int) y);
-                                    printf("El resultado es %f\n", resultado);
+                                    printf("El resultado es %f\n" , resultado);
 
-                                    printf("\n\nPuede continuar usando la ");
-                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n",160);
+                                    printf(AZUL20 "\n\nPuede continuar usando la ");
+                                    printf (AZUL20"CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n"RESET,160);
 
                                 break;
                                 case 6:
@@ -676,7 +679,7 @@ int main(){
                                    LIMP;
                                 break;
                                 default:
-                                     printf("Introduzca un n%cmero v%clido\n",163,160);
+                                     printf(AZUL20"Introduzca un n%cmero v%clido\n" RESET,163,160);
                                 break;
 
                             }
@@ -996,4 +999,5 @@ char coincide (char a[])
     printf("\n");
     if(j==0) printf("No hay recordatorios de ese tipo.\n");
 }
+
 
