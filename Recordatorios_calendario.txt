@@ -12,4 +12,3 @@
 25;6;2000;cumple;esme
 23;12;2021;festivo;aaa
 11;2;2022;cumple;lou
-23;5;2021;prueba;fechass

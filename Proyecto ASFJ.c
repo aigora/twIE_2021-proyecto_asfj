@@ -108,8 +108,9 @@ int main(){
                                 case 1:
                                     printf (INVERSO"CRONOMETRO\n"RESET);
                                  //Función de cronómetro
-                                   printf(AZUL24"Pulse dos veces espacio para iniciar y una vez para pausar si es necesario.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,ho,mi,se);
-                                  LIMP;
+                                    LIMP;
+                                    printf(AZUL24"Pulse dos veces espacio para iniciar y una vez para pausar si es necesario.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,ho,mi,se);
+
                                    while (getch()!='t'){
                                     while(!kbhit()){ //la función espera a que se presione una tecla en específico
                                      se++; //paso del tiempo
@@ -142,6 +143,7 @@ int main(){
                                         int i = 0;
                                         int total;
 
+                                        LIMP;
                                         printf("Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
                                         scanf("%i %i %i",&se,&mi,&ho);
                                         total=se + 60*mi + 3600*ho;
@@ -244,7 +246,7 @@ int main(){
                                     eventos[0].fechaRec.m=1+tm->tm_mon;
                                     eventos[0].fechaRec.a=1900+tm->tm_year;
 
-                                    pf=fopen(AZUL31"Recordatorios_calendario.txt","r");
+                                    pf=fopen("Recordatorios_calendario.txt","r");
 
                                     if(pf==NULL)                          //compruebo que se abre bien
                                     {
@@ -333,16 +335,16 @@ int main(){
                                     nu=imprimir_fichero(numerado);  //imprime todos los recordatorios numerados y devuelve el numero de lineas/recordatorios
 
                                     while(1){
-                                        printf("%cQue n%cmero de recordatorio desea editar?\n",168,163);
+                                        printf(AZUL31"%cQue n%cmero de recordatorio desea editar?\n"RESET,168,163);
                                         scanf("%d",&ed);
-                                        if(ed>nu) printf("Ese n%cmero de recordatorio no existe.\n",163);
+                                        if(ed>nu) printf(AZUL31"Ese n%cmero de recordatorio no existe.\n"RESET,163);
                                         else break;
                                     }
 
                                     while(1){
-                                        printf("Pulse f si desea cambiar la fecha o r si desea cambiar el nombre del recordatorio.\n");
+                                        printf(AZUL31"Pulse f si desea cambiar la fecha o r si desea cambiar el nombre del recordatorio.\n"RESET);
                                         scanf(" %c",&editar);
-                                        if(editar!='r'&&editar!='f') printf("Esa letra no es v%clida.\n",160);
+                                        if(editar!='r'&&editar!='f') printf(AZUL31"Esa letra no es v%clida.\n"RESET,160);
                                         else break;
                                     }
 
@@ -350,8 +352,8 @@ int main(){
 
                                     editar_fichero(nu, ed, editar);  //vuelvo a copiar en mi fichero de recordatorios pero haciendo las modificaciones
 
-                                    printf("Ya se ha editado!\nPuede continuar usando el ");
-                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",164,160);
+                                    printf(AZUL31"Ya se ha editado!\nPuede continuar usando el ");
+                                    printf (INVERSO "CALENDARIO:" RESET AZUL31 "\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",164,160);
 
 
 
@@ -829,14 +831,14 @@ int imprimir_fichero(int numeracion){
         printf("Hay %d registrados.\n\n",Nu);
 
     fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
-    LIMP;
+
     printf("RECORDATORIOS:\n");
     if(numeracion==1){
         for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero CON NUMERACION
     {
     fscanf(pf,"%d;%d;%d;%[^;];%s\n",
            &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
-      printf("%d %c %.2d/%.2d/%.2d  %s %s\n",
+      printf("%d %c %.2d/%.2d/%d  %s %s\n",
              j+1,16, eventos[1].fechaRec.d, eventos[1].fechaRec.m, eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
     }
     printf("\n");
@@ -845,7 +847,7 @@ int imprimir_fichero(int numeracion){
         {
         fscanf(pf,"%d;%d;%d;%[^;];%s\n",
                &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
-          printf(" %c %.2d/%.2d/%.2d  %s %s\n",
+          printf(" %c %.2d/%.2d/%d  %s %s\n",
                  16, eventos[1].fechaRec.d, eventos[1].fechaRec.m, eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
         }
         printf("\n");
@@ -886,10 +888,10 @@ void editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas to
 {
 
     int j,nd,nm,na;
-    char nuevoRec[10], nuevoTip[10];
+    char nuevoRec[20], nuevoTip[20];
     FILE *orig, *co;
     int d,m,a;
-    char rec[10], tip[10];
+    char rec[20], tip[20];
     orig = fopen("Recordatorios_copia.txt", "r");
     co = fopen("Recordatorios_calendario.txt", "w");
 
@@ -900,14 +902,14 @@ void editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas to
                 if(edit=='r'){
                     printf("Escriba el nuvo nombre de recordatorio (tipo_de_recordatorio y recordatorio, separados por un espacio):\n");
                     scanf("%s %s",&nuevoTip, &nuevoRec);
-                    fscanf(orig, "%i;%i;%i;%[^;];%s\n",
+                    fscanf(orig, "%i;%i;%i;%s;%s\n",
                         &d, &m, &a, &tip, &rec);
                     fprintf(co,"%i;%i;%i;%s;%s\n",
                          d, m, a, nuevoTip, nuevoRec);
                 }else{
                     printf("Escriba la nueva fecha (d%ca mes a%co, en forma num%crica y separadas por un espacio):\n",161,164,130);
                     scanf("%i %i %i",&nd, &nm, &na);
-                    fscanf(orig, "%d;%d;%d;%[^;];%s\n",
+                    fscanf(orig, "%d;%d;%d;%s;%s\n",
                         &d, &m, &a, &tip, &rec);
                     fprintf(co,"%d;%d;%d;%s;%s\n",
                          nd, nm, na, tip, rec);
@@ -945,7 +947,7 @@ char coincide (char a[])
  {
     LIMP;
     int j=0,d,m,a;
-    char tip[15],rec[15];
+    char tip[20],rec[20];
     char coinc;
     FILE *pf;
     pf=fopen("Recordatorios_calendario.txt","r");
@@ -955,12 +957,13 @@ char coincide (char a[])
         printf("CUMPLEA%cOS:\n",165);
         for(j=0;j<Nu;j++)
         {
-            fscanf(pf,"%d;%d;%d;%s;%s \n",
-               &d, &m, &a, &tip, &rec);
+            fscanf(pf,"%d;%d;%d;%[^;];%s\n",
+                   &d, &m, &a, &tip, &rec);
 
             coinc=coincide (tip);
-            if(coinc=='c'){
-                printf("%c %s  %.2d/%.2d/%.2d\n",
+            if(coinc=='c')
+            {
+                printf(" %c %s: %.2d/%.2d/%d \n",
                      16, rec, d, m, a);
                 j++;
             }
@@ -970,12 +973,13 @@ char coincide (char a[])
         printf("EXAMENES:\n");
         for(j=0;j<Nu;j++)
         {
-            fscanf(pf,"%d;%d;%d;%s;%s \n",
-               &d, &m, &a, &tip, &rec);
+            fscanf(pf,"%d;%d;%d;%[^;];%s\n",
+                   &d, &m, &a, &tip, &rec);
 
             coinc=coincide (tip);
-            if(coinc=='e'){
-                printf("%c %s  %.2d/%.2d/%.2d\n",
+            if(coinc=='e')
+            {
+                printf(" %c %s: %.2d/%.2d/%d \n",
                      16, rec, d, m, a);
                 j++;
             }
@@ -985,13 +989,14 @@ char coincide (char a[])
         printf("FESTIVOS:\n");
         for(j=0;j<Nu;j++)
         {
-            fscanf(pf,"%d;%d;%d;%s;%s \n",
-               &d, &m, &a, &tip, &rec);
+            fscanf(pf,"%d;%d;%d;%[^;];%s\n",
+                   &d, &m, &a, &tip, &rec);
 
             coinc=coincide (tip);
-            if(coinc=='f'){
-                printf("%c %s  %.2d/%.2d/%.2d\n",
-                    16, rec, d, m, a);
+            if(coinc=='f')
+            {
+                printf(" %c %s: %.2d/%.2d/%d \n",
+                     16, rec, d, m, a);
                 j++;
             }
         }
