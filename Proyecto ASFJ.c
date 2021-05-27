@@ -14,7 +14,7 @@
 #define ROJO "\x1b[38;5;160m"
 #define AZUL24 "\x1b[38;5;24m"
 #define AZUL69 "\x1b[38;5;69m"
-#define AZUL20 "\x1b[38;5;20m"
+#define AZUL20 "\x1b[38;5;26m"
 #define AZUL45 "\x1b[38;5;45m"
 
 #define  FAZUL "\x1b[44m"
@@ -44,7 +44,7 @@ typedef struct
     fecha fechaRec;
 }evento;
 
-
+void menus (int menu);
 float potencia(float base, int exponente);
 int escribir_recordatorio (int n,char modo);
 void printEvento(evento x);
@@ -100,16 +100,16 @@ int main(){
                         case 1:
 
                             LIMP;
-                            printf (AZUL24 INVERSO "TEMPORIZADORES:\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs""\n",162,160,160);
+                            menus (menu);
                             do {
                             scanf ("%i",&tempo);
                             switch (tempo)
                             {
-                                case 1:
-                                    printf (INVERSO"CRONOMETRO\n"RESET);
-                                 //Función de cronómetro
+                                case 1: //Función de cronómetro
                                     LIMP;
-                                    printf(AZUL24"Pulse dos veces espacio para iniciar y una vez para pausar si es necesario.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,ho,mi,se);
+
+                                    printf (AZUL24 INVERSO"Cron%cmetro\n"RESET,162);
+                                    printf(AZUL24 "Pulse una vez el espacio para iniciar, otra vez para pausar si es necesario y dos veces para continuar us%cndolo.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,162,ho,mi,se);
 
                                    while (getch()!='t'){
                                     while(!kbhit()){ //la función espera a que se presione una tecla en específico
@@ -123,7 +123,10 @@ int main(){
                                        }
                                       }
                                      LIMP;
-                                     printf(AZUL24"[%.2i:%.2i:%.2i]"RESET,ho, mi, se);
+                                     printf (AZUL24 INVERSO"Cron%cmetro\n"RESET,162);
+                                     printf(AZUL24 "Pulse una vez el espacio para pausar si es necesario y dos veces para continuar us%cndolo.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,162,ho,mi,se);
+
+                                     //printf(AZUL24"[%.2i:%.2i:%.2i]"RESET,ho, mi, se);
                                      Sleep(1000); //Un segundo de refresco
                                      }
                                      char pausa=getch();
@@ -133,18 +136,19 @@ int main(){
                                    }
 
                                 LIMP;
-                                printf("\n\nPuede continuar usando los ");
-                                printf (AZUL31 INVERSO "TEMPORIZADORES:\n" RESET AZUL31 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs" RESET "\n",162,160,160);
+                                printf(SUBRAYADO ITALIC "\n\nPuede continuar usando los "RESET);
+                                menus (menu);
 
                                 break;
 
                                 case 2:
-                                    printf ("Cuenta atr%cs\n",160);
+                                        LIMP;
+
                                         int i = 0;
                                         int total;
 
-                                        LIMP;
-                                        printf("Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
+                                        printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
+                                        printf(AZUL24 "Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
                                         scanf("%i %i %i",&se,&mi,&ho);
                                         total=se + 60*mi + 3600*ho;
 
@@ -158,8 +162,9 @@ int main(){
                                             Sleep(1000);
                                             //printf("%i\n", i+1);
 
-                                           LIMP;
-                                                printf("\n\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
+                                            LIMP;
+                                            printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
+                                            printf(AZUL24 "\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
 
 
 
@@ -193,19 +198,18 @@ int main(){
                                             }
                                         }
 
-                                printf("\n\nPuede continuar usando los ");
-                                printf (AZUL31 INVERSO "TEMPORIZADORES:\n" RESET AZUL31 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs" RESET "\n",162,160,160);
-
+                                printf(SUBRAYADO ITALIC "\n\nPuede continuar usando los " RESET);
+                                menus (menu);
 
 
                                 break;
                                 case 3:
-                                    printf ("Ciclos de tiempo\n");
+                                    printf (AZUL24 INVERSO "Ciclos de tiempo\n" RESET );
 
+//CICLOS DE TIEMPO
 
-
-                                    printf("\n\nPuede continuar usando los ");
-                                    printf (AZUL31 INVERSO "TEMPORIZADORES:\n" RESET AZUL31 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs" RESET "\n",162,160,160);
+                                    printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
+                                    menus (menu);
                                 break;
                                 case 4:
                                     a=1;
@@ -223,9 +227,9 @@ int main(){
                         break;
 
 
-                        case 2:
+                        case 2: // CALENDARIO
                             LIMP;
-                            printf (AZUL31 INVERSO"CALENDARIO:\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" ,164,160);
+                            menus (menu);
                             do{
 
                             scanf ("%i",&calen);
@@ -234,7 +238,7 @@ int main(){
 
                                 case 1:
                                     LIMP;
-                                    printf (INVERSO"Ver recordatorios:\n"RESET);
+                                    printf (AZUL31 INVERSO"Ver recordatorios\n"RESET);
 
                                     int j,iComp,Nu=0,ev=0;  // Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
                                     int noNumerado=0;
@@ -250,7 +254,7 @@ int main(){
 
                                     if(pf==NULL)                          //compruebo que se abre bien
                                     {
-                                        printf("Error al abrir el fichero.");
+                                        printf(AZUL31 "Error al abrir el fichero."RESET);
                                         return -1;
                                     }else
                                     {
@@ -258,7 +262,7 @@ int main(){
                                         while (fscanf(pf,"%c",&c)!=EOF)  //cuento numero de lineas (cada linea un recordatorio)
                                             if(c=='\n') Nu++;
 
-                                        printf("Hay %d registrados.\n\n",Nu);
+                                        printf(AZUL31 "\nHay %d registrados.\n\n",Nu);
 
                                         fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
 
@@ -287,7 +291,7 @@ int main(){
                                         fclose(pf);
 
 
-                                        printf("\nPulse:\n'c' para ver las fechas en las que hay cumplea%cos\n'e' para ver las fechas de examenes\n'f' para festivos\n'r' para ver todos los recordatorios\nCualquier otra letra para volver atr%cs.\n\n",164,160);
+                                        printf("\nPulse:\n'c' para ver las fechas en las que hay cumplea%cos\n'e' para ver las fechas de examenes\n'f' para ver los festivos\n'r' para ver todos los recordatorios\nCualquier otra letra para volver atr%cs.\n\n",164,160);
                                         scanf(" %c",&opcion);
 
                                         if(opcion=='r'||opcion=='R')
@@ -298,14 +302,16 @@ int main(){
 
                                     }
 
-                                    printf("Puede continuar usando el ");
-                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n",164,160);
+
+                                    printf(SUBRAYADO ITALIC AZUL31"Puede continuar usando el "RESET);
+                                    menus (menu);
 
                                 break;
 
 
                                 case 2:
-                                    printf (INVERSO"A%cadir recordatorio\n"RESET,164);
+                                    LIMP;
+                                    printf (AZUL31 INVERSO"A%cadir recordatorio\n"RESET,164);
 
                                     printf (AZUL31"Cuantos recordatorios desea a%cadir?\n",164);
                                     scanf("%d",&n);
@@ -316,9 +322,8 @@ int main(){
                                     else{
 
                                     LIMP;
-                                    printf("Ya se han a%cadido!\nPuede continuar usando el ",164);
-                                    printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",164,160);
-
+                                    printf("Ya se han a%cadido!\n" SUBRAYADO ITALIC "Puede continuar usando el " RESET,164);
+                                    menus (menu);
 
                                    // return v;    //v ser� -1 o 0 segun lo que devuelva la funcion (-1 cuando no se abre el fichero)
 
@@ -327,7 +332,8 @@ int main(){
                                     }
 
                                 case 3:
-                                    printf (INVERSO"Editar recordatorio existente\n"RESET);
+                                    LIMP;
+                                    printf (INVERSO AZUL31 "Editar recordatorio existente\n"RESET);
 
                                     char editar;  //variable para saber si editar la fecha o el recordatorio
                                     int numerado=1,ed,nu;  //ed es el numero de linea que se editara; nu es el numero de lineas totales del fichero
@@ -352,16 +358,16 @@ int main(){
 
                                     editar_fichero(nu, ed, editar);  //vuelvo a copiar en mi fichero de recordatorios pero haciendo las modificaciones
 
-                                    printf(AZUL31"Ya se ha editado!\nPuede continuar usando el ");
-                                    printf (INVERSO "CALENDARIO:" RESET AZUL31 "\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",164,160);
-
+                                    LIMP;
+                                    printf(AZUL31"Ya se ha editado!\n" SUBRAYADO ITALIC "Puede continuar usando el "RESET);
+                                    menus (menu);
 
 
                                 break;
 
                                 case 4:
                                     LIMP;
-                                    printf (INVERSO"Eliminar recordatorios existentes y empezar a crear de nuevo:\n"RESET);
+                                    printf (AZUL31 INVERSO"Eliminar recordatorios existentes y empezar a crear de nuevo\n"RESET);
 
                                     int i;
   /*CREO FICH*/                         int n, v;
@@ -373,8 +379,8 @@ int main(){
                                         if(v==-1) break;
                                         else{
                                         LIMP;
-                                        printf("Ya se han creado!\nPuede continuar usando el ");
-                                        printf ("CALENDARIO:\n1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo.\n5-.Atr%cs\n",164,160);
+                                        printf(AZUL31"Ya se han creado!\n" SUBRAYADO ITALIC "Puede continuar usando el " RESET);
+                                        menus (menu);
                                         break;
                                         }
 
@@ -383,7 +389,7 @@ int main(){
                                     LIMP;
                                 break;
                                 default:
-                                     printf("Introduzca un n%cmero v%clido\n",163,160);
+                                     printf( AZUL31 "Introduzca un n%cmero v%clido\n"RESET,163,160);
                                 break;
                             }
                             }
@@ -393,7 +399,7 @@ int main(){
 
                         case 3:
                             LIMP;
-                            printf (AZUL69 "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n " RESET ,162,162,160);
+                            menus (menu);
                             int punto;
                             int x1;
                             int y1;
@@ -419,14 +425,15 @@ int main(){
                             switch (gp)
                             {
                                 case 1:
-                                    printf ("Radar covid\n");
+                                    LIMP;
+                                    printf (AZUL69 INVERSO "Radar covid\n"RESET);
 
                                         srand(time(NULL));
                                         for(i=0;i<N;i++){
                                             printf("\n");        //Representa gráficamente.
                                                 for(j=0;j<N;j++)
                                                     if(j==x&&i==y)
-                                                        printf(NEGRITA "X " RESET);
+                                                        printf(NEGRITA AZUL69 "X " RESET);
                                                     else if (i==px&&j==py)
                                                         printf(ROJO INVERSO"P "RESET);
                                                     else if (i==p1x&&j==p1y)
@@ -443,22 +450,24 @@ int main(){
                                              {
                                                if((px<27&&py<27)||(p1x<27&&p1y<27)||(p2x<27&&p2y<27)||(p3x<27&&p3y<27)) //Avisa al usuario de peligro en caso de encontrarse cerca de un paciente.
                                              {
-                                                printf("Tiene un paciente de covid peligrosamente cerca, al%cjese de ahí.\n",130);
+                                                printf(AZUL69"Tiene un paciente de covid peligrosamente cerca, al%cjese de ahí.\n",130);
                                              }
-                                             else{printf("Est%c en zona segura\n",160);}
+                                             else{printf(AZUL69"Est%c en zona segura\n",160);}
                                              }
 
-                                             printf("\n\nPuede continuar usando el ");
-                                             printf (AZUL69 "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                             printf(SUBRAYADO ITALIC "\n\nPuede continuar usando el "RESET );
+                                             menus (menu);
                                 break;
                                 case 2:
 
-                                    printf ("Direcci%cn\n",162);
-                                    printf("1 para casa, 2 para universidad, 3 para punto concreto, 4 para ir atr%cs\n",160);
+                                    LIMP;
+                                    printf (AZUL69 INVERSO "Direcci%cn\n"RESET,162);
+                                    printf(AZUL69 "1 para casa, 2 para universidad, 3 para punto concreto, 4 para ir atr%cs\n"RESET,160);
                                     scanf("%i",&punto);
                                     switch (punto)
                                     {
                                     case 1:
+                                        printf(AZUL69);
                                         if(c1<x && c2<y)
                                             printf("Arriba izquierda");
                                         else if(c1>x && c2>y)
@@ -477,11 +486,12 @@ int main(){
                                             printf("Derecha");
                                         else
                                             printf(".");
-                                        printf("\n\nPuede continuar usando el ");
-                                        printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                        printf(SUBRAYADO ITALIC "\n\nPuede continuar usando el "RESET);
+                                        menus (menu);
                                     break;
 
                                     case 2:
+                                        printf(AZUL69);
                                         if(u1<x && u2<y)
                                             printf("Arriba izquierda");
                                         else if(u1>x && u2>y)
@@ -500,18 +510,19 @@ int main(){
                                             printf("Derecha");
                                         else
                                             printf(".");
-                                        printf("\n\nPuede continuar usando el ");
-                                        printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                        printf(SUBRAYADO ITALIC "\n\nPuede continuar usando el ");
+                                        menus (menu);
                                     break;
 
                                     case 3:
-                                        printf ("Escriba las coordenadas x e y de punto que quiera.\n");
-                                        printf("x:\n");
+                                        printf (AZUL69"Escriba las coordenadas x e y de punto que quiera.\n");
+                                        printf("x:\n"RESET);
                                         scanf("%i",&x1);
-                                        printf("\ny:\n");
+                                        printf(AZUL69"\ny:\n"RESET);
                                         scanf("%i",&y1);
                                         printf("\n");
 
+                                        printf(AZUL69);
                                         if(x1<x && y1<y)
                                             printf("Arriba izquierda");
                                         else if(x1>x && y1>y)
@@ -530,24 +541,24 @@ int main(){
                                             printf("Derecha");
                                         else
                                             printf(".");
-                                        printf("\n\nPuede continuar usando el ");
-                                        printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                        printf(SUBRAYADO ITALIC "\n\nPuede continuar usando el "RESET);
+                                        menus (menu);
                                     break;
 
                                     case 4:
-                                        printf("\n\nPuede continuar usando el ");
-                                        printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                        printf(SUBRAYADO ITALIC "\n\nPuede continuar usando el "RESET);
+                                        menus (menu);
                                     break;
 
                                     default:
                                         printf("Introduzca un n%cmero v%clido\n",163,160);
                                         break;
-                                    printf("\n\nPuede continuar usando el ");
-                                    printf (CIAN "GPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                    printf(SUBRAYADO ITALIC "\n\nPuede continuar usando el "RESET);
+                                    menus (menu);
                                     }
                                 break;
                                 case 3:
-                                    printf ("Localizaci%cn\n",162);
+                                    printf (AZUL69 INVERSO "Localizaci%cn\n"RESET,162);
 
 
                                         srand(time(NULL));
@@ -557,23 +568,23 @@ int main(){
                                                     if(j==x&&i==y)
                                                         printf(NEGRITA"X "RESET);
                                                     else if (i==c1&&j==c2)
-                                                        printf(NEGRITA"C "RESET);
+                                                        printf(AZUL69 NEGRITA"C "RESET);
                                                     else if (i==u1&&j==u2)
-                                                        printf(NEGRITA"U "RESET);
+                                                        printf(AZUL69 NEGRITA"U "RESET);
                                                     else
                                                         printf(". ");
                                             }
 
-                                        printf(CIAN "\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i." RESET,x-25,y-25,c1-25,c2-25,u1-25,u2-25); //Imprime coordenadas
+                                        printf(AZUL69 "\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i." RESET,x-25,y-25,c1-25,c2-25,u1-25,u2-25); //Imprime coordenadas
 
                                         if(x==c1&&y==c2)
-                                            printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
+                                            printf(AZUL69"\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
                                         else if(x==u1&&y==u2)
-                                            printf("\nHa llegado a su universidad.");
+                                            printf(AZUL69"\nHa llegado a su universidad.");
 
 
-                                    printf("\n\nPuede continuar usando el ");
-                                    printf (CIAN "\n\nGPS\n1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET,162,162,160);
+                                    printf(AZUL69 SUBRAYADO ITALIC "\n\nPuede continuar usando el "RESET);
+                                    menus (menu);
                                 break;
 
                                 case 4:
@@ -581,7 +592,7 @@ int main(){
                                     LIMP;
                                 break;
                                 default:
-                                     printf("Introduzca un n%cmero v%clido\n",163,160);
+                                     printf(AZUL69"Introduzca un n%cmero v%clido\n"RESET,163,160);
                                 break;
 
                             }
@@ -591,8 +602,8 @@ int main(){
 
 
                         case 4:
-                           LIMP;
-                            printf (AZUL20"CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n " RESET,160);
+                            LIMP;
+                            menus (menu);
                             do{
                             scanf ("%i",&calc);
 
@@ -602,6 +613,7 @@ int main(){
                             switch (calc)
                             {
                                 case 1:
+                                    LIMP;
                                     printf (AZUL20 INVERSO"Sumar\n"RESET);
 
                                     printf( AZUL20"Ingrese x: " );
@@ -612,11 +624,12 @@ int main(){
                                     resultado = x + y;
                                     printf("El resultado es %f\n"  , resultado);
 
-                                    printf("\n\nPuede continuar usando la ");
-                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n"RESET,160);
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
 
                                 break;
                                 case 2:
+                                    LIMP;
                                     printf (AZUL20 INVERSO"Restar\n"RESET);
 
                                     printf(AZUL20"Ingrese x: ");
@@ -627,11 +640,12 @@ int main(){
                                     resultado = x - y;
                                     printf("El resultado es %f\n", resultado);
 
-                                    printf("\n\nPuede continuar usando la ");
-                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n" RESET,160);
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
 
                                 break;
                                 case 3:
+                                    LIMP;
                                     printf (AZUL20 INVERSO"Multiplicar\n"RESET);
 
                                     printf(AZUL20"Ingrese x: ");
@@ -642,11 +656,12 @@ int main(){
                                     resultado = x * y;
                                     printf("El resultado es %f\n", resultado);
 
-                                    printf("\n\nPuede continuar usando la ");
-                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n"RESET,160);
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
 
                                 break;
                                 case 4:
+                                    LIMP;
                                     printf (AZUL20 INVERSO"Dividir\n"RESET);
 
                                     printf(AZUL20"Ingrese x: ");
@@ -657,11 +672,12 @@ int main(){
                                     resultado = x / y;
                                     printf("El resultado es %f\n", resultado);
 
-                                    printf("\n\nPuede continuar usando la ");
-                                    printf ("CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n"RESET,160);
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
 
                                 break;
                                 case 5:
+                                    LIMP;
                                     printf (AZUL20 INVERSO"Potencia\n"RESET);
 
                                     printf(AZUL20"Ingrese base: ");
@@ -672,13 +688,13 @@ int main(){
                                     resultado = potencia(x, (int) y);
                                     printf("El resultado es %f\n" , resultado);
 
-                                    printf(AZUL20 "\n\nPuede continuar usando la ");
-                                    printf (AZUL20"CALCULADORA:\n1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n"RESET,160);
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
 
                                 break;
                                 case 6:
                                     a=1;
-                                   LIMP;
+                                    LIMP;
                                 break;
                                 default:
                                      printf(AZUL20"Introduzca un n%cmero v%clido\n" RESET,163,160);
@@ -694,12 +710,12 @@ int main(){
                         case 5:
                             LIMP;
                             b=1;
-                            printf ("Hasta luego!\n");
+                            printf (CIAN "Hasta luego!\n"RESET);
                         break;
 
 
                         default:
-                            printf("Introduzca un n%cmero v%clido\n",163,160);
+                            printf(CIAN "Introduzca un n%cmero v%clido\n"RESET,163,160);
                         break;
                             }
                     }
@@ -717,6 +733,15 @@ return 0;
 
 }
 
+
+void menus (int menu)
+{
+    if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs""\n",162,160,160);
+    else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" ,164,160);
+    else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET ,162,162,160);
+    else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n" RESET,160);
+
+}
 
 //Función de potencia para la calculadora
 
@@ -768,7 +793,7 @@ int escribir_recordatorio (int n, char modo)
 
 void printEvento(evento x)
 {
-  printf("(%i/%i/%i):\t",
+  printf("(%i/%i/%i):\t"RESET,
 	 x.fechaRec.d,
 	 x.fechaRec.m,
 	 x.fechaRec.a);
@@ -828,17 +853,17 @@ int imprimir_fichero(int numeracion){
         while (fscanf(pf,"%c",&c)!=EOF)  //cuento numero de lineas (cada linea un recordatorio)
             if(c=='\n') Nu++;
 
-        printf("Hay %d registrados.\n\n",Nu);
+        printf(AZUL31 "Hay %d registrados.\n\n",Nu);
 
     fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
 
-    printf("RECORDATORIOS:\n");
+    printf("RECORDATORIOS:\n"RESET);
     if(numeracion==1){
         for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero CON NUMERACION
     {
     fscanf(pf,"%d;%d;%d;%[^;];%s\n",
            &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
-      printf("%d %c %.2d/%.2d/%d  %s %s\n",
+      printf(AZUL31"%.2d %c"RESET" %.2d/%.2d/%d  %s %s\n",
              j+1,16, eventos[1].fechaRec.d, eventos[1].fechaRec.m, eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
     }
     printf("\n");
@@ -847,7 +872,7 @@ int imprimir_fichero(int numeracion){
         {
         fscanf(pf,"%d;%d;%d;%[^;];%s\n",
                &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
-          printf(" %c %.2d/%.2d/%d  %s %s\n",
+          printf(AZUL31" %c "RESET"%.2d/%.2d/%d  %s %s\n",
                  16, eventos[1].fechaRec.d, eventos[1].fechaRec.m, eventos[1].fechaRec.a, eventos[1].tipo, eventos[1].recordatorio);
         }
         printf("\n");
@@ -900,14 +925,14 @@ void editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas to
     {
         if(j==ed){
                 if(edit=='r'){
-                    printf("Escriba el nuvo nombre de recordatorio (tipo_de_recordatorio y recordatorio, separados por un espacio):\n");
+                    printf(AZUL31"Escriba el nuvo nombre de recordatorio (tipo_de_recordatorio y recordatorio, separados por un espacio):\n"RESET);
                     scanf("%s %s",&nuevoTip, &nuevoRec);
                     fscanf(orig, "%i;%i;%i;%s;%s\n",
                         &d, &m, &a, &tip, &rec);
                     fprintf(co,"%i;%i;%i;%s;%s\n",
                          d, m, a, nuevoTip, nuevoRec);
                 }else{
-                    printf("Escriba la nueva fecha (d%ca mes a%co, en forma num%crica y separadas por un espacio):\n",161,164,130);
+                    printf(AZUL31"Escriba la nueva fecha (d%ca mes a%co, en forma num%crica y separadas por un espacio):\n"RESET,161,164,130);
                     scanf("%i %i %i",&nd, &nm, &na);
                     fscanf(orig, "%d;%d;%d;%s;%s\n",
                         &d, &m, &a, &tip, &rec);
@@ -922,7 +947,6 @@ void editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas to
                 d, m, a, tip, rec);
         }
 
-    printf("\n");
     }
 
     fclose(orig); // Cierro ficheros
@@ -954,7 +978,7 @@ char coincide (char a[])
 
     if(c=='c'||c=='C')
     {
-        printf("CUMPLEA%cOS:\n",165);
+        printf(AZUL31 "CUMPLEA%cOS:\n",165);
         for(j=0;j<Nu;j++)
         {
             fscanf(pf,"%d;%d;%d;%[^;];%s\n",
@@ -963,7 +987,7 @@ char coincide (char a[])
             coinc=coincide (tip);
             if(coinc=='c')
             {
-                printf(" %c %s: %.2d/%.2d/%d \n",
+                printf(AZUL31" %c "RESET"%s: %.2d/%.2d/%d \n",
                      16, rec, d, m, a);
                 j++;
             }
@@ -979,7 +1003,7 @@ char coincide (char a[])
             coinc=coincide (tip);
             if(coinc=='e')
             {
-                printf(" %c %s: %.2d/%.2d/%d \n",
+                printf(AZUL31" %c "RESET"%s: %.2d/%.2d/%d \n",
                      16, rec, d, m, a);
                 j++;
             }
@@ -995,14 +1019,14 @@ char coincide (char a[])
             coinc=coincide (tip);
             if(coinc=='f')
             {
-                printf(" %c %s: %.2d/%.2d/%d \n",
+                printf(AZUL31" %c "RESET"%s: %.2d/%.2d/%d \n",
                      16, rec, d, m, a);
                 j++;
             }
         }
     }else j++;
     printf("\n");
-    if(j==0) printf("No hay recordatorios de ese tipo.\n");
+    if(j==0) printf(AZUL31"No hay recordatorios de ese tipo.\n"RESET); // En caso de que se haya pedido mostrar las fechas de uno de los tipos pero no haya ninguna de ese.
 }
 
 
