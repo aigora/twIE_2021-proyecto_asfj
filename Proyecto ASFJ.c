@@ -57,6 +57,8 @@ void copio_fichero();
 void editar_fichero(int nu, int ed, char edit);
 char coincide (char a[]);
 void delay(int numero_segundos);
+void cuenta_atras (int se, int mi, int ho, int aa);
+void modo_cuenta_atras (int aa);
 
 int main(){
 
@@ -103,6 +105,7 @@ int main(){
                             LIMP;
                             menus (menu);
                             do {
+                            printf(RESET);
                             scanf ("%i",&tempo);
                             switch (tempo)
                             {
@@ -145,7 +148,7 @@ int main(){
                                 case 2:
                                         LIMP;
 
-                                        int i = 0;
+                                        int i = 0,aa=2;
                                         int total;
 
                                         printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
@@ -159,143 +162,39 @@ int main(){
 
                                         printf("El programa terminara %i en segundos.\n", total);
 
-                                        for(i=0; i<=total; i++){
-                                            delay(1);
-                                            //printf("%i\n", i+1);
+                                        cuenta_atras(se, mi, ho, aa);  //saca por pantalla la cuenta atras hasta llegar al 00:00:00
 
-                                            LIMP;
-                                            printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
-                                            printf(AZUL24 "\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
-
-
-
-                                            if(ho==0){
-                                                if(mi==0){
-                                                    if(se==0){
-                                                    }
-                                                    else se--;
-                                                }else{
-                                                    if(se==0){
-                                                        se=59;
-                                                        mi--;
-                                                    }else se--;
-                                                }
-                                            }else{
-                                                if(mi==0){
-                                                    if(se==0){
-                                                        se=59;
-                                                        mi=59;
-                                                        ho--;
-                                                    }else se--;
-                                                }else{
-                                                    if(se==0){
-                                                        se=59;
-                                                        mi--;
-                                                        ho--;
-                                                    }else se--;
-                                                }
-                                                }
-
-                                            }
                                         }
 
-                                printf(SUBRAYADO ITALIC "\n\nPuede continuar usando los " RESET);
+                                printf(AZUL24"\n\nFinaliz%c la cuenta atr%cs!",162,160);
+                                printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los " RESET);
                                 menus (menu);
 
 
                                 break;
-                                case 3:
+                                case 3://CICLOS DE TIEMPO
+
                                     printf (AZUL24 INVERSO "Ciclos de tiempo\n" RESET );
 
-//CICLOS DE TIEMPO                      int se=0,mi=0,ho=0, total, i;
-  printf("Va a empezar el metodo pomodoro\n");
-  printf("Va a empezar el tiempo de estudio\n");
-  mi=25;
-  total=se + 60*mi + 3600*ho;
 
-  if(se<0||mi<0||ho<0)
+                                    printf(AZUL24"Va a empezar el metodo pomodoro\n");
+                                    printf("Comienza el tiempo de estudio\n" RESET);
+                                    mi=25;
+                                    se=0;
+                                    ho=0;
+                                    aa=3;
 
+                                    delay(2);
 
-        printf("El programa terminara %i en segundos.\n", total);
+                                    cuenta_atras(se, mi, ho, aa);
 
-        for(i=0; i<=total; i++){
-        delay(1);
+                                    printf("Va a empezar el tiempo de descanso\n");
+                                    mi=5;
+                                    se=0;
+                                    ho=0;
+                                    aa=4;
 
-
-        printf ("Toca estudiar\n");
-        printf( "\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
-
-
-                                            if(ho==0){
-                                                if(mi==0){
-                                                    if(se==0){
-                                                    }
-                                                    else se--;
-                                                }else{
-                                                    if(se==0){
-                                                        se=59;
-                                                        mi--;
-                                                    }else se--;
-                                                }
-                                            }else{
-                                                if(mi==0){
-                                                    if(se==0){
-                                                        se=59;
-                                                        mi=59;
-                                                        ho--;
-                                                    }else se--;
-                                                }else{
-                                                    if(se==0){
-                                                        se=59;
-                                                        mi--;
-                                                        ho--;
-                                                    }else se--;
-                                                }
-                                                }
-
-                                            }
- if(se==0){
-             printf("Va a empezar el tiempo de descanso\n");
-             mi=5;
-             total=se + 60*mi + 3600*ho;
-             if(se<0||mi<0||ho<0)
-
-
-            printf("El programa terminara %i en segundos.\n", total);
-
-            for(i=0; i<=total; i++){
-            delay(1);
-            printf ("Toca descansar\n");
-            printf( "\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
-            if(ho==0){
-                                                if(mi==0){
-                                                    if(se==0){
-                                                    }
-                                                    else se--;
-                                                }else{
-                                                    if(se==0){
-                                                        se=59;
-                                                        mi--;
-                                                    }else se--;
-                                                }
-                                            }else{
-                                                if(mi==0){
-                                                    if(se==0){
-                                                        se=59;
-                                                        mi=59;
-                                                        ho--;
-                                                    }else se--;
-                                                }else{
-                                                    if(se==0){
-                                                        se=59;
-                                                        mi--;
-                                                        ho--;
-                                                    }else se--;
-                                                }
-                                                }
-
-        }
-        }
+                                    cuenta_atras(se, mi, ho, aa);
 
 
                                     printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
@@ -1125,4 +1024,56 @@ void delay(int numero_segundos)
     int milli_seconds = 1000 * numero_segundos;
     clock_t start_time = clock();
     while (clock() < start_time + milli_seconds);
+}
+
+void cuenta_atras(int se, int mi, int ho, int aa)
+{
+    int total,i;
+    total=se + 60*mi + 3600*ho;
+    for(i=0; i<=total; i++)
+    {
+        delay(1);
+        LIMP;
+        modo_cuenta_atras (aa);
+        printf(AZUL24 "\n\t\t\t[ "RESET"%.2d:%.2d:%.2d "AZUL24"]", ho, mi, se);
+
+
+        if(ho==0){
+            if(mi==0){
+                if(se==0){
+                }
+                else se--;
+            }else{
+                if(se==0){
+                    se=59;
+                    mi--;
+                }else se--;
+            }
+        }else{
+            if(mi==0){
+                if(se==0){
+                    se=59;
+                    mi=59;
+                    ho--;
+                }else se--;
+            }else{
+                if(se==0){
+                    se=59;
+                    mi--;
+                    ho--;
+                }else se--;
+            }
+            }
+
+    }
+
+
+}
+
+void modo_cuenta_atras (int aa)
+{
+    if(aa==2) printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
+    else if (aa==3) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca estudiar\n",130);
+    else if (aa==4) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca descanso\n",130);
+
 }
