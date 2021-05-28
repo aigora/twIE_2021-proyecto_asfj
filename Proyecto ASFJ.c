@@ -174,27 +174,35 @@ int main(){
                                 break;
                                 case 3://CICLOS DE TIEMPO
 
+                                    LIMP;
                                     printf (AZUL24 INVERSO "Ciclos de tiempo\n" RESET );
 
+                                    int ciclos;
+                                    printf(AZUL24"%cCu%cntos ciclos de estudio desea hacer?\n"RESET ,168,160);
+                                    scanf("%i",&ciclos);
 
                                     printf(AZUL24"Va a empezar el metodo pomodoro\n");
-                                    printf("Comienza el tiempo de estudio\n" RESET);
-                                    mi=25;
-                                    se=0;
-                                    ho=0;
-                                    aa=3;
+                                    printf("Comienzan los %i ciclos de estudio\n" RESET, ciclos);
 
                                     delay(2);
+                                    for(i=0;i<ciclos;i++)
+                                    {
+                                        mi=25;
+                                        se=0;
+                                        ho=0;
+                                        aa=3;
 
-                                    cuenta_atras(se, mi, ho, aa);
+                                        cuenta_atras(se, mi, ho, aa);
 
-                                    printf("Va a empezar el tiempo de descanso\n");
-                                    mi=5;
-                                    se=0;
-                                    ho=0;
-                                    aa=4;
+                                        printf("Va a empezar el tiempo de descanso\n");
+                                        mi=5;
+                                        se=0;
+                                        ho=0;
+                                        aa=4;
 
-                                    cuenta_atras(se, mi, ho, aa);
+                                        cuenta_atras(se, mi, ho, aa);
+                                    }
+
 
 
                                     printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
