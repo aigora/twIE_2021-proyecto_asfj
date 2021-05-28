@@ -300,7 +300,7 @@ int main(){
                                     }
 
 
-                                    LIMP;
+                                    //LIMP;
                                     printf(SUBRAYADO ITALIC AZUL31"Puede continuar usando el "RESET);
                                     menus (menu);
 
@@ -855,8 +855,9 @@ int imprimir_fichero(int numeracion){
 
     fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
 
-    printf("RECORDATORIOS:\n"RESET);
+
     if(numeracion==1){
+        printf("RECORDATORIOS:\n"RESET);
         for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero CON NUMERACION
     {
     fscanf(pf,"%d;%d;%d;%[^;];%s\n",
@@ -866,6 +867,8 @@ int imprimir_fichero(int numeracion){
     }
     printf("\n");
     }else{
+        LIMP;
+        printf("RECORDATORIOS:\n"RESET);
         for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero SIN NUMERACION
         {
         fscanf(pf,"%d;%d;%d;%[^;];%s\n",
