@@ -666,7 +666,7 @@ int main(){
                                                         printf(". ");
                                             }
 
-                                        printf(AZUL69 "\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i." RESET,x-25,y-25,c1-25,c2-25,u1-25,u2-25); //Imprime coordenadas
+                                        printf(AZUL69 "\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i." RESET,x-25,y-25,-(c1-25),c2-25,-(u1-25),u2-25); //Imprime coordenadas
 
                                         if(x==c1&&y==c2)
                                             printf(AZUL69"\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
