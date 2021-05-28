@@ -206,7 +206,96 @@ int main(){
                                 case 3:
                                     printf (AZUL24 INVERSO "Ciclos de tiempo\n" RESET );
 
-//CICLOS DE TIEMPO
+//CICLOS DE TIEMPO                      int se=0,mi=0,ho=0, total, i;
+  printf("Va a empezar el metodo pomodoro\n");
+  printf("Va a empezar el tiempo de estudio\n");
+  mi=25;
+  total=se + 60*mi + 3600*ho;
+
+  if(se<0||mi<0||ho<0)
+
+
+        printf("El programa terminara %i en segundos.\n", total);
+
+        for(i=0; i<=total; i++){
+        Sleep(1000);
+
+
+        printf ("Toca estudiar\n");
+        printf( "\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
+
+
+                                            if(ho==0){
+                                                if(mi==0){
+                                                    if(se==0){
+                                                    }
+                                                    else se--;
+                                                }else{
+                                                    if(se==0){
+                                                        se=59;
+                                                        mi--;
+                                                    }else se--;
+                                                }
+                                            }else{
+                                                if(mi==0){
+                                                    if(se==0){
+                                                        se=59;
+                                                        mi=59;
+                                                        ho--;
+                                                    }else se--;
+                                                }else{
+                                                    if(se==0){
+                                                        se=59;
+                                                        mi--;
+                                                        ho--;
+                                                    }else se--;
+                                                }
+                                                }
+
+                                            }
+ if(se==0){
+             printf("Va a empezar el tiempo de descanso\n");
+             mi=5;
+             total=se + 60*mi + 3600*ho;
+             if(se<0||mi<0||ho<0)
+
+
+            printf("El programa terminara %i en segundos.\n", total);
+
+            for(i=0; i<=total; i++){
+            Sleep(1000);
+            printf ("Toca descansar\n");
+            printf( "\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
+            if(ho==0){
+                                                if(mi==0){
+                                                    if(se==0){
+                                                    }
+                                                    else se--;
+                                                }else{
+                                                    if(se==0){
+                                                        se=59;
+                                                        mi--;
+                                                    }else se--;
+                                                }
+                                            }else{
+                                                if(mi==0){
+                                                    if(se==0){
+                                                        se=59;
+                                                        mi=59;
+                                                        ho--;
+                                                    }else se--;
+                                                }else{
+                                                    if(se==0){
+                                                        se=59;
+                                                        mi--;
+                                                        ho--;
+                                                    }else se--;
+                                                }
+                                                }
+
+        }
+        }
+
 
                                     printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
                                     menus (menu);
