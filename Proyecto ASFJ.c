@@ -56,6 +56,7 @@ void imprimir_tipo_rec (char c, int nu);
 void copio_fichero();
 void editar_fichero(int nu, int ed, char edit);
 char coincide (char a[]);
+void delay(int numero_segundos);
 
 int main(){
 
@@ -127,7 +128,7 @@ int main(){
                                      printf(AZUL24 "Pulse una vez el espacio para pausar si es necesario y dos veces para continuar us%cndolo.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,162,ho,mi,se);
 
                                      //printf(AZUL24"[%.2i:%.2i:%.2i]"RESET,ho, mi, se);
-                                     Sleep(1000); //Un segundo de refresco
+                                     delay(1); //Un segundo de refresco
                                      }
                                      char pausa=getch();
                                      if(pausa==32){ //pausa si pulsa el espacio
@@ -159,7 +160,7 @@ int main(){
                                         printf("El programa terminara %i en segundos.\n", total);
 
                                         for(i=0; i<=total; i++){
-                                            Sleep(1000);
+                                            delay(1);
                                             //printf("%i\n", i+1);
 
                                             LIMP;
@@ -218,7 +219,7 @@ int main(){
         printf("El programa terminara %i en segundos.\n", total);
 
         for(i=0; i<=total; i++){
-        Sleep(1000);
+        delay(1);
 
 
         printf ("Toca estudiar\n");
@@ -263,7 +264,7 @@ int main(){
             printf("El programa terminara %i en segundos.\n", total);
 
             for(i=0; i<=total; i++){
-            Sleep(1000);
+            delay(1);
             printf ("Toca descansar\n");
             printf( "\n\n\t\t\t[ %.2d:%.2d:%.2d ]", ho, mi, se);
             if(ho==0){
@@ -367,7 +368,7 @@ int main(){
                                             switch(iComp)
                                             {
                                                 case -1:        //coincide la fecha
-                                                    printf("Recordatorio de hoy ");
+                                                    printf(AZUL31"Recordatorio de hoy "RESET);
                                                     printEvento(eventos[1]);
                                                     ev++;       //contador de los recordarorios de hoy
                                                     break;
@@ -375,12 +376,12 @@ int main(){
                                                     break;
                                             }
                                         }
-                                        if(ev==0) printf("No hay recordatorios para hoy.\n");
+                                        if(ev==0) printf(AZUL31"No hay recordatorios para hoy.\n"RESET);
 
                                         fclose(pf);
 
 
-                                        printf("\nPulse:\n'c' para ver las fechas en las que hay cumplea%cos\n'e' para ver las fechas de examenes\n'f' para ver los festivos\n'r' para ver todos los recordatorios\nCualquier otra letra para volver atr%cs.\n\n",164,160);
+                                        printf(AZUL31 "\nPulse:\n'c' para ver las fechas en las que hay cumplea%cos\n'e' para ver las fechas de examenes\n'f' para ver los festivos\n'r' para ver todos los recordatorios\nCualquier otra letra para volver atr%cs.\n\n"RESET,164,160);
                                         scanf(" %c",&opcion);
 
                                         if(opcion=='r'||opcion=='R')
@@ -392,6 +393,7 @@ int main(){
                                     }
 
 
+                                    LIMP;
                                     printf(SUBRAYADO ITALIC AZUL31"Puede continuar usando el "RESET);
                                     menus (menu);
 
@@ -1118,4 +1120,9 @@ char coincide (char a[])
     if(j==0) printf(AZUL31"No hay recordatorios de ese tipo.\n"RESET); // En caso de que se haya pedido mostrar las fechas de uno de los tipos pero no haya ninguna de ese.
 }
 
-
+void delay(int numero_segundos)
+{
+    int milli_seconds = 1000 * numero_segundos;
+    clock_t start_time = clock();
+    while (clock() < start_time + milli_seconds);
+}
