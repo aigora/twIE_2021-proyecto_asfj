@@ -698,7 +698,16 @@ int main(){
                                 case 6: // MEDIA ARITMETICA
                                     LIMP;
                                     printf (AZUL20 INVERSO"Media aritm%ctica\n"RESET,130);
-                                    printf("Hola");
+                                    int s,t; //s=i n=t
+                                    float suma, aux;
+                                    printf("Ingrese el n%cmero total de datos: ",163);
+                                    scanf ("%d",&t);
+                                    for(s=0;s<t;s++){
+                                        printf("Ingrese el dato %d : ",(s+1));
+                                        scanf("%f",&aux);
+                                        suma+=aux;
+                                    }
+                                    printf("La media aritm%ctica es: %g \n",130, suma/t);
 
                                     printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
                                     menus (menu);
@@ -707,7 +716,21 @@ int main(){
                                 case 7: // MEDIA PONDERADA
                                     LIMP;
                                     printf (AZUL20 INVERSO"Media ponderada\n"RESET);
-                                    printf("Hola");
+                                    int w,v; // w=i v=n
+                                    float sum, u, peso, producto;
+                                    printf("Ingrese el numero total de datos: ");
+                                    scanf ("%d",&v);
+                                    for(w=0;w<b;w++){
+                                        printf("Ingrese el dato %d : ",(w+1));
+                                        scanf("%f",&u);
+                                        printf("Ingrese el peso %d ; ", (w+1));
+                                        scanf ("%f",&peso);
+                                        sum+=peso;
+                                        producto+=u*peso;
+
+                                    }
+
+                                    printf("La media ponderada es: %g \n", producto/sum);
 
                                     printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
                                     menus (menu);
@@ -715,24 +738,133 @@ int main(){
                                 case 8: // ECUACION DE SEGUNDO GRADO
                                     LIMP;
                                     printf (AZUL20 INVERSO"Ecuaci%cn de segundo grado\n"RESET,162);
-                                    printf("Hola");
+                                     float m, n, o, DET;
+
+                                        printf ("La ecuaci%cn es de la forma ax^2 + bx + c = 0\n",162);
+                                        printf ("Intoduce el valor de a:");
+                                        scanf ("%f",&m);
+                                        printf ("Intoduce el valor de b:");
+                                        scanf ("%f",&n);
+                                        printf ("Intoduce el valor de c:");
+                                        scanf ("%f",&o);
+
+                                        DET=(n*n)-(4*m*o);
+
+                                        if (DET==0)
+                                            printf("La soluci%cn de la ecuacion es: %.2f\n",162, -n/(2*m));
+                                        else if (DET>0){
+                                            printf("Una soluci%cn es: %.2f\n",162, (-n+sqrt(DET))/(2*m));
+                                            printf("Otra soluci%cn es: %.2f\n",162, (-n-sqrt(DET))/(2*m));
+                                        }
+                                        else { // Si D<0
+                                             printf("Una soluci%cn es: %.2f+%.2f i\n",162, -n/(2*m),(sqrt(-DET))/(2*m));
+                                             printf("Otra soluci%cn es: %.2f-%.2f i\n",162, -n/(2*m),(sqrt(-DET))/(2*m));
+                                        }
 
                                     printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
                                     menus (menu);
                                 break;
-                                case 9: // SISTEMA DE DOS INCOGNITAS
+                                case 9: // SISTEMA DE ECUACIONES DE DOS INCOGNITAS
                                     LIMP;
-                                    printf (AZUL20 INVERSO"Sistema de dos inc%cgnitas\n"RESET,162);
-                                    printf("Hola");
+                                    printf (AZUL20 INVERSO"Sistema de ecuaciones de dos inc%cgnitas\n"RESET,162);
+                                    float A, B, C, D, E, F, Det, X, Y;
+
+                                    printf("El sistema de ecuaciones es de la forma: \n");
+                                    printf("ax + by = c \n");
+                                    printf("dx + ey = f \n");
+
+                                    printf("Ingrese el valor de a: ");
+                                    scanf("%f",&A);
+                                    printf("Ingrese el valor de b: ");
+                                    scanf("%f",&B);
+                                    printf("Ingrese el valor de c: ");
+                                    scanf("%f",&C);
+                                    printf("Ingrese el valor de d: ");
+                                    scanf("%f",&D);
+                                    printf("Ingrese el valor de e: ");
+                                    scanf("%f",&E);
+                                    printf("Ingrese el valor de f: ");
+                                    scanf("%f",&F);
+
+                                    printf("Su sistema de ecuaciones queda as%c: \n",161);
+                                    printf("%.2f x + %.2f y = %.2f \n",A,B,C);
+                                    printf("%.2f x + %.2f y = %.2f \n",D,E,F);
+                                    printf("En forma de matriz ampliada queda as%c: \n",161);
+                                    printf("%.2f  %.2f | %.2f \n",A,B,C);
+                                    printf("%.2f  %.2f | %.2f \n",D,E,F);
+
+                                    Det= A*E - B*D;
+
+                                    if(Det!=0){
+                                        X= (C*E - B*F) / Det;
+                                        Y= (A*F - C*D) / Det;
+                                        printf("La soluci%cn del sistema de ecuaciones es: \n",162);
+                                        printf("x= %.2f  y= %.2f", X,Y);
+                                        }
+                                        else { // det=0
+                                            printf ("Se trata de un sistema de ecuaciones indeterminado \n");
+                                        }
+
 
                                     printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
                                     menus (menu);
                                 break;
-                                case 10: // SISTEMA DE TRES INCOGNITAS
+                                case 10: // SISTEMA DE ECUACIONES DE TRES INCOGNITAS
                                     LIMP;
-                                    printf (AZUL20 INVERSO"Sistema de tres inc%cgnitas\n"RESET,162);
-                                    printf("Hola");
+                                    float a, b, c, d, e, f, g, h, i, j, k, l, det, x, y, z;
 
+                                    printf("El sistema de ecuaciones es de la forma: \n");
+                                    printf("ax + by + cz = d \n");
+                                    printf("ex + fy + gz = h \n");
+                                    printf("ix + jy + kz = l \n");
+
+                                    printf("Ingrese el valor de a: ");
+                                    scanf("%f",&a);
+                                    printf("Ingrese el valor de b: ");
+                                    scanf("%f",&b);
+                                    printf("Ingrese el valor de c: ");
+                                    scanf("%f",&c);
+                                    printf("Ingrese el valor de d: ");
+                                    scanf("%f",&d);
+                                    printf("Ingrese el valor de e: ");
+                                    scanf("%f",&e);
+                                    printf("Ingrese el valor de f: ");
+                                    scanf("%f",&f);
+                                    printf("Ingrese el valor de g: ");
+                                    scanf("%f",&g);
+                                    printf("Ingrese el valor de h: ");
+                                    scanf("%f",&h);
+                                    printf("Ingrese el valor de i: ");
+                                    scanf("%f",&i);
+                                    printf("Ingrese el valor de j: ");
+                                    scanf("%f",&j);
+                                    printf("Ingrese el valor de k: ");
+                                    scanf("%f",&k);
+                                    printf("Ingrese el valor de l: ");
+                                    scanf("%f",&l);
+
+                                    printf("Su sistema de ecuaciones queda asi: \n");
+                                    printf("%.2f x + %.2f y + %.2f z = %.2f \n",a,b,c,d);
+                                    printf("%.2f x + %.2f y + %.2f z = %.2f \n",e,f,g,h);
+                                    printf("%.2f x + %.2f y + %.2f z = %.2f \n",i,j,k,l);
+
+                                    printf("En forma de matriz ampliada queda asi: \n");
+                                    printf("%.2f %.2f %.2f |%.2f \n",a,b,c,d);
+                                    printf("%.2f %.2f %.2f |%.2f \n",e,f,g,h);
+                                    printf("%.2f %.2f %.2f |%.2f \n",i,j,k,l);
+
+                                    det= (a*f*k + i*b*g + c*j*e)-(c*f*i + a*j*g + k*b*e);
+
+                                    if(det!=0){
+                                        x= ((d*f*k + l*b*g + c*j*h)-(c*f*l + d*j*g + k*b*h)) / det;
+                                        y= ((a*h*k + i*d*g + c*l*e)-(c*h*i + a*l*g + k*d*e)) / det;
+                                        z= ((a*f*l + i*b*h + d*j*e)-(d*f*i + a*j*h + l*b*e)) / det;
+                                        printf("La solucion del sistema de ecuaciones es: \n");
+                                        printf("x= %.2f  y= %.2f  z=%.2f " , x,y,z);
+                                        }
+                                        else { // det=0
+                                            printf ("Se trata de un sistema de ecuaciones indeterminado \n");
+                                            }
                                     printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
                                     menus (menu);
                                 break;
@@ -784,7 +916,7 @@ void menus (int menu)
     if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs""\n",162,160,160);
     else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" ,164,160);
     else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET ,162,162,160);
-    else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de dos inc%cgnitas\n10-.Sistema de tres ingc%cngitas\n11-.Atr%cs\n" RESET,130,162,162,162,160);
+    else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.Atr%cs\n" RESET,130,162,162,162,160);
 
 }
 
