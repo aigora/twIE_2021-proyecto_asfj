@@ -114,7 +114,7 @@ int main(){
                             scanf ("%i",&tempo);
                             switch (tempo)
                             {
-                                case 1: //Función de cronómetro
+                                case 1: //CRONOMETRO
                                     LIMP;
 
                                     printf (AZUL24 INVERSO"Cron%cmetro\n"RESET,162);
@@ -150,7 +150,7 @@ int main(){
 
                                 break;
 
-                                case 2:
+                                case 2: //CUENTA ATRAS
                                         LIMP;
 
                                         int i = 0,aa=2;
@@ -177,16 +177,16 @@ int main(){
 
 
                                 break;
-                                case 3://CICLOS DE TIEMPO
+                                case 3://METODO POMODORO
 
                                     LIMP;
-                                    printf (AZUL24 INVERSO "Ciclos de tiempo\n" RESET );
+                                    printf (AZUL24 INVERSO "M%ctodo pomodoro\n" RESET,130 );
 
                                     int ciclos;
                                     printf(AZUL24"%cCu%cntos ciclos de estudio desea hacer?\n"RESET ,168,160);
                                     scanf("%i",&ciclos);
 
-                                    printf(AZUL24"Va a empezar el metodo pomodoro\n");
+                                    printf(AZUL24"Va a empezar el M%ctodo Pomodoro\n", 130);
                                     printf("Comienzan los %i ciclos de estudio\n" RESET, ciclos);
 
                                     delay(2);
@@ -213,7 +213,42 @@ int main(){
                                     printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
                                     menus (menu);
                                 break;
-                                case 4:
+                                case 4://METODO TABATA
+
+                                    LIMP;
+                                    printf (AZUL24 INVERSO "M%ctodo T%cbata\n" RESET,130,160 );
+
+                                    int series;
+                                    series=8;
+
+                                    printf(AZUL24"Va a empezar el tiempo de ejercicio\n");
+                                    printf("Son %i series de ejrcicio\n" RESET,series);
+
+                                    delay(2);
+                                    for(i=0;i<series;i++)
+                                    {
+                                        mi=0;
+                                        se=25;
+                                        ho=0;
+                                        aa=5;
+
+                                        cuenta_atras(se, mi, ho, aa);
+
+                                        printf("Va a empezar el tiempo de descanso\n");
+                                        mi=0;
+                                        se=5;
+                                        ho=0;
+                                        aa=6;
+
+                                        cuenta_atras(se, mi, ho, aa);
+                                    }
+
+
+
+                                    printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
+                                    menus (menu);
+                                break;
+                                case 5: //atras
                                     a=1;
                                     LIMP;
                                 break;
@@ -223,7 +258,7 @@ int main(){
 
                             }
                             }
-                            while (tempo!=4);
+                            while (tempo!=5);
                             //menu=6;
 
                         break;
@@ -869,8 +904,15 @@ int main(){
                                     printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
                                     menus (menu);
                                 break;
+                                case 11: // CALCULAR EL IVA
+                                    LIMP;
+                                    printf (AZUL20 INVERSO"IVA\n"RESET);
 
-                                case 11: //ATRAS
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
+                                break;
+
+                                case 12: //ATRAS
                                     a=1;
                                     LIMP;
                                 break;
@@ -880,7 +922,7 @@ int main(){
 
                             }
                             }
-                            while(calc!=11);
+                            while(calc!=12);
 
                         break;
 
@@ -913,10 +955,10 @@ return 0;
 
 void menus (int menu)
 {
-    if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs""\n",162,160,160);
+    if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.M%ctodo Pomodoro\n4-.M%ctodo T%cbata\n5-.Atr%cs\n",162,160,130,130,160,160);
     else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" ,164,160);
     else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET ,162,162,160);
-    else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.Atr%cs\n" RESET,130,162,162,162,160);
+    else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.IVA\n12-.Atr%cs\n" RESET,130,162,162,162,160);
 
 }
 
@@ -1265,10 +1307,20 @@ void modo_cuenta_atras (int aa)
     if(aa==2) printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
     else if (aa==3) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca estudiar\n",130);
     else if (aa==4) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca descanso\n",130);
+    else if (aa==5) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo T%cbata \n" RESET AZUL24 "\nToca hacer ejercicio\n",130,160);
+    else if (aa==6) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo T%cbata \n" RESET AZUL24 "\nToca descanso\n",130,160);
 
 }
 
 
+void modo_cuenta_atras_t (int aa)
+{
+
+    if(aa==2) printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
+    else if (aa==3) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca estudiar\n",130);
+    else if (aa==4) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca descanso\n",130);
+
+}
 int cuenta_caracteres (char m[]){  // CUENTA LOS CARACTERES INTRODUCIDOS
     int i=0;
     while(m[i]!='\0'){
@@ -1355,4 +1407,5 @@ float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO
 
     return num; // resultado en tipo float, preparado para operar con él
 }
+
 
