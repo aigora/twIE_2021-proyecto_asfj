@@ -105,7 +105,7 @@ int main(){
                     scanf("%i",&menu);
                     switch (menu)
                             {
-                        case 1:
+                        case 1: //TEMPORIZADORES
 
                             LIMP;
                             menus (menu);
@@ -400,7 +400,7 @@ int main(){
                         break;
 
 
-                        case 3:
+                        case 3: // GPS
                             LIMP;
                             menus (menu);
                             int punto;
@@ -604,7 +604,7 @@ int main(){
                         break;
 
 
-                        case 4:
+                        case 4: // CALCULADORA
                             LIMP;
                             menus (menu);
                             do{
@@ -615,7 +615,7 @@ int main(){
 
                             switch (calc)
                             {
-                                case 1:
+                                case 1: // SUMA
                                     LIMP;
                                     printf (AZUL20 INVERSO"Sumar\n"RESET);
 
@@ -631,7 +631,7 @@ int main(){
                                     menus (menu);
 
                                 break;
-                                case 2:
+                                case 2: // RESTA
                                     LIMP;
                                     printf (AZUL20 INVERSO"Restar\n"RESET);
 
@@ -647,7 +647,7 @@ int main(){
                                     menus (menu);
 
                                 break;
-                                case 3:
+                                case 3: // MULTIPLICACION
                                     LIMP;
                                     printf (AZUL20 INVERSO"Multiplicar\n"RESET);
 
@@ -663,7 +663,7 @@ int main(){
                                     menus (menu);
 
                                 break;
-                                case 4:
+                                case 4: //DIVISION
                                     LIMP;
                                     printf (AZUL20 INVERSO"Dividir\n"RESET);
 
@@ -679,7 +679,7 @@ int main(){
                                     menus (menu);
 
                                 break;
-                                case 5:
+                                case 5: // POTENCIA
                                     LIMP;
                                     printf (AZUL20 INVERSO"Potencia\n"RESET);
 
@@ -695,7 +695,49 @@ int main(){
                                     menus (menu);
 
                                 break;
-                                case 6:
+                                case 6: // MEDIA ARITMETICA
+                                    LIMP;
+                                    printf (AZUL20 INVERSO"Media aritm%ctica\n"RESET,130);
+                                    printf("Hola");
+
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
+                                break;
+
+                                case 7: // MEDIA PONDERADA
+                                    LIMP;
+                                    printf (AZUL20 INVERSO"Media ponderada\n"RESET);
+                                    printf("Hola");
+
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
+                                break;
+                                case 8: // ECUACION DE SEGUNDO GRADO
+                                    LIMP;
+                                    printf (AZUL20 INVERSO"Ecuaci%cn de segundo grado\n"RESET,162);
+                                    printf("Hola");
+
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
+                                break;
+                                case 9: // SISTEMA DE DOS INCOGNITAS
+                                    LIMP;
+                                    printf (AZUL20 INVERSO"Sistema de dos inc%cgnitas\n"RESET,162);
+                                    printf("Hola");
+
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
+                                break;
+                                case 10: // SISTEMA DE TRES INCOGNITAS
+                                    LIMP;
+                                    printf (AZUL20 INVERSO"Sistema de tres inc%cgnitas\n"RESET,162);
+                                    printf("Hola");
+
+                                    printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
+                                    menus (menu);
+                                break;
+
+                                case 11: //ATRAS
                                     a=1;
                                     LIMP;
                                 break;
@@ -705,7 +747,7 @@ int main(){
 
                             }
                             }
-                            while(calc!=6);
+                            while(calc!=11);
 
                         break;
 
@@ -742,7 +784,7 @@ void menus (int menu)
     if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs""\n",162,160,160);
     else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" ,164,160);
     else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET ,162,162,160);
-    else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Atr%cs\n" RESET,160);
+    else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de dos inc%cgnitas\n10-.Sistema de tres ingc%cngitas\n11-.Atr%cs\n" RESET,130,162,162,162,160);
 
 }
 
