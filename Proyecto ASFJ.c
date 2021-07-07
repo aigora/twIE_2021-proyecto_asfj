@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <math.h>
 //#include <windows.h>
 //#include <conio.h>
 
@@ -60,6 +61,8 @@ void delay(int numero_segundos);
 void cuenta_atras (int se, int mi, int ho, int aa);
 void modo_cuenta_atras (int aa);
 int cuenta_caracteres (char m[]);
+float numero ();
+
 
 int main(){
 
@@ -1097,4 +1100,76 @@ int cuenta_caracteres (char m[]){
         i++;
     }
     return i;
+}
+
+float numero (){
+
+    int i,contador_errores=0,Ncontador=0,Pcontador=0,P=0,t=0;
+    float num=0;
+    char m[N];
+
+    do{
+        do{
+            do{
+                if(contador_errores>0){  // ESCRIBE POR PANTALLA LOS ERRORES DETECTADOS
+                    printf("Dato incorrecto.\n");
+                    if(t>0) printf("Debe introducir solo datos numericos (y punto si es necesario decimales).\n");
+                    if(Pcontador>1) printf("Debe introducir un punto como maximo.\n");
+                    if (cuenta_caracteres(m)>N) printf("Se escribieron %i caracteres. Como maximo debe escribir %i.\n",cuenta_caracteres(m),N);
+                    if(contador_errores>3){
+                        printf("Demasiados intentos, vuelva a probar mas tarde.\n");
+                        return -1;
+                    }
+                }
+                // vuelvo a poner los errores a 0
+                t=0;
+                Ncontador=0;
+                Pcontador=0;
+                P=0;
+
+                //introduzco cadena a evaluar
+                scanf(" %[^\n]",&m);
+
+
+                for(i=0;i<N;i++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
+                    if (m[i]!=0){ //desprecia los espacios de m[] no rellenados
+                        if((m[i]>47)&&(m[i]<58)){ //entre estos valores se encuentran los numeros del 0 al 9
+                        }else if(m[i]=='.'){
+                            P=i;      // ASIGNAR POSICIÓN DEL PUNTO
+                            Pcontador++;  // DETECTOR DE SI SE ESCRIBE MAS DE UN PUNTO
+                        }
+                        else {  // DETECTOR DE CARACTER DISTINTO DE NUMERO, PUNTO O HUECO SIN ESCRIBIR
+                            t++;
+                            printf("t");
+                        }
+                        Ncontador++; //CUENTA CASILLAS RELLENADAS
+                    }
+                }
+
+
+                contador_errores++; //en caso de repetir algún bucle, se cuentan los errores
+
+            }while(cuenta_caracteres(m)>N);  // LONGITUD MAYOR DE LA PERMITIDA POR LA CADENA
+        }while(t>0); // HAY CARACTERES NO NUMÉRICOS
+    }while(Pcontador>1); // HAY MÁS DE UN PUNTO
+
+
+
+    if (Pcontador==0){   // CUANDO NO HAY CIFRAS DECIMALES
+        for(i=0;i<Ncontador;i++){
+            //printf("%d\n",Ncontador);
+            num=num+((m[i]-48)*pow(10,Ncontador-i-1));
+        }
+    }else{ //Icontador==1    CUANDO SI PUEDE HABER CIFRAS DECIMALES
+        for(i=0;i<P;i++){ // cifras enteras, antes del punto
+            num=num+((m[i]-48)*pow(10,P-i-1));
+        }
+        for(i=P+1;i<Ncontador;i++){ // cifras decimales, despues del punto
+            num=num+(m[i]-48)*pow(10,P-i);
+        }
+    }
+
+    printf("%f\n",num); // resultado en tipo float, preparado para operar con él
+
+    return num;
 }
