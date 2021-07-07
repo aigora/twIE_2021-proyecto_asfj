@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 //#include <windows.h>
-#include <conio.h>
+//#include <conio.h>
 
 #define N 51              //constante para la dimension del mapa del gps
 
@@ -59,6 +59,7 @@ char coincide (char a[]);
 void delay(int numero_segundos);
 void cuenta_atras (int se, int mi, int ho, int aa);
 void modo_cuenta_atras (int aa);
+int cuenta_caracteres (char m[]);
 
 int main(){
 
@@ -1087,4 +1088,13 @@ void modo_cuenta_atras (int aa)
     else if (aa==3) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca estudiar\n",130);
     else if (aa==4) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca descanso\n",130);
 
+}
+
+
+int cuenta_caracteres (char m[]){
+    int i=0;
+    while(m[i]!='\0'){
+        i++;
+    }
+    return i;
 }
