@@ -104,7 +104,7 @@ int main(){
 
                     scanf("%i",&menu);
                     switch (menu)
-                            {
+                    {
                         case 1: //TEMPORIZADORES
 
                             LIMP;
@@ -121,27 +121,27 @@ int main(){
                                     printf(AZUL24 "Pulse una vez el espacio para iniciar, otra vez para pausar si es necesario y dos veces para continuar us%cndolo.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,162,ho,mi,se);
 
                                    while (getch()!='t'){
-                                    while(!kbhit()){ //la función espera a que se presione una tecla en específico
-                                     se++; //paso del tiempo
-                                     if (se==60){
-                                      se=0;
-                                      mi++; //pasa de 59 segundos a 1:00
-                                       if (mi==60){
-                                        mi=0;
-                                        ho++;
-                                       }
-                                      }
-                                     LIMP;
-                                     printf (AZUL24 INVERSO"Cron%cmetro\n"RESET,162);
-                                     printf(AZUL24 "Pulse una vez el espacio para pausar si es necesario y dos veces para continuar us%cndolo.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,162,ho,mi,se);
+                                       while(!kbhit()){ //la función espera a que se presione una tecla en específico
+                                           se++; //paso del tiempo
+                                           if (se==60){
+                                              se=0;
+                                              mi++; //pasa de 59 segundos a 1:00
+                                              if (mi==60){
+                                                  mi=0;
+                                                  ho++;
+                                              }
+                                           }
+                                           LIMP;
+                                           printf (AZUL24 INVERSO"Cron%cmetro\n"RESET,162);
+                                           printf(AZUL24 "Pulse una vez el espacio para pausar si es necesario y dos veces para continuar us%cndolo.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,162,ho,mi,se);
 
-                                     //printf(AZUL24"[%.2i:%.2i:%.2i]"RESET,ho, mi, se);
-                                     delay(1); //Un segundo de refresco
-                                     }
-                                     char pausa=getch();
-                                     if(pausa==32){ //pausa si pulsa el espacio
-                                     getch();
-                                    }
+                                           //printf(AZUL24"[%.2i:%.2i:%.2i]"RESET,ho, mi, se);
+                                           delay(1); //Un segundo de refresco
+                                       }
+                                       char pausa=getch();
+                                       if(pausa==32){ //pausa si pulsa el espacio
+                                           getch();
+                                       }
                                    }
 
                                 LIMP;
@@ -224,7 +224,7 @@ int main(){
                             }
                             }
                             while (tempo!=4);
-                            menu=6;
+                            //menu=6;
 
                         break;
 
@@ -608,7 +608,8 @@ int main(){
                             LIMP;
                             menus (menu);
                             do{
-                            scanf ("%i",&calc);
+
+                            scanf (" %i",&calc);
 
                             float x, y, resultado;
                             int valido = 1;
@@ -811,7 +812,7 @@ int main(){
                                 break;
                                 case 10: // SISTEMA DE ECUACIONES DE TRES INCOGNITAS
                                     LIMP;
-                                    float a, b, c, d, e, f, g, h, i, j, k, l, det, x, y, z;
+                                    float a_, b, c, d, e, f, g, h, i, j, k, l, det, x, y, z;
 
                                     printf("El sistema de ecuaciones es de la forma: \n");
                                     printf("ax + by + cz = d \n");
@@ -819,7 +820,7 @@ int main(){
                                     printf("ix + jy + kz = l \n");
 
                                     printf("Ingrese el valor de a: ");
-                                    scanf("%f",&a);
+                                    scanf("%f",&a_);
                                     printf("Ingrese el valor de b: ");
                                     scanf("%f",&b);
                                     printf("Ingrese el valor de c: ");
@@ -844,21 +845,21 @@ int main(){
                                     scanf("%f",&l);
 
                                     printf("Su sistema de ecuaciones queda asi: \n");
-                                    printf("%.2f x + %.2f y + %.2f z = %.2f \n",a,b,c,d);
+                                    printf("%.2f x + %.2f y + %.2f z = %.2f \n",a_,b,c,d);
                                     printf("%.2f x + %.2f y + %.2f z = %.2f \n",e,f,g,h);
                                     printf("%.2f x + %.2f y + %.2f z = %.2f \n",i,j,k,l);
 
                                     printf("En forma de matriz ampliada queda asi: \n");
-                                    printf("%.2f %.2f %.2f |%.2f \n",a,b,c,d);
+                                    printf("%.2f %.2f %.2f |%.2f \n",a_,b,c,d);
                                     printf("%.2f %.2f %.2f |%.2f \n",e,f,g,h);
                                     printf("%.2f %.2f %.2f |%.2f \n",i,j,k,l);
 
-                                    det= (a*f*k + i*b*g + c*j*e)-(c*f*i + a*j*g + k*b*e);
+                                    det= (a_*f*k + i*b*g + c*j*e)-(c*f*i + a_*j*g + k*b*e);
 
                                     if(det!=0){
                                         x= ((d*f*k + l*b*g + c*j*h)-(c*f*l + d*j*g + k*b*h)) / det;
-                                        y= ((a*h*k + i*d*g + c*l*e)-(c*h*i + a*l*g + k*d*e)) / det;
-                                        z= ((a*f*l + i*b*h + d*j*e)-(d*f*i + a*j*h + l*b*e)) / det;
+                                        y= ((a_*h*k + i*d*g + c*l*e)-(c*h*i + a*l*g + k*d*e)) / det;
+                                        z= ((a_*f*l + i*b*h + d*j*e)-(d*f*i + a_*j*h + l*b*e)) / det;
                                         printf("La solucion del sistema de ecuaciones es: \n");
                                         printf("x= %.2f  y= %.2f  z=%.2f " , x,y,z);
                                         }
@@ -894,12 +895,11 @@ int main(){
                         default:
                             printf(CIAN "Introduzca un n%cmero v%clido\n"RESET,163,160);
                         break;
-                            }
+                    }
                     }
 
-
-
                 }
+
                 while (menu!=5);
 
         }
