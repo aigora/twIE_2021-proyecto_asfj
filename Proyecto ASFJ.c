@@ -7,6 +7,9 @@
 
 #define N 51              //constante para la dimension del mapa del gps
 
+#define INICIO "\x1b[30A"
+
+
 #define AZUL "\x1b[34m"                  //colores de las letras
 #define BLANCO "\x1b[37m"
 #define CIAN "\x1b[36m"
@@ -85,13 +88,14 @@ int main(){
     strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
 
 
+    animacion_reloj_inteligente ();
+
     do{
 
         if((a==0)&&(b==1))
             p=1;
         else{
 
-            animacion_reloj_inteligente ();
 
             print_fyh();
             printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
@@ -1483,7 +1487,8 @@ float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO
 void animacion_reloj_inteligente(){
 
     FILE *pf;
-    char c;
+    char c,color;
+    int i;
 
     pf=fopen("reloj_inteligente.txt","r");
     if(pf==NULL)                          //compruebo que se abre bien
@@ -1495,11 +1500,53 @@ void animacion_reloj_inteligente(){
         fseek(pf,0,SEEK_SET);
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
-            printf ("%c", c);
-            delay(0.010);
+            printf (CIAN "%c", c);
+            delay(0.004);
         }
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL24 "%c", c);
+        }
+        delay(0.07);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL31 "%c", c);
+        }
+        delay(0.07);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL69 "%c", c);
+        }
+        delay(0.07);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL20 "%c", c);
+        }
+        delay(0.07);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (CIAN "%c", c);
+        }
+        delay(0.07);
+
+
     }
-    delay(0.3);
+    delay(1);
     fclose(pf);
 }
 
@@ -1519,10 +1566,10 @@ void animacion_calendario(){
         fseek(pf,0,SEEK_SET);
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
-            printf ("%c", c);
+            printf (RESET AZUL31 "%c", c);
             delay(0.010);
         }
     }
-    delay(0.3);
+    delay(0.5);
     fclose(pf);
 }
