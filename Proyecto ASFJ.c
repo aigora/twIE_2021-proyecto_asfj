@@ -906,7 +906,66 @@ int main(){
                                 break;
                                 case 11: // CALCULAR EL IVA
                                     LIMP;
+                                    int iva,duda;
+                                    float IVA,precio, PRECIO; //precio=sin IVA PRECIO=con IVA iva=tipo IVA=dinero
                                     printf (AZUL20 INVERSO"IVA\n"RESET);
+                                    printf ("Hay tres tipos de IVA seg%cn el producto:\n",163);
+                                    printf ("1-.General:es el que se aplica por defecto a cualquier bien o servicio que se comercialice en Espa%ca\n",164);
+                                    printf ("2-.Reducido:afecta mayormente a los alimentos (a excepci%cn de los considerados de primera necesidad), y grava tanto los servicios de hosteler%ca y transporte de viajeros como la venta de inmuebles\n",162,161);
+                                    printf ("3-.Superreducido:se aplica los bienes considerados de primera necesidad\n");
+//                                    printf ("%c Le ha quedado claro a qu%c tipo pertenece su producto? Presione *s* si le ha quedado claro, en caso contrario presione cualquier otra tecla",168,130);
+//                                    scanf ("%i",&duda);
+//                                    if (duda!=s){
+//                                        printf("Se va a abrir una lista a%cadiendo una mejor explicaci%cn de los productos que pertenecen a cada tipo\n",164,162);
+//                                            int nLineas;
+//                                            FILE *pf;
+//                                             pf=fopen("Tipos_de_IVA.txt","r");
+//
+//                                    if(pf==NULL)                          //compruebo que se abre bien
+//                                    {
+//                                        printf(AZUL31 "Error al abrir el fichero."RESET);
+//                                        return -1;
+//                                    }else
+//                                    {
+//
+//                                        while (fscanf(pf,"%c",&c)!=EOF)  //cuento numero de lineas
+//                                            if(c=='\n');
+//                                            ++nLineas;
+//                                            printf("%i",nLineas);
+//                                    }
+//                                    }
+                                    printf ("%c A qu%c tipo pertenece su producto?",168,130);
+                                    scanf("%i", &iva);
+                                    if (iva==1) {
+                                        printf("A este producto se le aplica un IVA del 21%c\n",37);
+                                        printf("%c Cu%cnto le ha costado su producto(en euros)?",168,160);
+                                        scanf("%f",&PRECIO);
+                                        IVA=PRECIO*0.21;
+                                        precio= PRECIO - IVA;
+                                        printf("El precio sin IVA es de %.2f Euros\n",precio);
+                                        printf("El IVA es de %.2f Euros\n",IVA);
+                                    }
+                                    else if (iva==2){
+                                        printf("A este producto se le aplica un IVA del 10%c\n",37);
+                                        printf("%c Cu%cnto le ha costado su producto(en euros)?",168,160);
+                                        scanf("%f",&PRECIO);
+                                        IVA=PRECIO*0.1;
+                                        precio= PRECIO - IVA;
+                                        printf("El precio sin IVA es de %.2f Euros\n",precio);
+                                        printf("El IVA es de %.2f Euros\n",IVA);
+                                    }
+                                    else if (iva==3){
+                                        printf("A este producto se le aplica un IVA del 4%c\n",37);
+                                        printf("%c Cu%cnto le ha costado su producto(en euros)?",168,160);
+                                        scanf("%f",&PRECIO);
+                                        IVA=PRECIO*0.04;
+                                        precio= PRECIO - IVA;
+                                        printf("El precio sin IVA es de %.2f Euros\n",precio);
+                                        printf("El IVA es de %.2f Euros\n",IVA);
+                                    }
+                                    else //Cualquier otra tecla presionada
+                                        printf("El n%cmero introducido no es v%clido\n",163,160);
+
 
                                     printf(AZUL20 SUBRAYADO ITALIC"\n\nPuede continuar usando la "RESET);
                                     menus (menu);
@@ -1407,5 +1466,4 @@ float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO
 
     return num; // resultado en tipo float, preparado para operar con él
 }
-
 
