@@ -92,7 +92,7 @@ int main(){
     strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
 
 
-    animacion_reloj_inteligente ();
+//    animacion_reloj_inteligente ();
 
     do{
 
@@ -119,7 +119,7 @@ int main(){
                         case 1: //TEMPORIZADORES
 
                             LIMP;
-                            animacion_temporizadores();
+//                            animacion_temporizadores();
                             menus (menu);
                             do {
                             printf(RESET);
@@ -279,7 +279,7 @@ int main(){
 
                         case 2: // CALENDARIO
                             LIMP;
-                            animacion_calendario();
+//                            animacion_calendario();
                             menus (menu);
                             do{
 
@@ -451,7 +451,7 @@ int main(){
 
                         case 3: // GPS
                             LIMP;
-                            animacion_GPS();
+//                            animacion_GPS();
                             menus (menu);
                             int punto;
                             int x1;
@@ -656,7 +656,7 @@ int main(){
 
                         case 4: // CALCULADORA
                             LIMP;
-                            animacion_calculadora();
+//                            animacion_calculadora();
                             menus (menu);
                             do{
 
@@ -1016,7 +1016,7 @@ int main(){
                             LIMP;
                             b=1;
                             printf (CIAN "Hasta luego!\n"RESET);
-                            animacion_hasta_luego();
+//                            animacion_hasta_luego();
                         break;
 
 
