@@ -7,6 +7,9 @@
 
 #define N 51              //constante para la dimension del mapa del gps
 
+#define INICIO "\x1b[30A"
+
+
 #define AZUL "\x1b[34m"                  //colores de las letras
 #define BLANCO "\x1b[37m"
 #define CIAN "\x1b[36m"
@@ -57,13 +60,14 @@ void imprimir_tipo_rec (char c, int nu);
 void copio_fichero();
 void editar_fichero(int nu, int ed, char edit);
 char coincide (char a[]);
-void delay(int numero_segundos);
+void delay(float numero_segundos);
 void cuenta_atras (int se, int mi, int ho, int aa);
 void modo_cuenta_atras (int aa);
 int cuenta_caracteres (char m[]);
 float numero ();  // CUENTA LOS CARACTERES INTRODUCIDOS
 float numero (int minimo, int maximo);  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
-
+void animacion_reloj_inteligente();
+void animacion_calendario();
 
 int main(){
 
@@ -84,11 +88,14 @@ int main(){
     strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
 
 
+    animacion_reloj_inteligente ();
+
     do{
 
         if((a==0)&&(b==1))
             p=1;
         else{
+
 
             print_fyh();
             printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
@@ -266,6 +273,7 @@ int main(){
 
                         case 2: // CALENDARIO
                             LIMP;
+                            animacion_calendario();
                             menus (menu);
                             do{
 
@@ -290,7 +298,7 @@ int main(){
                                     pf=fopen("Recordatorios_calendario.txt","r");
 
                                     if(pf==NULL)                          //compruebo que se abre bien
-                                    {
+                                        {
                                         printf(AZUL31 "Error al abrir el fichero."RESET);
                                         return -1;
                                     }else
@@ -355,7 +363,7 @@ int main(){
                                     scanf("%d",&n);
                                     modo='a';
                                     v=escribir_recordatorio(n,modo);            // funcion para a�adir recordatorios al fichero existente
-  /*A�ADO FICH*/
+  //A�ADO FICH/
                                     if(v==-1) break;
                                     else{
 
@@ -408,7 +416,7 @@ int main(){
                                     printf (AZUL31 INVERSO"Eliminar recordatorios existentes y empezar a crear de nuevo\n"RESET);
 
                                     int i;
-  /*CREO FICH*/                         int n, v;
+  //CREO FICH/                         int n, v;
                                         printf (AZUL31"Cuantos recordatorios desea crear?\n");
                                         scanf("%d",&n);
                                         modo='e';
@@ -908,38 +916,47 @@ int main(){
                                     LIMP;
                                     int iva,duda;
                                     float IVA,precio, PRECIO; //precio=sin IVA PRECIO=con IVA iva=tipo IVA=dinero
+                                    FILE *pfIVA;
+                                    int nLineas;
+                                    char caracterr;
                                     printf (AZUL20 INVERSO"IVA\n"RESET);
                                     printf ("Hay tres tipos de IVA seg%cn el producto:\n",163);
                                     printf ("1-.General:es el que se aplica por defecto a cualquier bien o servicio que se comercialice en Espa%ca\n",164);
                                     printf ("2-.Reducido:afecta mayormente a los alimentos (a excepci%cn de los considerados de primera necesidad), y grava tanto los servicios de hosteler%ca y transporte de viajeros como la venta de inmuebles\n",162,161);
                                     printf ("3-.Superreducido:se aplica los bienes considerados de primera necesidad\n");
-//                                    printf ("%c Le ha quedado claro a qu%c tipo pertenece su producto? Presione *s* si le ha quedado claro, en caso contrario presione cualquier otra tecla",168,130);
-//                                    scanf ("%i",&duda);
-//                                    if (duda!=s){
-//                                        printf("Se va a abrir una lista a%cadiendo una mejor explicaci%cn de los productos que pertenecen a cada tipo\n",164,162);
-//                                            int nLineas;
-//                                            FILE *pf;
-//                                             pf=fopen("Tipos_de_IVA.txt","r");
-//
-//                                    if(pf==NULL)                          //compruebo que se abre bien
-//                                    {
-//                                        printf(AZUL31 "Error al abrir el fichero."RESET);
-//                                        return -1;
-//                                    }else
-//                                    {
-//
-//                                        while (fscanf(pf,"%c",&c)!=EOF)  //cuento numero de lineas
-//                                            if(c=='\n');
-//                                            ++nLineas;
-//                                            printf("%i",nLineas);
-//                                    }
-//                                    }
-                                    printf ("%c A qu%c tipo pertenece su producto?",168,130);
-                                    scanf("%i", &iva);
+                                    printf ("%cLe ha quedado claro a qu%c tipo pertenece su producto?\nPresione s si le ha quedado claro, en caso contrario presione cualquier otra tecla.\n",168,130);
+                                    scanf (" %c",&duda);
+                                    if (duda!='s'){
+                                        printf("Se va a abrir una lista a%cadiendo una mejor explicaci%cn de los productos que pertenecen a cada tipo\n",164,162);
+                                             pfIVA=fopen("Tipos_de_IVA.txt","r");
+
+                                    if(pfIVA==NULL)                          //compruebo que se abre bien
+                                    {
+                                        printf(AZUL31 "Error al abrir el fichero."RESET);
+                                        return -1;
+                                    }else
+                                    {
+
+                                        while (fscanf(pfIVA,"%c",&caracterr)!=EOF){  //cuento numero de lineas
+                                            if(caracterr=='\n') ++nLineas;
+                                        }
+                                            //printf("Hay %i lineas.\n",nLineas);
+
+                                        fseek(pfIVA,0,SEEK_SET);            //vuelvo al principio del fichero
+
+                                        for(caracterr=0; caracterr != EOF;){ // IMPRIMIR FICHERO IVA
+                                            caracterr = fgetc (pfIVA);
+                                            printf ("%c", caracterr);
+                                            delay(0.015);
+                                        }
+                                    }
+                                    }
+                                    printf ("%cA qu%c tipo pertenece su producto?",168,130);
+                                    scanf(" %i", &iva);
                                     if (iva==1) {
                                         printf("A este producto se le aplica un IVA del 21%c\n",37);
-                                        printf("%c Cu%cnto le ha costado su producto(en euros)?",168,160);
-                                        scanf("%f",&PRECIO);
+                                        printf("%cCu%cnto le ha costado su producto(en euros)?",168,160);
+                                        scanf(" %f",&PRECIO);
                                         IVA=PRECIO*0.21;
                                         precio= PRECIO - IVA;
                                         printf("El precio sin IVA es de %.2f Euros\n",precio);
@@ -980,7 +997,7 @@ int main(){
                                 break;
 
                             }
-                            }
+                                }
                             while(calc!=12);
 
                         break;
@@ -1310,9 +1327,9 @@ char coincide (char a[])
     if(j==0) printf(AZUL31"No hay recordatorios de ese tipo.\n"RESET); // En caso de que se haya pedido mostrar las fechas de uno de los tipos pero no haya ninguna de ese.
 }
 
-void delay(int numero_segundos)
+void delay(float numero_segundos)
 {
-    int milli_seconds = 1000 * numero_segundos;
+    float milli_seconds = 1000 * numero_segundos;
     clock_t start_time = clock();
     while (clock() < start_time + milli_seconds);
 }
@@ -1467,3 +1484,91 @@ float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO
     return num; // resultado en tipo float, preparado para operar con él
 }
 
+void animacion_reloj_inteligente(){
+
+    FILE *pf;
+    char c,color;
+    int i;
+
+    pf=fopen("reloj_inteligente.txt","r");
+    if(pf==NULL)                          //compruebo que se abre bien
+    {
+        printf(AZUL31 "Error al abrir el fichero."RESET);
+    }else
+    {
+        LIMP;fseek(pf,0,SEEK_SET);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (CIAN "%c", c);
+            delay(0.004);
+        }
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL24 "%c", c);
+        }
+        delay(0.07);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL31 "%c", c);
+        }
+        delay(0.07);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL69 "%c", c);
+        }
+        delay(0.07);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL20 "%c", c);
+        }
+        delay(0.07);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (CIAN "%c", c);
+        }
+        delay(0.07);
+
+
+    }
+    delay(1);
+    fclose(pf);
+}
+
+
+void animacion_calendario(){
+
+    FILE *pf;
+    char c;
+
+    pf=fopen("animacion_calendario.txt","r");
+    if(pf==NULL)                          //compruebo que se abre bien
+    {
+        printf(AZUL31 "Error al abrir el fichero."RESET);
+    }else
+    {
+        LIMP;
+        fseek(pf,0,SEEK_SET);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (RESET AZUL31 "%c", c);
+            delay(0.010);
+        }
+    }
+    delay(0.5);
+    fclose(pf);
+}
