@@ -63,7 +63,7 @@ void modo_cuenta_atras (int aa);
 int cuenta_caracteres (char m[]);
 float numero ();  // CUENTA LOS CARACTERES INTRODUCIDOS
 float numero (int minimo, int maximo);  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
-
+void animacion_reloj_inteligente();
 
 int main(){
 
@@ -89,6 +89,8 @@ int main(){
         if((a==0)&&(b==1))
             p=1;
         else{
+
+            animacion_reloj_inteligente ();
 
             print_fyh();
             printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
@@ -1476,3 +1478,25 @@ float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO
     return num; // resultado en tipo float, preparado para operar con él
 }
 
+void animacion_reloj_inteligente(){
+
+    FILE *pf;
+    char c;
+
+    pf=fopen("reloj_inteligente.txt","r");
+    if(pf==NULL)                          //compruebo que se abre bien
+    {
+        printf(AZUL31 "Error al abrir el fichero."RESET);
+    }else
+    {
+        LIMP;
+        fseek(pf,0,SEEK_SET);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf ("%c", c);
+            delay(0.010);
+        }
+    }
+    delay(0.3);
+    fclose(pf);
+}
