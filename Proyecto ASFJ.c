@@ -64,6 +64,7 @@ int cuenta_caracteres (char m[]);
 float numero ();  // CUENTA LOS CARACTERES INTRODUCIDOS
 float numero (int minimo, int maximo);  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
 void animacion_reloj_inteligente();
+void animacion_calendario();
 
 int main(){
 
@@ -268,6 +269,7 @@ int main(){
 
                         case 2: // CALENDARIO
                             LIMP;
+                            animacion_calendario();
                             menus (menu);
                             do{
 
@@ -1484,6 +1486,30 @@ void animacion_reloj_inteligente(){
     char c;
 
     pf=fopen("reloj_inteligente.txt","r");
+    if(pf==NULL)                          //compruebo que se abre bien
+    {
+        printf(AZUL31 "Error al abrir el fichero."RESET);
+    }else
+    {
+        LIMP;
+        fseek(pf,0,SEEK_SET);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf ("%c", c);
+            delay(0.010);
+        }
+    }
+    delay(0.3);
+    fclose(pf);
+}
+
+
+void animacion_calendario(){
+
+    FILE *pf;
+    char c;
+
+    pf=fopen("animacion_calendario.txt","r");
     if(pf==NULL)                          //compruebo que se abre bien
     {
         printf(AZUL31 "Error al abrir el fichero."RESET);
