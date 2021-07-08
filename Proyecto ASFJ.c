@@ -57,7 +57,7 @@ void imprimir_tipo_rec (char c, int nu);
 void copio_fichero();
 void editar_fichero(int nu, int ed, char edit);
 char coincide (char a[]);
-void delay(int numero_segundos);
+void delay(float numero_segundos);
 void cuenta_atras (int se, int mi, int ho, int aa);
 void modo_cuenta_atras (int aa);
 int cuenta_caracteres (char m[]);
@@ -922,21 +922,21 @@ int main(){
                                         printf("Se va a abrir una lista a%cadiendo una mejor explicaci%cn de los productos que pertenecen a cada tipo\n",164,162);
                                              pfIVA=fopen("Tipos_de_IVA.txt","r");
 
-                                    if(pfIVA==NULL)
+                                    if(pfIVA==NULL)                          //compruebo que se abre bien
                                     {
                                         printf(AZUL31 "Error al abrir el fichero."RESET);
                                         return -1;
                                     }else
                                     {
 
-                                        while (fscanf(pfIVA,"%c",&caracterr)!=EOF){
+                                        while (fscanf(pfIVA,"%c",&caracterr)!=EOF){  //cuento numero de lineas
                                             if(caracterr=='\n') ++nLineas;
                                         }
-                                            printf("Hay %i lineas.\n",nLineas);
+                                            //printf("Hay %i lineas.\n",nLineas);
 
-                                        fseek(pfIVA,0,SEEK_SET);
+                                        fseek(pfIVA,0,SEEK_SET);            //vuelvo al principio del fichero
 
-                                        for(caracterr=0; caracterr != EOF;){
+                                        for(caracterr=0; caracterr != EOF;){ // IMPRIMIR FICHERO IVA
                                             caracterr = fgetc (pfIVA);
                                             printf ("%c", caracterr);
                                             delay(0.015);
@@ -1319,9 +1319,9 @@ char coincide (char a[])
     if(j==0) printf(AZUL31"No hay recordatorios de ese tipo.\n"RESET); // En caso de que se haya pedido mostrar las fechas de uno de los tipos pero no haya ninguna de ese.
 }
 
-void delay(int numero_segundos)
+void delay(float numero_segundos)
 {
-    int milli_seconds = 1000 * numero_segundos;
+    float milli_seconds = 1000 * numero_segundos;
     clock_t start_time = clock();
     while (clock() < start_time + milli_seconds);
 }
