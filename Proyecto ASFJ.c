@@ -73,7 +73,7 @@ int main(){
 
 
 
-    int n,v;
+    int n,v,metodo;
     char modo;                  // variables para calendario
     int menu,p=0,a=0,b=0;     //variables para controlar la posición en el menú
     int tempo,calen,calc,gp;
@@ -184,78 +184,79 @@ int main(){
 
 
                                 break;
-                                case 3://METODO POMODORO
+                                case 3://CICLOS DE TIEMPO
+                                    printf("Seleccione el m%ctodo que desee utilizar:\n1-.M%ctodo Pomodoro\n2-.M%ctodo T%cbata\n",130,130,130,160);
+                                    scanf("%i",&metodo);
+                                    if (metodo==1){
+                                        LIMP;
+                                        printf (AZUL24 INVERSO "M%ctodo pomodoro\n" RESET,130 );
 
-                                    LIMP;
-                                    printf (AZUL24 INVERSO "M%ctodo pomodoro\n" RESET,130 );
+                                        int ciclos;
+                                        printf(AZUL24"%cCu%cntos ciclos de estudio desea hacer?\n"RESET ,168,160);
+                                        scanf("% i",&ciclos);
 
-                                    int ciclos;
-                                    printf(AZUL24"%cCu%cntos ciclos de estudio desea hacer?\n"RESET ,168,160);
-                                    scanf("%i",&ciclos);
+                                        printf(AZUL24"Va a empezar el M%ctodo Pomodoro\n", 130);
+                                        printf("Comienzan los %i ciclos de estudio\n" RESET, ciclos);
 
-                                    printf(AZUL24"Va a empezar el M%ctodo Pomodoro\n", 130);
-                                    printf("Comienzan los %i ciclos de estudio\n" RESET, ciclos);
+                                        delay(2);
+                                        for(i=0;i<ciclos;i++)
+                                        {
+                                            mi=25;
+                                            se=0;
+                                            ho=0;
+                                            aa=3;
 
-                                    delay(2);
-                                    for(i=0;i<ciclos;i++)
-                                    {
-                                        mi=25;
-                                        se=0;
-                                        ho=0;
-                                        aa=3;
+                                            cuenta_atras(se, mi, ho, aa);
 
-                                        cuenta_atras(se, mi, ho, aa);
+                                            printf("Va a empezar el tiempo de descanso\n");
+                                            mi=5;
+                                            se=0;
+                                            ho=0;
+                                            aa=4;
 
-                                        printf("Va a empezar el tiempo de descanso\n");
-                                        mi=5;
-                                        se=0;
-                                        ho=0;
-                                        aa=4;
+                                            cuenta_atras(se, mi, ho, aa);
+                                        }
 
-                                        cuenta_atras(se, mi, ho, aa);
+
+
+                                        printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
+                                        menus (menu);
                                     }
+                                    else if(metodo==2){
+                                        LIMP;
+                                        printf (AZUL24 INVERSO "M%ctodo T%cbata\n" RESET,130,160 );
 
+                                        int series;
+                                        series=8;
 
+                                        printf(AZUL24"Va a empezar el tiempo de ejercicio\n");
+                                        printf("Son %i series de ejrcicio\n" RESET,series);
 
+                                        delay(2);
+                                        for(i=0;i<series;i++)
+                                        {
+                                            mi=0;
+                                            se=25;
+                                            ho=0;
+                                            aa=5;
+
+                                            cuenta_atras(se, mi, ho, aa);
+
+                                            printf("Va a empezar el tiempo de descanso\n");
+                                            mi=0;
+                                            se=5;
+                                            ho=0;
+                                            aa=6;
+
+                                            cuenta_atras(se, mi, ho, aa);
+                                        }
+                                    }
+                                    else //Presiona cualquier otro numero
+                                        printf("Introduzca un n%cmero v%clido\n",163,160);
                                     printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
                                     menus (menu);
-                                break;
-                                case 4://METODO TABATA
 
-                                    LIMP;
-                                    printf (AZUL24 INVERSO "M%ctodo T%cbata\n" RESET,130,160 );
-
-                                    int series;
-                                    series=8;
-
-                                    printf(AZUL24"Va a empezar el tiempo de ejercicio\n");
-                                    printf("Son %i series de ejrcicio\n" RESET,series);
-
-                                    delay(2);
-                                    for(i=0;i<series;i++)
-                                    {
-                                        mi=0;
-                                        se=25;
-                                        ho=0;
-                                        aa=5;
-
-                                        cuenta_atras(se, mi, ho, aa);
-
-                                        printf("Va a empezar el tiempo de descanso\n");
-                                        mi=0;
-                                        se=5;
-                                        ho=0;
-                                        aa=6;
-
-                                        cuenta_atras(se, mi, ho, aa);
-                                    }
-
-
-
-                                    printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
-                                    menus (menu);
-                                break;
-                                case 5: //atras
+                                case 4: //atras
                                     a=1;
                                     LIMP;
                                 break;
@@ -265,7 +266,7 @@ int main(){
 
                             }
                             }
-                            while (tempo!=5);
+                            while (tempo!=4);
                             //menu=6;
 
                         break;
@@ -914,23 +915,20 @@ int main(){
                                 break;
                                 case 11: // CALCULAR EL IVA
                                     LIMP;
-                                    int iva,duda;
+                                    int iva;
                                     float IVA,precio, PRECIO; //precio=sin IVA PRECIO=con IVA iva=tipo IVA=dinero
                                     FILE *pfIVA;
                                     int nLineas;
-                                    char caracterr;
+                                    char caracterr,duda;
                                     printf (AZUL20 INVERSO"IVA\n"RESET);
                                     printf ("Hay tres tipos de IVA seg%cn el producto:\n",163);
                                     printf ("1-.General:es el que se aplica por defecto a cualquier bien o servicio que se comercialice en Espa%ca\n",164);
                                     printf ("2-.Reducido:afecta mayormente a los alimentos (a excepci%cn de los considerados de primera necesidad), y grava tanto los servicios de hosteler%ca y transporte de viajeros como la venta de inmuebles\n",162,161);
                                     printf ("3-.Superreducido:se aplica los bienes considerados de primera necesidad\n");
-
-                                    printf ("%cLe ha quedado claro a qu%c tipo pertenece su producto?\nPresione s si le ha quedado claro, en caso contrario presione cualquier otra tecla.\n",168,130);
-
-                                    printf ("%cLe ha quedado claro a qu%c tipo pertenece su producto?\nPresione *s* si le ha quedado claro, en caso contrario presione cualquier otra tecla.\n",168,130);
+                                    printf ("%cLe ha quedado claro a qu%c tipo pertenece su producto?\nPresione *el n%cmero 1* si le ha quedado claro, en caso contrario presione cualquier otra tecla.\n",168,130,163);
 
                                     scanf (" %c",&duda);
-                                    if (duda!='s'){
+                                    if (duda!= 49){
                                         printf("Se va a abrir una lista a%cadiendo una mejor explicaci%cn de los productos que pertenecen a cada tipo\n",164,162);
                                              pfIVA=fopen("Tipos_de_IVA.txt","r");
 
@@ -951,15 +949,15 @@ int main(){
                                         for(caracterr=0; caracterr != EOF;){ // IMPRIMIR FICHERO IVA
                                             caracterr = fgetc (pfIVA);
                                             printf ("%c", caracterr);
-                                            delay(0.015);
+                                            //delay(0.015);
                                         }
                                     }
                                     }
-                                    printf ("%cA qu%c tipo pertenece su producto?",168,130);
+                                    printf ("%cA qu%c tipo pertenece su producto?\n",168,130);
                                     scanf(" %i", &iva);
                                     if (iva==1) {
                                         printf("A este producto se le aplica un IVA del 21%c\n",37);
-                                        printf("%cCu%cnto le ha costado su producto(en euros)?",168,160);
+                                        printf("%cCu%cnto le ha costado su producto(en euros)?\n",168,160);
                                         scanf(" %f",&PRECIO);
                                         IVA=PRECIO*0.21;
                                         precio= PRECIO - IVA;
@@ -968,7 +966,7 @@ int main(){
                                     }
                                     else if (iva==2){
                                         printf("A este producto se le aplica un IVA del 10%c\n",37);
-                                        printf("%c Cu%cnto le ha costado su producto(en euros)?",168,160);
+                                        printf("%c Cu%cnto le ha costado su producto(en euros)?\n",168,160);
                                         scanf("%f",&PRECIO);
                                         IVA=PRECIO*0.1;
                                         precio= PRECIO - IVA;
@@ -977,7 +975,7 @@ int main(){
                                     }
                                     else if (iva==3){
                                         printf("A este producto se le aplica un IVA del 4%c\n",37);
-                                        printf("%c Cu%cnto le ha costado su producto(en euros)?",168,160);
+                                        printf("%c Cu%cnto le ha costado su producto(en euros)?\n",168,160);
                                         scanf("%f",&PRECIO);
                                         IVA=PRECIO*0.04;
                                         precio= PRECIO - IVA;
@@ -1035,14 +1033,11 @@ return 0;
 
 void menus (int menu)
 {
-    if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.M%ctodo Pomodoro\n4-.M%ctodo T%cbata\n5-.Atr%cs\n",162,160,130,130,160,160);
+    if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs\n",162,160,160);
     else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" ,164,160);
     else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET ,162,162,160);
     else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.IVA\n12-.Atr%cs\n" RESET,130,162,162,162,160);
-
-}
-
-//Función de potencia para la calculadora
+    }
 
 float potencia(float base, int exponente)
 {
@@ -1053,10 +1048,6 @@ float potencia(float base, int exponente)
     }
     return resultado;
 }
-
-//Funcion para ingresar x e y en la calculadora
-
-
 
 int escribir_recordatorio (int n, char modo)
 {
@@ -1509,7 +1500,7 @@ void animacion_reloj_inteligente(){
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
             printf (CIAN "%c", c);
-            delay(0.004);
+            //delay(0.004);
         }
 
         fseek(pf,0,SEEK_SET);
@@ -1575,7 +1566,7 @@ void animacion_calendario(){
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
             printf (RESET AZUL31 "%c", c);
-            delay(0.010);
+            //delay(0.010);
         }
     }
     delay(0.5);
