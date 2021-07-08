@@ -924,7 +924,11 @@ int main(){
                                     printf ("1-.General:es el que se aplica por defecto a cualquier bien o servicio que se comercialice en Espa%ca\n",164);
                                     printf ("2-.Reducido:afecta mayormente a los alimentos (a excepci%cn de los considerados de primera necesidad), y grava tanto los servicios de hosteler%ca y transporte de viajeros como la venta de inmuebles\n",162,161);
                                     printf ("3-.Superreducido:se aplica los bienes considerados de primera necesidad\n");
+
                                     printf ("%cLe ha quedado claro a qu%c tipo pertenece su producto?\nPresione s si le ha quedado claro, en caso contrario presione cualquier otra tecla.\n",168,130);
+
+                                    printf ("%cLe ha quedado claro a qu%c tipo pertenece su producto?\nPresione *s* si le ha quedado claro, en caso contrario presione cualquier otra tecla.\n",168,130);
+
                                     scanf (" %c",&duda);
                                     if (duda!='s'){
                                         printf("Se va a abrir una lista a%cadiendo una mejor explicaci%cn de los productos que pertenecen a cada tipo\n",164,162);
@@ -1496,7 +1500,12 @@ void animacion_reloj_inteligente(){
         printf(AZUL31 "Error al abrir el fichero."RESET);
     }else
     {
+
         LIMP;fseek(pf,0,SEEK_SET);
+
+        LIMP;
+        fseek(pf,0,SEEK_SET);
+
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
             printf (CIAN "%c", c);
