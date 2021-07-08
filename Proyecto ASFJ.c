@@ -71,6 +71,7 @@ void animacion_temporizadores();
 void animacion_calendario();
 void animacion_GPS();
 void animacion_calculadora();
+void animacion_hasta_luego();
 
 int main(){
 
@@ -118,6 +119,7 @@ int main(){
                         case 1: //TEMPORIZADORES
 
                             LIMP;
+                            animacion_temporizadores();
                             menus (menu);
                             do {
                             printf(RESET);
@@ -449,6 +451,7 @@ int main(){
 
                         case 3: // GPS
                             LIMP;
+                            animacion_GPS();
                             menus (menu);
                             int punto;
                             int x1;
@@ -653,6 +656,7 @@ int main(){
 
                         case 4: // CALCULADORA
                             LIMP;
+                            animacion_calculadora();
                             menus (menu);
                             do{
 
@@ -1012,6 +1016,7 @@ int main(){
                             LIMP;
                             b=1;
                             printf (CIAN "Hasta luego!\n"RESET);
+                            animacion_hasta_luego();
                         break;
 
 
@@ -1503,7 +1508,7 @@ void animacion_reloj_inteligente(){
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
             printf (CIAN "%c", c);
-            //delay(0.004);
+            delay(0.004);
         }
 
         fseek(pf,0,SEEK_SET);
@@ -1512,7 +1517,7 @@ void animacion_reloj_inteligente(){
             c = fgetc (pf);
             printf (AZUL24 "%c", c);
         }
-        delay(0.07);
+        delay(0.1);
 
         fseek(pf,0,SEEK_SET);
         printf(INICIO);
@@ -1520,7 +1525,7 @@ void animacion_reloj_inteligente(){
             c = fgetc (pf);
             printf (AZUL31 "%c", c);
         }
-        delay(0.07);
+        delay(0.1);
 
         fseek(pf,0,SEEK_SET);
         printf(INICIO);
@@ -1528,7 +1533,7 @@ void animacion_reloj_inteligente(){
             c = fgetc (pf);
             printf (AZUL69 "%c", c);
         }
-        delay(0.07);
+        delay(0.1);
 
         fseek(pf,0,SEEK_SET);
         printf(INICIO);
@@ -1536,7 +1541,7 @@ void animacion_reloj_inteligente(){
             c = fgetc (pf);
             printf (AZUL20 "%c", c);
         }
-        delay(0.07);
+        delay(0.1);
 
         fseek(pf,0,SEEK_SET);
         printf(INICIO);
@@ -1548,7 +1553,7 @@ void animacion_reloj_inteligente(){
 
 
     }
-    delay(1);
+    delay(2);
     fclose(pf);
 }
 
@@ -1642,5 +1647,74 @@ void animacion_calculadora(){
         }
     }
     delay(0.5);
+    fclose(pf);
+}
+
+void animacion_hasta_luego(){
+
+    FILE *pf;
+    char c,color;
+    int i;
+
+    pf=fopen("hasta_luego.txt","r");
+    if(pf==NULL)                          //compruebo que se abre bien
+    {
+        printf(AZUL31 "Error al abrir el fichero."RESET);
+    }else
+    {
+
+        LIMP;fseek(pf,0,SEEK_SET);
+
+        LIMP;
+        fseek(pf,0,SEEK_SET);
+
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (CIAN "%c", c);
+            delay(0.004);
+        }
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL24 "%c", c);
+        }
+        delay(0.17);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL31 "%c", c);
+        }
+        delay(0.17);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL69 "%c", c);
+        }
+        delay(0.17);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (AZUL20 "%c", c);
+        }
+        delay(0.17);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (CIAN "%c", c);
+        }
+
+
+    }
+    delay(1.5);
     fclose(pf);
 }
