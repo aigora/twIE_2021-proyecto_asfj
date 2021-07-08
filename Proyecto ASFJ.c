@@ -67,7 +67,10 @@ int cuenta_caracteres (char m[]);
 float numero ();  // CUENTA LOS CARACTERES INTRODUCIDOS
 float numero (int minimo, int maximo);  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
 void animacion_reloj_inteligente();
+void animacion_temporizadores();
 void animacion_calendario();
+void animacion_GPS();
+void animacion_calculadora();
 
 int main(){
 
@@ -1550,6 +1553,29 @@ void animacion_reloj_inteligente(){
 }
 
 
+void animacion_temporizadores(){
+
+    FILE *pf;
+    char c;
+
+    pf=fopen("animacion_temporizadores.txt","r");
+    if(pf==NULL)                          //compruebo que se abre bien
+    {
+        printf(AZUL24 "Error al abrir la animacion de los temporizadores."RESET);
+    }else
+    {
+        LIMP;
+        fseek(pf,0,SEEK_SET);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (RESET AZUL24 "%c", c);
+            delay(0.010);
+        }
+    }
+    delay(0.5);
+    fclose(pf);
+}
+
 void animacion_calendario(){
 
     FILE *pf;
@@ -1558,7 +1584,7 @@ void animacion_calendario(){
     pf=fopen("animacion_calendario.txt","r");
     if(pf==NULL)                          //compruebo que se abre bien
     {
-        printf(AZUL31 "Error al abrir el fichero."RESET);
+        printf(AZUL31 "Error al abrir la animacion del calendario."RESET);
     }else
     {
         LIMP;
@@ -1566,7 +1592,53 @@ void animacion_calendario(){
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
             printf (RESET AZUL31 "%c", c);
-            //delay(0.010);
+            delay(0.010);
+        }
+    }
+    delay(0.5);
+    fclose(pf);
+}
+
+void animacion_GPS(){
+
+    FILE *pf;
+    char c;
+
+    pf=fopen("animacion_gps.txt","r");
+    if(pf==NULL)                          //compruebo que se abre bien
+    {
+        printf(AZUL69 "Error al abrir la animacion del GPS."RESET);
+    }else
+    {
+        LIMP;
+        fseek(pf,0,SEEK_SET);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (RESET AZUL69 "%c", c);
+            delay(0.010);
+        }
+    }
+    delay(0.5);
+    fclose(pf);
+}
+
+void animacion_calculadora(){
+
+    FILE *pf;
+    char c;
+
+    pf=fopen("animacion_calculadora.txt","r");
+    if(pf==NULL)                          //compruebo que se abre bien
+    {
+        printf(AZUL20 "Error al abrir la animacion de la calculadora."RESET);
+    }else
+    {
+        LIMP;
+        fseek(pf,0,SEEK_SET);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (RESET AZUL20 "%c", c);
+            delay(0.010);
         }
     }
     delay(0.5);
