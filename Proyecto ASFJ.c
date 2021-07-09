@@ -1487,6 +1487,16 @@ float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO
     return num; // resultado en tipo float, preparado para operar con él
 }
 
+int salir (char fin[N]){   //DETECTA SI EL USUARIO HA ESCRITO 'FIN'
+
+     if (((fin[0]) == 'F') && ((fin[1]) == 'I') && ((fin[2]) == 'N') && (fin[3] == '\0')){
+        printf("\n\n\n\n\nHasta la proxima partida\n\n");
+        return -1;
+     }
+    return 1;
+}
+
+
 void animacion_reloj_inteligente(){
 
     FILE *pf;
