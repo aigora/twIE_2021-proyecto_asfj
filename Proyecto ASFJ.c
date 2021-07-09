@@ -66,6 +66,7 @@ void modo_cuenta_atras (int aa);
 int cuenta_caracteres (char m[]);
 float numero ();  // CUENTA LOS CARACTERES INTRODUCIDOS
 float numero (int minimo, int maximo);  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
+int salir(char fin[N]);
 void animacion_reloj_inteligente();
 void animacion_temporizadores();
 void animacion_calendario();
@@ -82,6 +83,8 @@ int main(){
     int menu,p=0,a=0,b=0;     //variables para controlar la posición en el menú
     int tempo,calen,calc,gp;
     int se=0,mi=0,ho=0;
+    char FIN='F', ERRORES='E'; // variables para detectar si el usuario desea salir del programa o si escribió datos mal varias veces seguidas
+
 
     time_t t;
     struct tm *tm;
@@ -1411,8 +1414,9 @@ int cuenta_caracteres (char m[]){  // CUENTA LOS CARACTERES INTRODUCIDOS
 float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
 
     int i,contador_errores=0,Ncontador=0,Pcontador=0,P=0,t=0,acotacion=0;
-    float num=0;
-    char m[N];
+    char m[N]; // cadena que el usuario escribirá por teclado
+    float num=0; // numero que devolverá la función
+    char FIN='F', ERRORES='E'; // la función devuelve estos valores si lo que desea el usuario es salir o bien si ha fallado muchas veces
 
     do{
         do{
@@ -1426,7 +1430,7 @@ float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO
                         if(acotacion>0) printf("La cifra debe estar entre %i y %i.\n",minimo,maximo);
                         if(contador_errores>3){
                             printf("Demasiados intentos, vuelva a probar mas tarde.\n");
-                            return -1;
+                            return ERRORES; // el usuario escribió datos incorrectos varias veces seguidas
                         }
                     }
                     // vuelvo a poner los errores a 0
@@ -1439,6 +1443,8 @@ float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO
 
                     //introduzco cadena a evaluar
                     scanf(" %[^\n]",&m);
+
+                    if (salir(m)==-1) return FIN; // el usuario escribió "FIN", el programa se cerrará
 
 
                     for(i=0;i<N;i++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
