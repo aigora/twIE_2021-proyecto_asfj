@@ -48,25 +48,30 @@ typedef struct
     fecha fechaRec;
 }evento;
 
+//FUNCIONES VARIAS
 void menus (int menu);
-float potencia(float base, int exponente);
-int escribir_recordatorio (int n,char modo);
-void printEvento(evento x);
-int compFecha(fecha f1, fecha f2);
+void delay(float numero_segundos);
 int random();
-void print_fyh();
+//FUNCION CALCULADORA
+float potencia(float base, int exponente);
+//FUNCIONES CALENDARIO
 int imprimir_fichero(int numeracion);
-void imprimir_tipo_rec (char c, int nu);
 void copio_fichero();
 void editar_fichero(int nu, int ed, char edit);
 char coincide (char a[]);
-void delay(float numero_segundos);
+void imprimir_tipo_rec (char c, int nu);
+int escribir_recordatorio (int n,char modo);
+void printEvento(evento x);
+int compFecha(fecha f1, fecha f2);
+void print_fyh();
+//FUNCIONES TEMPORIZADORES
 void cuenta_atras (int se, int mi, int ho, int aa);
 void modo_cuenta_atras (int aa);
+//COMPROBACIÓN DE DATOS
 int cuenta_caracteres (char m[]);
-float numero ();  // CUENTA LOS CARACTERES INTRODUCIDOS
 float numero (int minimo, int maximo);  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
 int salir(char fin[N]);
+// ANIMACIONES
 void animacion_reloj_inteligente();
 void animacion_temporizadores();
 void animacion_calendario();
@@ -1042,6 +1047,7 @@ return 0;
 }
 
 
+// FUNCIONES VARIAS
 void menus (int menu)
 {
     if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs\n",162,160,160);
@@ -1050,6 +1056,22 @@ void menus (int menu)
     else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.IVA\n12-.Atr%cs\n" RESET,130,162,162,162,160);
     }
 
+void delay(float numero_segundos)
+{
+    float milli_seconds = 1000 * numero_segundos;
+    clock_t start_time = clock();
+    while (clock() < start_time + milli_seconds);
+}
+
+int random()
+{
+    int nrandom;
+    nrandom=rand()%N+1;
+    return nrandom;
+}
+
+
+// FUNCION CALCULADORA
 float potencia(float base, int exponente)
 {
     float resultado = 1;
@@ -1060,82 +1082,10 @@ float potencia(float base, int exponente)
     return resultado;
 }
 
-int escribir_recordatorio (int n, char modo)
+
+// FUNCIONES DEL CALENDARIO
+int imprimir_fichero(int numeracion)
 {
-    int i;
-    int dia, mes, anio;
-    char tip[30], rec[30];
-    FILE *pf;
-
-    if(modo=='e') pf=fopen("Recordatorios_calendario.txt","w"); //creo fichero en modo escritura
-    else pf=fopen("Recordatorios_calendario.txt","a");          //abro fichero en modo a�adir
-
-    if(pf==NULL)                             //compruebo que se abre bien
-    {
-        printf("Error al abrir el fichero.");
-        return -1;
-    }else
-    {
-        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma num%crica: d%ca mes a%co tipo_de_evento recordatorio\n",130,161,164);
-        for(i=0;i<n;i++)                                                  // FUNCION PARA ESCRIBIR EN EL FICHEROOO
-        {
-            scanf("%d %d %d %s %s",                       //asigno valores a los vectores
-                &dia,&mes,&anio,&tip,&rec);
-
-            fprintf(pf,"%d;%d;%d;%s;%s\n",                 //escribo en el fichero
-                    dia,mes,anio,tip,rec);
-
-        }
-    fclose(pf);                           //cierro fichero
-    return 0;
-    }
-
-}
-
-void printEvento(evento x)
-{
-  printf("(%i/%i/%i):\t"RESET,
-	 x.fechaRec.d,
-	 x.fechaRec.m,
-	 x.fechaRec.a);
-	 printf("%s %s\n",
-	 x.tipo,
-	 x.recordatorio);
-}
-
-int compFecha(fecha f1, fecha f2)
-{
-  if (f1.a == f2.a && f1.m==f2.m && f1.d==f2.d)
-        return -1;
-  else
-        return 1;
-}
-
-int random()
-{
-    int nrandom;
-    nrandom=rand()%N+1;
-    return nrandom;
-}
-
-void print_fyh()    //dar la hora y dia en pantalla
-{
-    time_t t;
-    struct tm *tm;
-    char fechayhora[100];
-
-    t=time(NULL);
-    tm=localtime(&t);
-    LIMP;
-    strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
-    printf (FAZUL INVISIBLE "\n\t %s \n" RESET,fechayhora);
-    printf (FAZUL "\t %s \n",fechayhora);
-    printf (INVISIBLE "\t %s \n\n" RESET ,fechayhora);
-}
-
-
-
-int imprimir_fichero(int numeracion){
 
     int j,Nu=0;  //Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
     char c; // c para recorrer el fichero por caracteres y contar lineas; opcion para mostrar o no todos los recordatorios en pantalla
@@ -1185,8 +1135,6 @@ int imprimir_fichero(int numeracion){
     }
     return Nu; //devuelvo el numero de lineas
 }
-
-
 void copio_fichero()                                              //copio el fichero de recordatorios en uno temporal
 {
     char ce;
@@ -1212,7 +1160,6 @@ void copio_fichero()                                              //copio el fic
         }
     }
 }
-
 void editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas totales; ed es el numero de linea que quiero modificar; edit decide si edito fecha o recordatorio
 {
 
@@ -1257,7 +1204,6 @@ void editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas to
     fclose(co);
 
 }
-
 char coincide (char a[])
 {
     char x;
@@ -1269,10 +1215,8 @@ char coincide (char a[])
     else x='q';
     return x;
 }
-
-
- void imprimir_tipo_rec (char c, int Nu)
- {
+void imprimir_tipo_rec (char c, int Nu)
+{
     LIMP;
     int j=0,d,m,a;
     char tip[20],rec[20];
@@ -1332,14 +1276,71 @@ char coincide (char a[])
     printf("\n");
     if(j==0) printf(AZUL31"No hay recordatorios de ese tipo.\n"RESET); // En caso de que se haya pedido mostrar las fechas de uno de los tipos pero no haya ninguna de ese.
 }
-
-void delay(float numero_segundos)
+int escribir_recordatorio (int n, char modo)
 {
-    float milli_seconds = 1000 * numero_segundos;
-    clock_t start_time = clock();
-    while (clock() < start_time + milli_seconds);
+    int i;
+    int dia, mes, anio;
+    char tip[30], rec[30];
+    FILE *pf;
+
+    if(modo=='e') pf=fopen("Recordatorios_calendario.txt","w"); //creo fichero en modo escritura
+    else pf=fopen("Recordatorios_calendario.txt","a");          //abro fichero en modo a�adir
+
+    if(pf==NULL)                             //compruebo que se abre bien
+    {
+        printf("Error al abrir el fichero.");
+        return -1;
+    }else
+    {
+        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma num%crica: d%ca mes a%co tipo_de_evento recordatorio\n",130,161,164);
+        for(i=0;i<n;i++)                                                  // FUNCION PARA ESCRIBIR EN EL FICHEROOO
+        {
+            scanf("%d %d %d %s %s",                       //asigno valores a los vectores
+                &dia,&mes,&anio,&tip,&rec);
+
+            fprintf(pf,"%d;%d;%d;%s;%s\n",                 //escribo en el fichero
+                    dia,mes,anio,tip,rec);
+
+        }
+    fclose(pf);                           //cierro fichero
+    return 0;
+    }
+
+}
+void printEvento(evento x)
+{
+  printf("(%i/%i/%i):\t"RESET,
+	 x.fechaRec.d,
+	 x.fechaRec.m,
+	 x.fechaRec.a);
+	 printf("%s %s\n",
+	 x.tipo,
+	 x.recordatorio);
+}
+int compFecha(fecha f1, fecha f2)
+{
+  if (f1.a == f2.a && f1.m==f2.m && f1.d==f2.d)
+        return -1;
+  else
+        return 1;
+}
+void print_fyh()    //dar la hora y dia en pantalla
+{
+    time_t t;
+    struct tm *tm;
+    char fechayhora[100];
+
+    t=time(NULL);
+    tm=localtime(&t);
+    LIMP;
+    strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
+    printf (FAZUL INVISIBLE "\n\t %s \n" RESET,fechayhora);
+    printf (FAZUL "\t %s \n",fechayhora);
+    printf (INVISIBLE "\t %s \n\n" RESET ,fechayhora);
 }
 
+
+// FUNCIONES TEMPORIZADORES
 void cuenta_atras(int se, int mi, int ho, int aa)
 {
     int total,i;
@@ -1383,7 +1384,6 @@ void cuenta_atras(int se, int mi, int ho, int aa)
 
 
 }
-
 void modo_cuenta_atras (int aa)
 {
     if(aa==2) printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
@@ -1395,24 +1395,17 @@ void modo_cuenta_atras (int aa)
 }
 
 
-void modo_cuenta_atras_t (int aa)
+// COMPROBACIÓN DE DATOS
+int cuenta_caracteres (char m[])  // CUENTA LOS CARACTERES INTRODUCIDOS
 {
-
-    if(aa==2) printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
-    else if (aa==3) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca estudiar\n",130);
-    else if (aa==4) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca descanso\n",130);
-
-}
-int cuenta_caracteres (char m[]){  // CUENTA LOS CARACTERES INTRODUCIDOS
     int i=0;
     while(m[i]!='\0'){
         i++;
     }
     return i;
 }
-
-float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
-
+float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
+{
     int i,contador_errores=0,Ncontador=0,Pcontador=0,P=0,t=0,acotacion=0;
     char m[N]; // cadena que el usuario escribirá por teclado
     float num=0; // numero que devolverá la función
@@ -1492,8 +1485,8 @@ float numero (int minimo, int maximo){  // PIDE AL USUARIO UN NUMERO ACOTADO, LO
 
     return num; // resultado en tipo float, preparado para operar con él
 }
-
-int salir (char fin[N]){   //DETECTA SI EL USUARIO HA ESCRITO 'FIN'
+int salir (char fin[N])   //DETECTA SI EL USUARIO HA ESCRITO 'FIN'
+{
 
      if (((fin[0]) == 'F') && ((fin[1]) == 'I') && ((fin[2]) == 'N') && (fin[3] == '\0')){
         printf("\n\n\n\n\nHasta la proxima partida\n\n");
@@ -1503,7 +1496,9 @@ int salir (char fin[N]){   //DETECTA SI EL USUARIO HA ESCRITO 'FIN'
 }
 
 
-void animacion_reloj_inteligente(){
+// ANIMACIONES
+void animacion_reloj_inteligente()
+{
 
     FILE *pf;
     char c,color;
@@ -1572,9 +1567,8 @@ void animacion_reloj_inteligente(){
     delay(2);
     fclose(pf);
 }
-
-
-void animacion_temporizadores(){
+void animacion_temporizadores()
+{
 
     FILE *pf;
     char c;
@@ -1596,8 +1590,8 @@ void animacion_temporizadores(){
     delay(0.5);
     fclose(pf);
 }
-
-void animacion_calendario(){
+void animacion_calendario()
+{
 
     FILE *pf;
     char c;
@@ -1619,8 +1613,8 @@ void animacion_calendario(){
     delay(0.5);
     fclose(pf);
 }
-
-void animacion_GPS(){
+void animacion_GPS()
+{
 
     FILE *pf;
     char c;
@@ -1642,8 +1636,8 @@ void animacion_GPS(){
     delay(0.5);
     fclose(pf);
 }
-
-void animacion_calculadora(){
+void animacion_calculadora()
+{
 
     FILE *pf;
     char c;
@@ -1665,8 +1659,8 @@ void animacion_calculadora(){
     delay(0.5);
     fclose(pf);
 }
-
-void animacion_hasta_luego(){
+void animacion_hasta_luego()
+{
 
     FILE *pf;
     char c,color;
@@ -1734,3 +1728,6 @@ void animacion_hasta_luego(){
     delay(1.5);
     fclose(pf);
 }
+
+
+
