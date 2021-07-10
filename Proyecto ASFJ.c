@@ -36,6 +36,9 @@
 
 #define LIMP printf("\033[2J" "\033[H")   // "limpiar la pantalla" + empezar a escribir arriba
 
+#define FIN 'F' // constantes para detectar si el usuario desea salir del programa
+#define ERRORES 'E' //constante para saber si el usuario escribió datos mal varias veces seguidas
+
 typedef struct
 {
     int d, m, a;
@@ -88,8 +91,6 @@ int main(){
     int menu,p=0,a=0,b=0;     //variables para controlar la posición en el menú
     int tempo,calen,calc,gp;
     int se=0,mi=0,ho=0;
-    char FIN='F', ERRORES='E'; // variables para detectar si el usuario desea salir del programa o si escribió datos mal varias veces seguidas
-
 
     time_t t;
     struct tm *tm;
@@ -1406,10 +1407,9 @@ int cuenta_caracteres (char m[])  // CUENTA LOS CARACTERES INTRODUCIDOS
 }
 float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
 {
-    int i,contador_errores=0,Ncontador=0,Pcontador=0,P=0,t=0,acotacion=0;
+    int i,contador_errores=0,Ncontador=0,Pcontador=0,P=0,t=0,acotacion=0, signo=0;
     char m[N]; // cadena que el usuario escribirá por teclado
     float num=0; // numero que devolverá la función
-    char FIN='F', ERRORES='E'; // la función devuelve estos valores si lo que desea el usuario es salir o bien si ha fallado muchas veces
 
     do{
         do{
@@ -1433,28 +1433,52 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
                     P=0;
                     acotacion=0;
                     num=0;
+                    signo=0;
 
                     //introduzco cadena a evaluar
                     scanf(" %[^\n]",&m);
 
                     if (salir(m)==-1) return FIN; // el usuario escribió "FIN", el programa se cerrará
 
+                    if(m[0]=='-'){  // DETECTAR SI ES NEGATIVO
+                        signo=1;
+                        Ncontador++;
 
-                    for(i=0;i<N;i++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
-                        if (m[i]!=0){ //desprecia los espacios de m[] no rellenados
-                            if((m[i]>47)&&(m[i]<58)){ //entre estos valores se encuentran los numeros del 0 al 9
-                            }else if(m[i]=='.'){
-                                P=i;      // ASIGNAR POSICIÓN DEL PUNTO
-                                Pcontador++;  // DETECTOR DE SI SE ESCRIBE MAS DE UN PUNTO
+                        for(i=1;i<N;i++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
+                            if (m[i]!=0){ //desprecia los espacios de m[] no rellenados
+                                if((m[i]>47)&&(m[i]<58)){ //entre estos valores se encuentran los numeros del 0 al 9
+                                }else if(m[i]=='.'){
+                                    P=i;      // ASIGNAR POSICIÓN DEL PUNTO
+                                    Pcontador++;  // DETECTOR DE SI SE ESCRIBE MAS DE UN PUNTO
+                                }
+                                else {  // DETECTOR DE CARACTER DISTINTO DE NUMERO, PUNTO O HUECO SIN ESCRIBIR
+
+                                    if(m[i]==8) Ncontador--;
+                                    else t++;
+
+                                }
+                                Ncontador++; //CUENTA CASILLAS RELLENADAS
                             }
-                            else {  // DETECTOR DE CARACTER DISTINTO DE NUMERO, PUNTO O HUECO SIN ESCRIBIR
-                                t++;
-                                printf("t");
-                            }
-                            Ncontador++; //CUENTA CASILLAS RELLENADAS
                         }
                     }
+                    else{
+                        for(i=0;i<N;i++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
+                            if (m[i]!=0){ //desprecia los espacios de m[] no rellenados
+                                if((m[i]>47)&&(m[i]<58)){ //entre estos valores se encuentran los numeros del 0 al 9
+                                }else if(m[i]=='.'){
+                                    P=i;      // ASIGNAR POSICIÓN DEL PUNTO
+                                    Pcontador++;  // DETECTOR DE SI SE ESCRIBE MAS DE UN PUNTO
+                                }
+                                else {  // DETECTOR DE CARACTER DISTINTO DE NUMERO, PUNTO O HUECO SIN ESCRIBIR
 
+                                    if(m[i]==8) Ncontador--;
+                                    else t++;
+
+                                }
+                                Ncontador++; //CUENTA CASILLAS RELLENADAS
+                            }
+                        }
+                    }
 
                     contador_errores++; //en caso de repetir algún bucle, se cuentan los errores
 
@@ -1463,14 +1487,16 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
         }while(Pcontador>1); // HAY MÁS DE UN PUNTO
 
 
-
         if (Pcontador==0){   // CUANDO NO HAY CIFRAS DECIMALES
-            for(i=0;i<Ncontador;i++){
+            for(i=signo;i<Ncontador;i++){
                 //printf("%d\n",Ncontador);
-                num=num+((m[i]-48)*pow(10,Ncontador-i-1));
+                if(m[i]!=8){
+                    num=num+((m[i]-48)*pow(10,Ncontador-i-1));
+
+                }
             }
         }else{ //Pcontador==1    CUANDO SI PUEDE HABER CIFRAS DECIMALES
-            for(i=0;i<P;i++){ // cifras enteras, antes del punto
+            for(i=signo;i<P;i++){ // cifras enteras, antes del punto
                 num=num+((m[i]-48)*pow(10,P-i-1));
             }
             for(i=P+1;i<Ncontador;i++){ // cifras decimales, despues del punto
@@ -1483,7 +1509,9 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
     }while ((num<minimo)||(num>maximo)); // COMPROBACIÓN DE LA ACOTACIÓN DESEADA
 
 
+    if(signo==1) num=-num;
     return num; // resultado en tipo float, preparado para operar con él
+
 }
 int salir (char fin[N])   //DETECTA SI EL USUARIO HA ESCRITO 'FIN'
 {
