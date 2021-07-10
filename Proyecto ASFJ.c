@@ -89,7 +89,7 @@ int main(){
     int n,v,metodo;
     char modo;                  // variables para calendario
     int menu,p=0,a=0,b=0;     //variables para controlar la posición en el menú
-    int tempo,calen,calc,gp;
+    int tempo,calen,calc,gp,srt;
     int se=0,mi=0,ho=0;
 
     time_t t;
@@ -112,14 +112,14 @@ int main(){
 
             print_fyh();
             printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
-            printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET BLANCO"5-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
+            printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET AZUL20"5-.Suerte\n"RESET BLANCO"6-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
             a=0;
             b=0;
 
 
             do {
                 if(a==1)
-                    menu=5;
+                    menu=6;
                 else{
 
                     scanf("%i",&menu);
@@ -1019,9 +1019,179 @@ int main(){
                             while(calc!=12);
 
                         break;
+                        case 5: //suerte
+                            LIMP;
+                            menus (menu);
+                            do {
+                            printf(RESET);
+                            scanf ("%i",&srt);
+                            switch (srt)
+                            {
+                                case 1: //cara o cruz
 
+                                    LIMP;
+                                    printf (AZUL24 INVERSO"Lanza una moneda y dice si sale cara o cruz\n"RESET);
 
-                        case 5:
+                                        int lanz;
+                                        srand(time(NULL));
+                                        lanz = rand() % 2; //Coge un numero aleatorio y calcula su modulo
+                                        if(lanz==0) // Si el numero es par
+                                            printf (AZUL24"Ha salido cara\n");
+                                        else // Si el numero es impar
+                                            printf (AZUL24"Ha salido cruz\n");
+
+                                    printf(SUBRAYADO ITALIC "\nPuede continuar usando los "RESET);
+                                    menus (menu);
+
+                                break;
+
+                                case 2: //lanza un dado
+
+                                     LIMP;
+                                     printf (AZUL24 INVERSO"Lanza un dado de seis lados\n"RESET);
+
+                                        int lanz1;
+                                        srand(time(NULL));
+                                        lanz1 = rand() % 6; //Coge un numero aleatorio entre 0 y 5
+                                        if(lanz1==0)
+                                            printf ("Ha salido el 1\n");
+                                        else if (lanz1==1)
+                                            printf ("Ha salido el 2\n");
+                                        else if (lanz1==2)
+                                            printf ("Ha salido el 3\n");
+                                        else if (lanz1==3)
+                                            printf ("Ha salido el 4\n");
+                                        else if (lanz1==4)
+                                            printf ("Ha salido el 5\n");
+                                        else
+                                            printf ("Ha salido el 6\n");
+
+                                     printf(SUBRAYADO ITALIC "\nPuede continuar usando los "RESET);
+                                     menus (menu);
+                                break;
+                                case 3: //carta
+
+                                     LIMP;
+                                     printf (AZUL24 INVERSO"Elige una carta aleatoria de la baraja espa%cola\n"RESET,168);
+
+                                     int lanz2;
+                                     srand(time(NULL));
+                                        lanz2 = rand() % 39; //Coge un numero aleatorio entre 0 y 39
+                                        if(lanz2==0)
+                                            printf ("Ha salido el 1 de copas\n");
+                                        else if (lanz2==1)
+                                            printf ("Ha salido el 2 de copas\n");
+                                        else if (lanz2==2)
+                                            printf ("Ha salido el 3 de copas\n");
+                                        else if (lanz2==3)
+                                            printf ("Ha salido el 4 de copas\n");
+                                        else if (lanz2==4)
+                                            printf ("Ha salido el 5 de copas\n");
+                                        else if (lanz2==5)
+                                            printf ("Ha salido el 6 de copas\n");
+                                        else if (lanz2==6)
+                                            printf ("Ha salido el 7 de copas\n");
+                                        else if (lanz2==7)
+                                            printf ("Ha salido la sota de copas\n");
+                                        else if (lanz2==8)
+                                            printf ("Ha salido el caballo de copas\n");
+                                        else if (lanz2==9)
+                                            printf ("Ha salido el rey de copas\n");
+                                        else if (lanz2==10)
+                                            printf ("Ha salido el 1 de espadas\n");
+                                        else if (lanz2==11)
+                                            printf ("Ha salido el 2 de espadas\n");
+                                        else if (lanz2==12)
+                                            printf ("Ha salido el 3 de espadas\n");
+                                        else if (lanz2==13)
+                                            printf ("Ha salido el 4 de espadas\n");
+                                        else if (lanz2==14)
+                                            printf ("Ha salido el 5 de espadas\n");
+                                        else if (lanz2==15)
+                                            printf ("Ha salido el 6 de espadas\n");
+                                        else if (lanz2==16)
+                                            printf ("Ha salido el 7 de espadas\n");
+                                        else if (lanz2==17)
+                                            printf ("Ha salido la sota de espadas\n");
+                                        else if (lanz2==18)
+                                            printf ("Ha salido el caballo de espadas 3\n");
+                                        else if (lanz2==19)
+                                            printf ("Ha salido el rey de espadas 4\n");
+                                        else if (lanz2==20)
+                                            printf ("Ha salido el 1 de bastos\n");
+                                        else if (lanz2==21)
+                                            printf ("Ha salido el 2 de bastos\n");
+                                        else if (lanz2==22)
+                                            printf ("Ha salido el 3 de bastos\n");
+                                        else if (lanz2==23)
+                                            printf ("Ha salido el 4 de bastos\n");
+                                        else if (lanz2==24)
+                                            printf ("Ha salido el 5 de bastos\n");
+                                        else if (lanz2==25)
+                                            printf ("Ha salido el 6 de bastos\n");
+                                        else if (lanz2==26)
+                                            printf ("Ha salido el 7 de bastos\n");
+                                        else if (lanz2==27)
+                                            printf ("Ha salido la sota de bastos\n");
+                                        else if (lanz2==28)
+                                            printf ("Ha salido el caballo de bastos\n");
+                                        else if (lanz2==29)
+                                            printf ("Ha salido el rey de bastos\n");
+                                        else if (lanz2==30)
+                                            printf ("Ha salido el 1 de oros\n");
+                                        else if (lanz2==31)
+                                            printf ("Ha salido el 2 de oros\n");
+                                        else if (lanz2==32)
+                                            printf ("Ha salido el 3 de oros\n");
+                                        else if (lanz2==33)
+                                            printf ("Ha salido el 4 de oros\n");
+                                        else if (lanz2==34)
+                                            printf ("Ha salido el 5 de oros\n");
+                                        else if (lanz2==35)
+                                            printf ("Ha salido el 6 de oros\n");
+                                        else if (lanz2==36)
+                                            printf ("Ha salido el 7 de oros\n");
+                                        else if (lanz2==37)
+                                            printf ("Ha salido la sota de oros\n");
+                                        else if (lanz2==38)
+                                            printf ("Ha salido el caballo de oros\n");
+                                        else
+                                            printf ("Ha salido el rey de oros\n");
+
+                                     printf(SUBRAYADO ITALIC "\nPuede continuar usando los "RESET);
+                                     menus (menu);
+                                break;
+                                case 4: //elegir uno
+
+                                    LIMP;
+                                    printf (AZUL24 INVERSO"Elige un n%cmero aleatorio entre los deseados\n"RESET,163);
+
+                                    int lanz3,veces;
+                                    srand(time(NULL));
+
+                                    printf ("%cEntre cu%cntos n%cmeros quiere hacer la elecci%cn?\n",168,160,163,162);
+                                    scanf ("%i",&veces);
+                                    lanz3 = rand() % veces ; //Coge un numero aleatorio y calcula su modulo
+                                    printf ("Ha salido el n%cmero: %i\n",163,lanz3);
+
+                                    printf(SUBRAYADO ITALIC "\nPuede continuar usando los "RESET);
+                                    menus (menu);
+                                break;
+                                case 5: //atras
+                                    a=1;
+                                //LIMP;
+                                break;
+                                default:
+                                     printf("Introduzca un n%cmero v%clido\n",163,160);
+                                break;
+
+                            }
+                            }
+                            while (srt!=4);
+
+                        break;
+
+                        case 6:
                             LIMP;
                             b=1;
                             printf (CIAN "Hasta luego!\n"RESET);
@@ -1037,7 +1207,7 @@ int main(){
 
                 }
 
-                while (menu!=5);
+                while (menu!=6);
 
         }
     }
@@ -1055,6 +1225,7 @@ void menus (int menu)
     else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" ,164,160);
     else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET ,162,162,160);
     else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.IVA\n12-.Atr%cs\n" RESET,130,162,162,162,160);
+    else if(menu==5) printf (AZUL20 INVERSO "SUERTE:\n\n"RESET AZUL20"1-.Cara o cruz\n2-.Dado\n3-.Baraja\n4-.Elegir uno\n5-.Atr%cs\n" RESET,160);
     }
 
 void delay(float numero_segundos)
