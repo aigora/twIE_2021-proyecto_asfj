@@ -1927,6 +1927,3 @@ void animacion_hasta_luego()
     delay(1.5);
     fclose(pf);
 }
-
-
-
