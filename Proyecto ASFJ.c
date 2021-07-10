@@ -1187,7 +1187,7 @@ int main(){
 
                             }
                             }
-                            while (srt!=4);
+                            while (srt!=5);
 
                         break;
 
