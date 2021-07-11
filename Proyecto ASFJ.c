@@ -71,7 +71,7 @@ void print_fyh();
 void cuenta_atras (int se, int mi, int ho, int aa);
 void modo_cuenta_atras (int aa);
 //COMPROBACIÓN DE DATOS
-int cuenta_caracteres (char m[]);
+int cuenta_caracteres (char mmm[]);
 float numero (int minimo, int maximo);  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
 int salir(char fin[N]);
 // ANIMACIONES
@@ -1254,7 +1254,7 @@ float potencia(float base, int exponente)
 int imprimir_fichero(int numeracion)
 {
 
-    int j,Nu=0;  //Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
+    int j,Nuu=0;  //Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
     char c; // c para recorrer el fichero por caracteres y contar lineas; opcion para mostrar o no todos los recordatorios en pantalla
     FILE *pf;
     evento eventos[2];             // Vector que almacena los eventos
@@ -1269,16 +1269,16 @@ int imprimir_fichero(int numeracion)
     {
 
         while (fscanf(pf,"%c",&c)!=EOF)  //cuento numero de lineas (cada linea un recordatorio)
-            if(c=='\n') Nu++;
+            if(c=='\n') Nuu++;
 
-        printf(AZUL31 "Hay %d registrados.\n\n",Nu);
+        printf(AZUL31 "Hay %d registrados.\n\n",Nuu);
 
     fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
 
 
     if(numeracion==1){
         printf("RECORDATORIOS:\n"RESET);
-        for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero CON NUMERACION
+        for(j=0;j<Nuu;j++)                   //escribo todas las lineas del fichero CON NUMERACION
     {
     fscanf(pf,"%d;%d;%d;%[^;];%s\n",
            &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
@@ -1289,7 +1289,7 @@ int imprimir_fichero(int numeracion)
     }else{
         LIMP;
         printf("RECORDATORIOS:\n"RESET);
-        for(j=0;j<Nu;j++)                   //escribo todas las lineas del fichero SIN NUMERACION
+        for(j=0;j<Nuu;j++)                   //escribo todas las lineas del fichero SIN NUMERACION
         {
         fscanf(pf,"%d;%d;%d;%[^;];%s\n",
                &eventos[1].fechaRec.d, &eventos[1].fechaRec.m, &eventos[1].fechaRec.a, &eventos[1].tipo, &eventos[1].recordatorio);
@@ -1300,7 +1300,7 @@ int imprimir_fichero(int numeracion)
     }
 
     }
-    return Nu; //devuelvo el numero de lineas
+    return Nuu; //devuelvo el numero de lineas
 }
 void copio_fichero()                                              //copio el fichero de recordatorios en uno temporal
 {
@@ -1461,11 +1461,11 @@ int escribir_recordatorio ( char modo)
     {
         do{
             printf("Día: ");
-            scanf(" %d",&dia);
-            printf("Mes: ");
-            scanf(" %d",&mes);
+            dia=numero(1,31);
+            printf("Mes (en forma numerica, del 1 al 12): ");
+            mes=numero(1,12);
             printf("Anio: ");
-            scanf(" %d",&anio);
+            anio=numero(1000,9999);
             printf("Tipo de recordatorio:\n1-Examen\n2-Cumpleaños\n3-Festivo\n4-Crear nuevo tipo\n5-(Sin tipo específico)\n");
             scanf(" %i",&numTip);
             if(numTip==1) {
@@ -1498,10 +1498,10 @@ int escribir_recordatorio ( char modo)
                 tip[6]='o';
             }
             else if(numTip==4) {
-                printf("Tipo: ");
+                printf("Nuevo tipo: ");
                 scanf(" %s",&tip);
             }
-            else if(numTip==5) tip[0]='\0';
+            else if(numTip==5) tip[0]=' ';
             else printf("Esa no es una opcion\n");
 
             printf("Recordatorio: ");
@@ -1610,19 +1610,29 @@ void modo_cuenta_atras (int aa)
 
 
 // COMPROBACIÓN DE DATOS
-int cuenta_caracteres (char m[])  // CUENTA LOS CARACTERES INTRODUCIDOS
+int cuenta_caracteres (char mmm[])  // CUENTA LOS CARACTERES INTRODUCIDOS
 {
     int i=0;
-    while(m[i]!='\0'){
+    while(mmm[i]!='\0'){
         i++;
     }
     return i;
 }
+int salir(char salir[10]){   //DETECTA SI EL USUARIO ESCIBE 'FIN'.
+
+     if (((salir[0]) == 'F') && ((salir[1]) == 'I') && ((salir[2]) == 'N') && (salir[3] == '\0')){
+        animacion_hasta_luego;
+        return -1;
+     }
+    return 1;
+}
+
+
 float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
 {
-    int i,contador_errores=0,Ncontador=0,Pcontador=0,P=0,t=0,acotacion=0, signo=0;
-    char m[N]; // cadena que el usuario escribirá por teclado
-    float num=0; // numero que devolverá la función
+    int iiii,contador_errores=0,Ncontador=0,Pcontador=0,PP=0,tttt=0,acotacion=0, signo=0;
+    char mmm[10]; // cadena que el usuario escribirá por teclado
+    float nummm=0; // numero que devolverá la función
 
     do{
         do{
@@ -1630,44 +1640,47 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
                 do{
                     if(contador_errores>0){  // ESCRIBE POR PANTALLA LOS ERRORES DETECTADOS
                         printf("Dato incorrecto.\n");
-                        if(t>0) printf("Debe introducir solo datos numericos (y punto si es necesario decimales).\n");
+                        if(tttt>0) printf("Debe introducir solo datos numericos.\n");
                         if(Pcontador>1) printf("Debe introducir un punto como maximo.\n");
-                        if(cuenta_caracteres(m)>N) printf("Se escribieron %i caracteres. Como maximo debe escribir %i.\n",cuenta_caracteres(m),N);
+                        if(cuenta_caracteres(mmm)>10) printf("Se escribieron %i caracteres. Como maximo debe escribir 10 caracteres.\n",cuenta_caracteres(mmm));
                         if(acotacion>0) printf("La cifra debe estar entre %i y %i.\n",minimo,maximo);
                         if(contador_errores>3){
                             printf("Demasiados intentos, vuelva a probar mas tarde.\n");
                             return ERRORES; // el usuario escribió datos incorrectos varias veces seguidas
                         }
                     }
-                    // vuelvo a poner los errores a 0
-                    t=0;
+                    // vuelvo a poner todo a 0 (menos el contador de errores)
+                    tttt=0;
                     Ncontador=0;
                     Pcontador=0;
-                    P=0;
+                    PP=0;
                     acotacion=0;
-                    num=0;
+                    nummm=0;
                     signo=0;
+                    for(iiii=0;iiii<10;iiii++){
+                        mmm[iiii]=0;
+                    }
 
                     //introduzco cadena a evaluar
-                    scanf(" %[^\n]",&m);
+                    scanf(" %[^\n]",mmm);
 
-                    if (salir(m)==-1) return FIN; // el usuario escribió "FIN", el programa se cerrará
+                    if (salir(mmm)==-1) return FIN; // el usuario escribió "FIN", el programa se cerrará
 
-                    if(m[0]=='-'){  // DETECTAR SI ES NEGATIVO
+                    if(mmm[0]=='-'){  // DETECTAR SI ES NEGATIVO
                         signo=1;
                         Ncontador++;
 
-                        for(i=1;i<N;i++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
-                            if (m[i]!=0){ //desprecia los espacios de m[] no rellenados
-                                if((m[i]>47)&&(m[i]<58)){ //entre estos valores se encuentran los numeros del 0 al 9
-                                }else if(m[i]=='.'){
-                                    P=i;      // ASIGNAR POSICIÓN DEL PUNTO
+                        for(iiii=1;iiii<10;iiii++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
+                            if (mmm[iiii]!=0){ //desprecia los espacios de m[] no rellenados
+                                if((mmm[iiii]>47)&&(mmm[iiii]<58)){ //entre estos valores se encuentran los numeros del 0 al 9
+                                }else if(mmm[iiii]=='.'){
+                                    PP=iiii;      // ASIGNAR POSICIÓN DEL PUNTO
                                     Pcontador++;  // DETECTOR DE SI SE ESCRIBE MAS DE UN PUNTO
                                 }
                                 else {  // DETECTOR DE CARACTER DISTINTO DE NUMERO, PUNTO O HUECO SIN ESCRIBIR
 
-                                    if(m[i]==8) Ncontador--;
-                                    else t++;
+                                    if(mmm[iiii]==8) Ncontador--;
+                                    else tttt++;
 
                                 }
                                 Ncontador++; //CUENTA CASILLAS RELLENADAS
@@ -1675,17 +1688,17 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
                         }
                     }
                     else{
-                        for(i=0;i<N;i++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
-                            if (m[i]!=0){ //desprecia los espacios de m[] no rellenados
-                                if((m[i]>47)&&(m[i]<58)){ //entre estos valores se encuentran los numeros del 0 al 9
-                                }else if(m[i]=='.'){
-                                    P=i;      // ASIGNAR POSICIÓN DEL PUNTO
+                        for(iiii=0;iiii<10;iiii++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
+                            if (mmm[iiii]!=0){ //desprecia los espacios de m[] no rellenados
+                                if((mmm[iiii]>47)&&(mmm[iiii]<58)){ //entre estos valores se encuentran los numeros del 0 al 9
+                                }else if(mmm[iiii]=='.'){
+                                    PP=iiii;      // ASIGNAR POSICIÓN DEL PUNTO
                                     Pcontador++;  // DETECTOR DE SI SE ESCRIBE MAS DE UN PUNTO
                                 }
                                 else {  // DETECTOR DE CARACTER DISTINTO DE NUMERO, PUNTO O HUECO SIN ESCRIBIR
 
-                                    if(m[i]==8) Ncontador--;
-                                    else t++;
+                                    if(mmm[iiii]==8) Ncontador--;
+                                    else tttt++;
 
                                 }
                                 Ncontador++; //CUENTA CASILLAS RELLENADAS
@@ -1695,46 +1708,38 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
 
                     contador_errores++; //en caso de repetir algún bucle, se cuentan los errores
 
-                }while(cuenta_caracteres(m)>N);  // LONGITUD MAYOR DE LA PERMITIDA POR LA CADENA
-            }while(t>0); // HAY CARACTERES NO NUMÉRICOS
+                }while(cuenta_caracteres(mmm)>10);  // LONGITUD MAYOR DE LA PERMITIDA POR LA CADENA
+            }while(tttt>0); // HAY CARACTERES NO NUMÉRICOS
         }while(Pcontador>1); // HAY MÁS DE UN PUNTO
 
 
         if (Pcontador==0){   // CUANDO NO HAY CIFRAS DECIMALES
-            for(i=signo;i<Ncontador;i++){
+            for(iiii=signo;iiii<Ncontador;iiii++){
                 //printf("%d\n",Ncontador);
-                if(m[i]!=8){
-                    num=num+((m[i]-48)*pow(10,Ncontador-i-1));
+                if(mmm[iiii]!=8){
+                    nummm=nummm+((mmm[iiii]-48)*pow(10,Ncontador-iiii-1));
 
                 }
             }
         }else{ //Pcontador==1    CUANDO SI PUEDE HABER CIFRAS DECIMALES
-            for(i=signo;i<P;i++){ // cifras enteras, antes del punto
-                num=num+((m[i]-48)*pow(10,P-i-1));
+            for(iiii=signo;iiii<PP;iiii++){ // cifras enteras, antes del punto
+                nummm=nummm+((mmm[iiii]-48)*pow(10,PP-iiii-1));
             }
-            for(i=P+1;i<Ncontador;i++){ // cifras decimales, despues del punto
-                num=num+(m[i]-48)*pow(10,P-i);
+            for(iiii=PP+1;iiii<Ncontador;iiii++){ // cifras decimales, despues del punto
+                nummm=nummm+(mmm[iiii]-48)*pow(10,PP-iiii);
             }
         }
 
-        if((num<minimo)||(num>maximo)) acotacion++;
+        if((nummm<minimo)||(nummm>maximo)) acotacion++;
 
-    }while ((num<minimo)||(num>maximo)); // COMPROBACIÓN DE LA ACOTACIÓN DESEADA
+    }while ((nummm<minimo)||(nummm>maximo)); // COMPROBACIÓN DE LA ACOTACIÓN DESEADA
 
 
-    if(signo==1) num=-num;
-    return num; // resultado en tipo float, preparado para operar con él
+    if(signo==1) nummm=-nummm;
+    return nummm; // resultado en tipo float, preparado para operar con él
 
 }
-int salir (char fin[N])   //DETECTA SI EL USUARIO HA ESCRITO 'FIN'
-{
 
-     if (((fin[0]) == 'F') && ((fin[1]) == 'I') && ((fin[2]) == 'N') && (fin[3] == '\0')){
-        printf("\n\n\n\n\nHasta la proxima partida\n\n");
-        return -1;
-     }
-    return 1;
-}
 
 
 // ANIMACIONES

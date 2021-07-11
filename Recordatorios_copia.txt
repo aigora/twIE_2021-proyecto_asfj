@@ -1,15 +1,12 @@
-6;3;2002;cumple;azu
-28;5;2021;examen;info
-27;5;2021;examen;estadistica
-15;5;2021;festivo;sanIsidro
-11;6;2021;examen;ampli
-16;5;2021;prueba;1
-16;5;2021;prueba;2
-16;5;2021;prueba;3
-1;6;2021;prueba;4
-11;2;1971;cumple;luordes
-28;11;1966;cumple;luis
-25;6;2000;cumple;esme
-23;12;2021;festivo;aaa
-11;2;2022;cumple;lou
-28;5;2021;trabajo;inform tica
+4;6;2000;prueba;1
+7;2;2021;prueba;2
+1;1;1900;C;jaja
+7;7;2021;Festivo;aaa
+3;6;2000; ;probando
+3;4;2000;Examen;probando
+12;4;2000;Cumpleanos;ola
+4;4;2000;Cumple;cccc
+1;1;1;Cumple;a
+3;3;3;Festivo;qqqq
+4;4;4;Cumple;ooo
+2;2;2222;Festivo;aaaaaaasadwegs
