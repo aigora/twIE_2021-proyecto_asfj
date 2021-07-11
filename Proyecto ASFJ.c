@@ -81,6 +81,7 @@ void animacion_temporizadores();
 void animacion_calendario();
 void animacion_GPS();
 void animacion_calculadora();
+void animacion_suerte();
 void animacion_hasta_luego();
 
 int main(){
@@ -1017,6 +1018,7 @@ int main(){
                         break;
                         case 5: //suerte
                             LIMP;
+//                            animacion_suerte();
                             menus (menu);
                             do {
                             printf(RESET);
@@ -2004,6 +2006,29 @@ void animacion_calculadora()
     char c;
 
     pf=fopen("animacion_calculadora.txt","r");
+    if(pf==NULL)                          //compruebo que se abre bien
+    {
+        printf(AZUL20 "Error al abrir la animacion de la calculadora."RESET);
+    }else
+    {
+        LIMP;
+        fseek(pf,0,SEEK_SET);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
+            printf (RESET AZUL20 "%c", c);
+            delay(0.010);
+        }
+    }
+    delay(0.5);
+    fclose(pf);
+}
+void animacion_suerte()
+{
+
+    FILE *pf;
+    char c;
+
+    pf=fopen("animacion_suerte.txt","r");
     if(pf==NULL)                          //compruebo que se abre bien
     {
         printf(AZUL20 "Error al abrir la animacion de la calculadora."RESET);
