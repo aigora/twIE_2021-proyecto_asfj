@@ -52,6 +52,7 @@ typedef struct
 }evento;
 
 //FUNCIONES VARIAS
+void print_fyh();
 void menus (int menu);
 void delay(float numero_segundos);
 int random();
@@ -66,14 +67,14 @@ void imprimir_tipo_rec (char c, int nu);
 int escribir_recordatorio (char modo);
 void printEvento(evento x);
 int compFecha(fecha f1, fecha f2);
-void print_fyh();
 //FUNCIONES TEMPORIZADORES
 void cuenta_atras (int se, int mi, int ho, int aa);
 void modo_cuenta_atras (int aa);
 //COMPROBACIÓN DE DATOS
 int cuenta_caracteres (char mmm[]);
-float numero (int minimo, int maximo);  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
 int salir(char fin[N]);
+float numero (int minimo, int maximo);  // PIDE AL USUARIO UN NUMERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
+int numero_entero (int minimo, int maximo);// PIDE AL USUARIO UN NUMERO ENTERO ACOTADO, LO COMPRUEBA Y LO DEVUELVE
 // ANIMACIONES
 void animacion_reloj_inteligente();
 void animacion_temporizadores();
@@ -1214,6 +1215,21 @@ return 0;
 
 
 // FUNCIONES VARIAS
+void print_fyh()    //dar la hora y dia en pantalla
+{
+    time_t t;
+    struct tm *tm;
+    char fechayhora[100];
+
+    t=time(NULL);
+    tm=localtime(&t);
+    LIMP;
+    strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
+    printf (FAZUL INVISIBLE "\n\t %s \n" RESET,fechayhora);
+    printf (FAZUL "\t %s \n",fechayhora);
+    printf (INVISIBLE "\t %s \n\n" RESET ,fechayhora);
+}
+
 void menus (int menu)
 {
     if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs\n",162,160,160);
@@ -1221,7 +1237,7 @@ void menus (int menu)
     else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET ,162,162,160);
     else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.IVA\n12-.Atr%cs\n" RESET,130,162,162,162,160);
     else if(menu==5) printf (AZUL20 INVERSO "SUERTE:\n\n"RESET AZUL20"1-.Cara o cruz\n2-.Dado\n3-.Baraja\n4-.Elegir uno\n5-.Atr%cs\n" RESET,160);
-    }
+}
 
 void delay(float numero_segundos)
 {
@@ -1461,11 +1477,11 @@ int escribir_recordatorio ( char modo)
     {
         do{
             printf("Día: ");
-            dia=numero(1,31);
+            dia=numero_entero(1,31);
             printf("Mes (en forma numerica, del 1 al 12): ");
-            mes=numero(1,12);
+            mes=numero_entero(1,12);
             printf("Anio: ");
-            anio=numero(1000,9999);
+            anio=numero_entero(1000,9999);
             printf("Tipo de recordatorio:\n1-Examen\n2-Cumpleaños\n3-Festivo\n4-Crear nuevo tipo\n5-(Sin tipo específico)\n");
             scanf(" %i",&numTip);
             if(numTip==1) {
@@ -1499,15 +1515,15 @@ int escribir_recordatorio ( char modo)
             }
             else if(numTip==4) {
                 printf("Nuevo tipo: ");
-                scanf(" %s",&tip);
+                scanf(" %[^\n]",&tip);
             }
             else if(numTip==5) tip[0]=' ';
             else printf("Esa no es una opcion\n");
 
             printf("Recordatorio: ");
-            scanf(" %s",&rec);
+            scanf(" %[^\n]",&rec);
 
-            fprintf(pf,"%d;%d;%d;%s;%s\n",                 //escribo en el fichero
+            fprintf(pf,"%d;%d;%d;%[^\n];%s\n",                 //escribo en el fichero
                     dia,mes,anio,tip,rec);
 
             printf("¿Quiere escribir otro recordatorio?\n1-Si\n2-No\n");
@@ -1537,20 +1553,6 @@ int compFecha(fecha f1, fecha f2)
         return -1;
   else
         return 1;
-}
-void print_fyh()    //dar la hora y dia en pantalla
-{
-    time_t t;
-    struct tm *tm;
-    char fechayhora[100];
-
-    t=time(NULL);
-    tm=localtime(&t);
-    LIMP;
-    strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
-    printf (FAZUL INVISIBLE "\n\t %s \n" RESET,fechayhora);
-    printf (FAZUL "\t %s \n",fechayhora);
-    printf (INVISIBLE "\t %s \n\n" RESET ,fechayhora);
 }
 
 
@@ -1739,7 +1741,120 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
     return nummm; // resultado en tipo float, preparado para operar con él
 
 }
+int numero_entero (int minimo, int maximo){
 
+    int i,contador_errores=0,Ncontador=0,Pcontador=0,PP=0,t=0,acotacion=0, signo=0,entero=0;
+    char m[10]; // cadena que el usuario escribirá por teclado
+    float num=0; // numero que devolverá la función
+
+    do{
+        do{
+            do{
+                do{
+                    if(contador_errores>0){  // ESCRIBE POR PANTALLA LOS ERRORES DETECTADOS
+                        printf("Dato incorrecto.\n");
+                        if(t>0) printf("Debe introducir solo datos numericos (y punto si es necesario decimales).\n");
+                        if(Pcontador>1) printf("Debe introducir un punto como maximo.\n");
+                        if(cuenta_caracteres(m)>10) printf("Se escribieron %i caracteres. Como maximo debe escribir 10 caracteres.\n",cuenta_caracteres(m));
+                        if(acotacion>0) printf("La cifra debe estar entre %i y %i.\n",minimo,maximo);
+                        if(entero>0) printf ("El número debe ser un entero.\n");
+                        if(contador_errores>3){
+                            printf("Demasiados intentos, vuelva a probar mas tarde.\n");
+                            return ERRORES; // el usuario escribió datos incorrectos varias veces seguidas
+                        }
+                    }
+                    // vuelvo a poner los errores a 0
+                    t=0;
+                    Ncontador=0;
+                    Pcontador=0;
+                    PP=0;
+                    acotacion=0;
+                    num=0;
+                    signo=0;
+                    entero=0;
+                    for(i=0;i<10;i++){
+                        m[i]=0;
+                    }
+
+                    //introduzco cadena a evaluar
+                    scanf(" %[^\n]",&m);
+
+                    if (salir(m)==-1) return FIN; // el usuario escribió "FIN", el programa se cerrará
+
+                    if(m[0]=='-'){  // DETECTAR SI ES NEGATIVO
+                        signo=1;
+                        Ncontador++;
+
+                        for(i=1;i<10;i++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
+                            if (m[i]!=0){ //desprecia los espacios de m[] no rellenados
+                                if((m[i]>47)&&(m[i]<58)){ //entre estos valores se encuentran los numeros del 0 al 9
+                                }else if(m[i]=='.'){
+                                    PP=i;      // ASIGNAR POSICIÓN DEL PUNTO
+                                    Pcontador++;  // DETECTOR DE SI SE ESCRIBE MAS DE UN PUNTO
+                                }
+                                else {  // DETECTOR DE CARACTER DISTINTO DE NUMERO, PUNTO O HUECO SIN ESCRIBIR
+
+                                    if(m[i]==8) Ncontador--;
+                                    else t++;
+
+                                }
+                                Ncontador++; //CUENTA CASILLAS RELLENADAS
+                            }
+                        }
+                    }
+                    else{
+                        for(i=0;i<10;i++){  //DETECTAR SI HAY CARACTERES NO NUMERICOS
+                            if (m[i]!=0){ //desprecia los espacios de m[] no rellenados
+                                if((m[i]>47)&&(m[i]<58)){ //entre estos valores se encuentran los numeros del 0 al 9
+                                }else if(m[i]=='.'){
+                                    PP=i;      // ASIGNAR POSICIÓN DEL PUNTO
+                                    Pcontador++;  // DETECTOR DE SI SE ESCRIBE MAS DE UN PUNTO
+                                }
+                                else {  // DETECTOR DE CARACTER DISTINTO DE NUMERO, PUNTO O HUECO SIN ESCRIBIR
+
+                                    if(m[i]==8) Ncontador--;
+                                    else t++;
+
+                                }
+                                Ncontador++; //CUENTA CASILLAS RELLENADAS
+                            }
+                        }
+                    }
+
+                    contador_errores++; //en caso de repetir algún bucle, se cuentan los errores
+
+                }while(cuenta_caracteres(m)>10);  // LONGITUD MAYOR DE LA PERMITIDA POR LA CADENA
+            }while(t>0); // HAY CARACTERES NO NUMÉRICOS
+        }while(Pcontador>1); // HAY MÁS DE UN PUNTO
+
+
+        if (Pcontador==0){   // CUANDO NO HAY CIFRAS DECIMALES
+            for(i=signo;i<Ncontador;i++){
+                //printf("%d\n",Ncontador);
+                if(m[i]!=8){
+                    num=num+((m[i]-48)*pow(10,Ncontador-i-1));
+
+                }
+            }
+        }else{ //Pcontador==1    CUANDO SI PUEDE HABER CIFRAS DECIMALES
+            for(i=signo;i<PP;i++){ // cifras enteras, antes del punto
+                num=num+((m[i]-48)*pow(10,PP-i-1));
+            }
+            for(i=PP+1;i<Ncontador;i++){ // cifras decimales, despues del punto
+                num=num+(m[i]-48)*pow(10,PP-i);
+                if((m[i]-48)!=0) entero++;
+            }
+        }
+
+        if((num<minimo)||(num>maximo)) acotacion++;
+
+    }while ((num<minimo)||(num>maximo)||(entero>0)); // COMPROBACIÓN DE LA ACOTACIÓN DESEADA
+
+
+    if(signo==1) num=-num;
+    return num; // resultado en tipo int, preparado para operar con él
+
+}
 
 
 // ANIMACIONES

@@ -5,3 +5,9 @@
 3;7;1700;Examen;mate
 8;8;1800; ;llll
 7;7;2007; ;pruebaa
+23;8;2000;Festivo;probando
+3;2;1000; ;ttt
+4;1;2000;probandotipo;probandorec
+1;1;1111;a;a
+3;4;2222;b b;c
+3;4;2222;probandoo;otravez
