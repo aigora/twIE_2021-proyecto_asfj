@@ -63,7 +63,7 @@ void copio_fichero();
 void editar_fichero(int nu, int ed, char edit);
 char coincide (char a[]);
 void imprimir_tipo_rec (char c, int nu);
-int escribir_recordatorio (int n,char modo);
+int escribir_recordatorio (char modo);
 void printEvento(evento x);
 int compFecha(fecha f1, fecha f2);
 void print_fyh();
@@ -374,10 +374,8 @@ int main(){
                                     LIMP;
                                     printf (AZUL31 INVERSO"A%cadir recordatorio\n"RESET,164);
 
-                                    printf (AZUL31"Cuantos recordatorios desea a%cadir?\n",164);
-                                    scanf("%d",&n);
                                     modo='a';
-                                    v=escribir_recordatorio(n,modo);            // funcion para a�adir recordatorios al fichero existente
+                                    v=escribir_recordatorio(modo);            // funcion para a�adir recordatorios al fichero existente
   //A�ADO FICH/
                                     if(v==-1) break;
                                     else{
@@ -431,13 +429,10 @@ int main(){
                                     printf (AZUL31 INVERSO"Eliminar recordatorios existentes y empezar a crear de nuevo\n"RESET);
 
                                     int i;
-  //CREO FICH/                         int n, v;
-                                        printf (AZUL31"Cuantos recordatorios desea crear?\n");
-                                        scanf("%d",&n);
+  //CREO FICH/
                                         modo='e';
-                                        v=escribir_recordatorio(n,modo);            // funcion para crear fichero de recordatorios
 
-                                        if(v==-1) break;
+                                        if(escribir_recordatorio(modo)==-1) break;
                                         else{
                                         LIMP;
                                         printf(AZUL31"Ya se han creado!\n" SUBRAYADO ITALIC "Puede continuar usando el " RESET);
@@ -1448,10 +1443,10 @@ void imprimir_tipo_rec (char c, int Nu)
     printf("\n");
     if(j==0) printf(AZUL31"No hay recordatorios de ese tipo.\n"RESET); // En caso de que se haya pedido mostrar las fechas de uno de los tipos pero no haya ninguna de ese.
 }
-int escribir_recordatorio (int n, char modo)
+int escribir_recordatorio ( char modo)
 {
-    int i;
-    int dia, mes, anio;
+    int i,nn;
+    int dia, mes, anio, numTip;
     char tip[30], rec[30];
     FILE *pf;
 
@@ -1464,19 +1459,66 @@ int escribir_recordatorio (int n, char modo)
         return -1;
     }else
     {
-        printf("Escriba en el fichero, separadas por un espacio y los tres primeros datos en forma num%crica: d%ca mes a%co tipo_de_evento recordatorio\n",130,161,164);
-        for(i=0;i<n;i++)                                                  // FUNCION PARA ESCRIBIR EN EL FICHEROOO
-        {
-            scanf("%d %d %d %s %s",                       //asigno valores a los vectores
-                &dia,&mes,&anio,&tip,&rec);
+        do{
+            printf("Día: ");
+            scanf(" %d",&dia);
+            printf("Mes: ");
+            scanf(" %d",&mes);
+            printf("Anio: ");
+            scanf(" %d",&anio);
+            printf("Tipo de recordatorio:\n1-Examen\n2-Cumpleaños\n3-Festivo\n4-Crear nuevo tipo\n5-(Sin tipo específico)\n");
+            scanf(" %i",&numTip);
+            if(numTip==1) {
+                tip[0]='E';
+                tip[1]='x';
+                tip[2]='a';
+                tip[3]='m';
+                tip[4]='e';
+                tip[5]='n';
+            }
+            else if(numTip==2) {
+                tip[0]='C';
+                tip[1]='u';
+                tip[2]='m';
+                tip[3]='p';
+                tip[4]='l';
+                tip[5]='e';
+                //tip[6]='a';
+                //tip[7]='n';
+                //tip[8]='o';
+                //tip[9]='s';
+            }
+            else if(numTip==3) {
+                tip[0]='F';
+                tip[1]='e';
+                tip[2]='s';
+                tip[3]='t';
+                tip[4]='i';
+                tip[5]='v';
+                tip[6]='o';
+            }
+            else if(numTip==4) {
+                printf("Tipo: ");
+                scanf(" %s",&tip);
+            }
+            else if(numTip==5) tip[0]='\0';
+            else printf("Esa no es una opcion\n");
+
+            printf("Recordatorio: ");
+            scanf(" %s",&rec);
 
             fprintf(pf,"%d;%d;%d;%s;%s\n",                 //escribo en el fichero
                     dia,mes,anio,tip,rec);
 
-        }
+            printf("¿Quiere escribir otro recordatorio?\n1-Si\n2-No\n");
+            scanf(" %i",&nn);
+
+        }while (nn-1==0);
+
+    }
     fclose(pf);                           //cierro fichero
     return 0;
-    }
+
 
 }
 void printEvento(evento x)
