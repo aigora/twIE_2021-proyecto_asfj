@@ -181,18 +181,33 @@ int main(){
                                         LIMP;
 
                                         int i = 0,aa=2;
-                                        int total;
+                                        //int total;
+                                        int miExtra, hoExtra;
 
                                         printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
                                         printf(AZUL24 "Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
                                         scanf("%i %i %i",&se,&mi,&ho);
-                                        total=se + 60*mi + 3600*ho;
+
+                                        if (se>59){
+                                            miExtra=se/60;
+                                            se=se%60;
+                                        }
+                                        mi+=miExtra;
+                                        if (mi>59){
+                                            hoExtra=mi/60;
+                                            mi=mi%60;
+                                        }
+                                        ho+=hoExtra;
+
+                                        //total=se + 60*mi + 3600*ho;
 
                                         if(se<0||mi<0||ho<0) {LIMP;
                                             printf("No debe incluir tiempo negativo.");
                                         }else{
 
-                                        printf("El programa terminara %i en segundos.\n", total);
+                                       // printf("El programa terminara %i en segundos.\n", total);
+                                        printf("La cuenta atr%cs terminar%c en: %i horas, %i minutos y %i segundos",160,160,ho,mi,se);
+                                        delay(2);
 
                                         cuenta_atras(se, mi, ho, aa);  //saca por pantalla la cuenta atras hasta llegar al 00:00:00
 
