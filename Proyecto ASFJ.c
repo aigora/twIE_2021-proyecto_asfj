@@ -899,9 +899,19 @@ int main(){
                                     printf (AZUL20 INVERSO"Sumar\n"RESET);
 
                                     printf( AZUL20"Ingrese x: " );
-                                    scanf("%f", &x);
+                                    x=numero(-99999999,99999999);
+                                    if(x==FIN) return 0;
+                                    if(x==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese y: " );
-                                    scanf("%f", &y);
+                                    y=numero(-99999999,99999999);
+                                    if(y==FIN) return 0;
+                                    if(y==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
 
                                     resultado = x + y;
                                     printf("El resultado es %f\n"  , resultado);
@@ -914,10 +924,20 @@ int main(){
                                     LIMP;
                                     printf (AZUL20 INVERSO"Restar\n"RESET);
 
-                                    printf(AZUL20"Ingrese x: ");
-                                    scanf("%f", &x);
-                                    printf("Ingrese y: ");
-                                    scanf("%f", &y);
+                                    printf( AZUL20"Ingrese x: " );
+                                    x=numero(-99999999,99999999);
+                                    if(x==FIN) return 0;
+                                    if(x==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
+                                    printf("Ingrese y: " );
+                                    y=numero(-99999999,99999999);
+                                    if(y==FIN) return 0;
+                                    if(y==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
 
                                     resultado = x - y;
                                     printf("El resultado es %f\n", resultado);
@@ -930,10 +950,20 @@ int main(){
                                     LIMP;
                                     printf (AZUL20 INVERSO"Multiplicar\n"RESET);
 
-                                    printf(AZUL20"Ingrese x: ");
-                                    scanf("%f", &x);
-                                    printf("Ingrese y: ");
-                                    scanf("%f", &y);
+                                    printf( AZUL20"Ingrese x: " );
+                                    x=numero(-99999999,99999999);
+                                    if(x==FIN) return 0;
+                                    if(x==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
+                                    printf("Ingrese y: " );
+                                    y=numero(-99999999,99999999);
+                                    if(y==FIN) return 0;
+                                    if(y==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
 
                                     resultado = x * y;
                                     printf("El resultado es %f\n", resultado);
@@ -944,12 +974,28 @@ int main(){
                                 break;
                                 case 4: //DIVISION
                                     LIMP;
-                                    printf (AZUL20 INVERSO"Dividir\n"RESET);
+                                    int comprobacionCero=0;
+                                    printf (AZUL20 INVERSO"Dividir (x/y)\n"RESET);
 
-                                    printf(AZUL20"Ingrese x: ");
-                                    scanf("%f", &x);
-                                    printf("Ingrese y: ");
-                                    scanf("%f", &y);
+                                    printf( AZUL20"Ingrese x: " );
+                                    x=numero(-99999999,99999999);
+                                    if(x==FIN) return 0;
+                                    if(x==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
+                                    while(comprobacionCero==0){
+                                        printf("Ingrese y: " );
+                                        y=numero(-99999999,99999999);
+                                        if(y==FIN) return 0;
+                                        if(y==ERRORES){
+                                            menus(menu);
+                                            break;
+                                        }
+                                        if(y==0) printf("No se puede dividir entre 0.\n");
+                                        else comprobacionCero=1;
+
+                                    }
 
                                     resultado = x / y;
                                     printf("El resultado es %f\n", resultado);
@@ -962,10 +1008,20 @@ int main(){
                                     LIMP;
                                     printf (AZUL20 INVERSO"Potencia\n"RESET);
 
-                                    printf(AZUL20"Ingrese base: ");
-                                    scanf("%f", &x);
-                                    printf("Ingrese exponente: " );
-                                    scanf("%f", &y);
+                                    printf( AZUL20"Ingrese la base: " );
+                                    x=numero(-99999999,99999999);
+                                    if(x==FIN) return 0;
+                                    if(x==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
+                                    printf("Ingrese el exponente: " );
+                                    y=numero(-99999999,99999999);
+                                    if(y==FIN) return 0;
+                                    if(y==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
 
                                     resultado = potencia(x, (int) y);
                                     printf("El resultado es %f\n" , resultado);
@@ -980,10 +1036,20 @@ int main(){
                                     int s,t; //s=i n=t
                                     float suma, aux;
                                     printf("Ingrese el n%cmero total de datos: ",163);
-                                    scanf ("%d",&t);
+                                    t=numero_entero(0,9999);
+                                    if(t==FIN) return 0;
+                                    if(t==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     for(s=0;s<t;s++){
                                         printf("Ingrese el dato %d : ",(s+1));
-                                        scanf("%f",&aux);
+                                        aux=numero(-99999999,99999999);
+                                        if(aux==FIN) return 0;
+                                        if(aux==ERRORES){
+                                            menus(menu);
+                                            break;
+                                        }
                                         suma+=aux;
                                     }
                                     printf("La media aritm%ctica es: %g \n",130, suma/t);
@@ -998,12 +1064,27 @@ int main(){
                                     int w,v; // w=i v=n
                                     float sum, u, peso, producto;
                                     printf("Ingrese el numero total de datos: ");
-                                    scanf ("%d",&v);
-                                    for(w=0;w<b;w++){
+                                    v=numero_entero(0,9999);
+                                    if(v==FIN) return 0;
+                                    if(v==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
+                                    for(w=0;w<v;w++){
                                         printf("Ingrese el dato %d : ",(w+1));
-                                        scanf("%f",&u);
-                                        printf("Ingrese el peso %d ; ", (w+1));
-                                        scanf ("%f",&peso);
+                                        u=numero(-99999999,99999999);
+                                        if(u==FIN) return 0;
+                                        if(u==ERRORES){
+                                            menus(menu);
+                                            break;
+                                        }
+                                        printf("Ingrese el peso %d : ", (w+1));
+                                        peso=numero(-99999999,99999999);
+                                        if(peso==FIN) return 0;
+                                        if(peso==ERRORES){
+                                            menus(menu);
+                                            break;
+                                        }
                                         sum+=peso;
                                         producto+=u*peso;
 
@@ -1021,11 +1102,26 @@ int main(){
 
                                         printf ("La ecuaci%cn es de la forma ax^2 + bx + c = 0\n",162);
                                         printf ("Intoduce el valor de a:");
-                                        scanf ("%f",&m);
+                                        m=numero(-99999999,99999999);
+                                        if(m==FIN) return 0;
+                                        if(m==ERRORES){
+                                            menus(menu);
+                                            break;
+                                        }
                                         printf ("Intoduce el valor de b:");
-                                        scanf ("%f",&n);
+                                        n=numero(-99999999,99999999);
+                                        if(n==FIN) return 0;
+                                        if(n==ERRORES){
+                                            menus(menu);
+                                            break;
+                                        }
                                         printf ("Intoduce el valor de c:");
-                                        scanf ("%f",&o);
+                                        o=numero(-99999999,99999999);
+                                        if(o==FIN) return 0;
+                                        if(o==ERRORES){
+                                            menus(menu);
+                                            break;
+                                        }
 
                                         DET=(n*n)-(4*m*o);
 
@@ -1053,17 +1149,47 @@ int main(){
                                     printf("dx + ey = f \n");
 
                                     printf("Ingrese el valor de a: ");
-                                    scanf("%f",&A);
+                                    A=numero(-99999999,99999999);
+                                    if(A==FIN) return 0;
+                                    if(A==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de b: ");
-                                    scanf("%f",&B);
+                                    B=numero(-99999999,99999999);
+                                    if(B==FIN) return 0;
+                                    if(B==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de c: ");
-                                    scanf("%f",&C);
+                                    C=numero(-99999999,99999999);
+                                    if(C==FIN) return 0;
+                                    if(C==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de d: ");
-                                    scanf("%f",&D);
+                                    D=numero(-99999999,99999999);
+                                    if(D==FIN) return 0;
+                                    if(D==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de e: ");
-                                    scanf("%f",&E);
+                                    E=numero(-99999999,99999999);
+                                    if(E==FIN) return 0;
+                                    if(E==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de f: ");
-                                    scanf("%f",&F);
+                                    F=numero(-99999999,99999999);
+                                    if(F==FIN) return 0;
+                                    if(F==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
 
                                     printf("Su sistema de ecuaciones queda as%c: \n",161);
                                     printf("%.2f x + %.2f y = %.2f \n",A,B,C);
@@ -1098,29 +1224,89 @@ int main(){
                                     printf("ix + jy + kz = l \n");
 
                                     printf("Ingrese el valor de a: ");
-                                    scanf("%f",&a_);
+                                    a_=numero(-99999999,99999999);
+                                    if(a_==FIN) return 0;
+                                    if(a_==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de b: ");
-                                    scanf("%f",&b);
+                                    b=numero(-99999999,99999999);
+                                    if(b==FIN) return 0;
+                                    if(b==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de c: ");
-                                    scanf("%f",&c);
+                                    c=numero(-99999999,99999999);
+                                    if(c==FIN) return 0;
+                                    if(c==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de d: ");
-                                    scanf("%f",&d);
+                                    d=numero(-99999999,99999999);
+                                    if(d==FIN) return 0;
+                                    if(d==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de e: ");
-                                    scanf("%f",&e);
+                                    e=numero(-99999999,99999999);
+                                    if(e==FIN) return 0;
+                                    if(e==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de f: ");
-                                    scanf("%f",&f);
+                                    f=numero(-99999999,99999999);
+                                    if(f==FIN) return 0;
+                                    if(f==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de g: ");
-                                    scanf("%f",&g);
+                                    g=numero(-99999999,99999999);
+                                    if(g==FIN) return 0;
+                                    if(g==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de h: ");
-                                    scanf("%f",&h);
+                                    h=numero(-99999999,99999999);
+                                    if(h==FIN) return 0;
+                                    if(h==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de i: ");
-                                    scanf("%f",&i);
+                                    i=numero(-99999999,99999999);
+                                    if(i==FIN) return 0;
+                                    if(i==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de j: ");
-                                    scanf("%f",&j);
+                                    j=numero(-99999999,99999999);
+                                    if(j==FIN) return 0;
+                                    if(j==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de k: ");
-                                    scanf("%f",&k);
+                                    k=numero(-99999999,99999999);
+                                    if(k==FIN) return 0;
+                                    if(k==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     printf("Ingrese el valor de l: ");
-                                    scanf("%f",&l);
+                                    l=numero(-99999999,99999999);
+                                    if(l==FIN) return 0;
+                                    if(l==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
 
                                     printf("Su sistema de ecuaciones queda asi: \n");
                                     printf("%.2f x + %.2f y + %.2f z = %.2f \n",a_,b,c,d);
@@ -1169,7 +1355,7 @@ int main(){
                                     if(pfIVA==NULL)                          //compruebo que se abre bien
                                     {
                                         printf(AZUL31 "Error al abrir el fichero."RESET);
-                                        return -1;
+                                        break;
                                     }else
                                     {
 
@@ -1188,7 +1374,12 @@ int main(){
                                     }
                                     }
                                     printf ("%cA qu%c tipo pertenece su producto?\n",168,130);
-                                    scanf(" %i", &iva);
+                                    iva=numero_entero(1,3);
+                                    if(iva==FIN) return 0;
+                                    if(iva==ERRORES){
+                                        menus(menu);
+                                        break;
+                                    }
                                     if (iva==1) {
                                         printf("A este producto se le aplica un IVA del 21%c\n",37);
                                         printf("%cCu%cnto le ha costado su producto(en euros)?\n",168,160);
