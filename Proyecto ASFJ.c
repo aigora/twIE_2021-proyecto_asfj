@@ -128,7 +128,10 @@ int main(){
                     menu=6;
                 else{
 
-                    scanf("%i",&menu);
+                    menu=numero_entero(1,6); // EL USUARIO ESCOGE ENTRE LAS OPCIONES DEL MENÚ PRINCIPAL
+                    if(menu==FIN) return 0;
+                    if(menu==ERRORES) menu=0;
+
                     switch (menu)
                     {
                         case 1: //TEMPORIZADORES
@@ -138,7 +141,15 @@ int main(){
                             menus (menu);
                             do {
                             printf(RESET);
-                            scanf ("%i",&tempo);
+
+                            tempo=numero_entero(1,4); // EL USUARIO ESCOGE ENTRE LAS OPCIONES DEL MENÚ DE TEMPORIZADORES
+                            if(tempo==FIN) return 0;
+                            if(tempo==ERRORES){
+                                printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
+                                printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET AZUL20"5-.Suerte\n"RESET BLANCO"6-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
+                                break;
+                            }
+
                             switch (tempo)
                             {
                                 case 1: //CRONOMETRO
@@ -403,7 +414,14 @@ int main(){
                             menus (menu);
                             do{
 
-                            scanf ("%i",&calen);
+                            calen=numero_entero(1,5); // EL USUARIO ESCOGE ENTRE LAS OPCIONES DEL MENÚ DE CALENDARIO
+                            if(calen==FIN) return 0;
+                            if(calen==ERRORES){
+                                printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
+                                printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET AZUL20"5-.Suerte\n"RESET BLANCO"6-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
+                                break;
+                            }
+
                             switch (calen)
                             {
 
@@ -887,7 +905,13 @@ int main(){
                             menus (menu);
                             do{
 
-                            scanf (" %i",&calc);
+                            calc=numero_entero(1,12); // EL USUARIO ESCOGE ENTRE LAS OPCIONES DEL MENÚ DE CALENDARIO
+                            if(calc==FIN) return 0;
+                            if(calc==ERRORES){
+                                printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
+                                printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET AZUL20"5-.Suerte\n"RESET BLANCO"6-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
+                                break;
+                            }
 
                             float x, y, resultado;
                             int valido = 1;
@@ -1434,7 +1458,15 @@ int main(){
                             menus (menu);
                             do {
                             printf(RESET);
-                            scanf ("%i",&srt);
+
+                            srt=numero_entero(1,5); // EL USUARIO ESCOGE ENTRE LAS OPCIONES DEL MENÚ DE CALENDARIO
+                            if(srt==FIN) return 0;
+                            if(srt==ERRORES){
+                                printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
+                                printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET AZUL20"5-.Suerte\n"RESET BLANCO"6-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
+                                break;
+                            }
+
                             switch (srt)
                             {
                                 case 1: //cara o cruz
@@ -1610,7 +1642,10 @@ int main(){
 
 
                         default:
-                            printf(CIAN "Introduzca un n%cmero v%clido\n"RESET,163,160);
+                            LIMP;
+                            printf(CIAN "Introduzca un n%cmero v%clido.\n\n"RESET,163,160);
+                            printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET AZUL20"5-.Suerte\n"RESET BLANCO"6-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
+
                         break;
                     }
                     }
@@ -2189,7 +2224,8 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
                         if(cuenta_caracteres(mmm)>10) printf("Se escribieron %i caracteres. Como maximo debe escribir 10 caracteres.\n",cuenta_caracteres(mmm));
                         if(acotacion>0) printf("La cifra debe estar entre %i y %i.\n",minimo,maximo);
                         if(contador_errores>3){
-                            printf("Demasiados intentos, vuelva a probar mas tarde.\n\n");
+                            LIMP;
+                            printf("Dato incorrecto.\nDemasiados intentos, vuelva a probar mas tarde.\n\n");
                             return ERRORES; // el usuario escribió datos incorrectos varias veces seguidas
                         }
                     }
@@ -2302,7 +2338,8 @@ int numero_entero (int minimo, int maximo)
                         if(acotacion>0) printf("La cifra debe estar entre %i y %i.\n",minimo,maximo);
                         if(entero>0) printf ("El número debe ser un entero.\n");
                         if(contador_errores>3){
-                            printf("Demasiados intentos, vuelva a probar mas tarde.\n\n");
+                            LIMP;
+                            printf("Dato incorrecto.\nDemasiados intentos, vuelva a probar mas tarde.\n\n");
                             return ERRORES; // el usuario escribió datos incorrectos varias veces seguidas
                         }
                     }
