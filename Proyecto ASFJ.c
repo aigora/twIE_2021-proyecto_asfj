@@ -61,7 +61,7 @@ float potencia(float base, int exponente);
 //FUNCIONES CALENDARIO
 int imprimir_fichero(int numeracion);
 void copio_fichero();
-void editar_fichero(int nu, int ed, char edit);
+int editar_fichero(int nu, int ed, char edit);
 char coincide (char a[]);
 void imprimir_tipo_rec (char c, int nu);
 int escribir_recordatorio (char modo);
@@ -383,7 +383,12 @@ int main(){
                                     modo='a';
                                     v=escribir_recordatorio(modo);            // funcion para a�adir recordatorios al fichero existente
   //A�ADO FICH/
-                                    if(v==-1) break;
+                                    if(v==-1) return 0;
+                                    else if(v==-2) return 0;
+                                    else if (v==-3){
+                                        menus(menu);
+                                        break;
+                                    }
                                     else{
 
                                     LIMP;
@@ -421,12 +426,19 @@ int main(){
 
                                     copio_fichero();  //copio los recordatorios en un fichero temporal
 
-                                    editar_fichero(nu, ed, editar);  //vuelvo a copiar en mi fichero de recordatorios pero haciendo las modificaciones
+                                    v=editar_fichero(nu, ed, editar);  //vuelvo a copiar en mi fichero de recordatorios pero haciendo las modificaciones
+                                    if(v==-1) return 0;
+                                    else if(v==-2) return 0;
+                                    else if(v==-3){
+                                        menus(menu);
+                                        break;
+                                    }
+                                    else{
 
-                                    LIMP;
-                                    printf(AZUL31"Ya se ha editado!\n" SUBRAYADO ITALIC "Puede continuar usando el "RESET);
-                                    menus (menu);
-
+                                        LIMP;
+                                        printf(AZUL31"Ya se ha editado!\n" SUBRAYADO ITALIC "Puede continuar usando el "RESET);
+                                        menus (menu);
+                                    }
 
                                 break;
 
@@ -438,12 +450,18 @@ int main(){
   //CREO FICH/
                                         modo='e';
 
-                                        if(escribir_recordatorio(modo)==-1) break;
+                                        v=escribir_recordatorio(modo);
+                                        if(v==-1) return 0;
+                                        else if(v==-2) return 0;
+                                        else if(v==-3){
+                                            menus(menu);
+                                            break;
+                                        }
                                         else{
-                                        LIMP;
-                                        printf(AZUL31"Ya se han creado!\n" SUBRAYADO ITALIC "Puede continuar usando el " RESET);
-                                        menus (menu);
-                                        break;
+                                            LIMP;
+                                            printf(AZUL31"Ya se han creado!\n" SUBRAYADO ITALIC "Puede continuar usando el " RESET);
+                                            menus (menu);
+                                            break;
                                         }
 
                                 case 5:
@@ -479,7 +497,7 @@ int main(){
                                 if (size == 0) {
                                         pf = fopen("coordenadas.txt", "w");
                                         pf = fopen("coordenadas.txt", "a");
-                                        printf (AZUL24"Escriba sus coordenadas, solo positivas y menores que 2000, cada unidad en el mapa son 10 metros.\n");
+                                        printf (AZUL69"Escriba sus coordenadas, solo positivas y menores que 2000, cada unidad en el mapa son 10 metros.\n");
                                         printf("x:\n");
                                         scanf("%i",&xu);
                                         printf("\ny:\n");
@@ -499,7 +517,7 @@ int main(){
                                         printf("\n"RESET);
                                         if(xu < 0 || yu < 0 || xu>2000 || yu > 2000 ||c1 < 0 || c2 < 0 || c1>2000 || c2 > 2000||u1 < 0 || u2 < 0 || u1>2000 || u2 > 2000 || u1==c1 && u2 ==c2){
                                             LIMP;
-                                            printf(AZUL20"Introduzca un n%cmero v%clido o no ponga su casa en su universidad\n",163,160);
+                                            printf(AZUL69"Introduzca un n%cmero v%clido o no ponga su casa en su universidad\n",163,160);
                                             printf("\n\nPuede continuar usando el "RESET);
                                             a=1;
                                             break;
@@ -533,8 +551,8 @@ int main(){
                                         u2 = coor[5];
                                         if(xu < 0 || yu < 0 || xu>2000 || yu > 2000 ||c1 < 0 || c2 < 0 || c1>2000 || c2 > 2000||u1 < 0 || u2 < 0 || u1>2000 || u2 > 2000 || u1==c1 && u2 ==c2){
                                             LIMP;
-                                            printf(AZUL20"Introduzca un n%cmero v%clido o no ponga su casa en su universidad\n",163,160);
-                                            printf("\n\nPuede continuar usando el "RESET);
+                                            printf(AZUL69"Introduzca un n%cmero v%clido o no ponga su casa en su universidad\n",163,160);
+                                            printf(AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
                                             a=1;
                                             break;
                                         }
@@ -544,28 +562,28 @@ int main(){
                                     case 'N':
                                         pf = fopen("coordenadas.txt", "w");
                                         pf = fopen("coordenadas.txt", "a");
-                                        printf (AZUL24"Escriba sus coordenadas, solo positivas y menores que 2000, cada unidad en el mapa son 10 metros.\n");
-                                        printf("x:\n");
+                                        printf (AZUL69"Escriba sus coordenadas, solo positivas y menores que 2000, cada unidad en el mapa son 10 metros.\n");
+                                        printf("x:\n"RESET);
                                         scanf("%i",&xu);
-                                        printf("\ny:\n");
+                                        printf(AZUL69"\ny:\n"RESET);
                                         scanf("%i",&yu);
                                         printf("\n");
-                                        printf ("Escriba las coordenadas de su casa, solo positivas y menores que 2000, cada unidad en el mapa son 10 metros.\n");
-                                        printf("x:\n");
+                                        printf (AZUL69"Escriba las coordenadas de su casa, solo positivas y menores que 2000, cada unidad en el mapa son 10 metros.\n");
+                                        printf("x:\n"RESET);
                                         scanf("%i",&c1);
-                                        printf("\ny:\n");
+                                        printf(AZUL69"\ny:\n"RESET);
                                         scanf("%i",&c2);
                                         printf("\n");
-                                        printf ("Escriba las coordenadas de su universidad, solo positivas y menores que 2000, cada unidad en el mapa son 10 metros.\n");
-                                        printf("x:\n");
+                                        printf (AZUL69"Escriba las coordenadas de su universidad, solo positivas y menores que 2000, cada unidad en el mapa son 10 metros.\n");
+                                        printf("x:\n"RESET);
                                         scanf("%i",&u1);
-                                        printf("\ny:\n");
+                                        printf(AZUL69"\ny:\n"RESET);
                                         scanf("%i",&u2);
-                                        printf("\n"RESET);
+                                        printf("\n");
                                         if(xu < 0 || yu < 0 || xu>2000 || yu > 2000 ||c1 < 0 || c2 < 0 || c1>2000 || c2 > 2000||u1 < 0 || u2 < 0 || u1>2000 || u2 > 2000 || u1==c1 && u2 ==c2){
                                             LIMP;
-                                            printf(AZUL20"Introduzca un n%cmero v%clido o no ponga su casa en su universidad\n",163,160);
-                                            printf("\n\nPuede continuar usando el "RESET);
+                                            printf(AZUL69"Introduzca un n%cmero v%clido o no ponga su casa en su universidad\n",163,160);
+                                            printf(ITALIC"\n\nPuede continuar usando el "RESET);
                                             a=1;
                                             break;
                                         }
@@ -581,13 +599,13 @@ int main(){
                                         u2 = coor[5];
                                             pf = fopen("coordenadas.txt", "r");
                                             fscanf(pf, "%i, %i, %i, %i, %i, %i",&coor[0], &coor[1],&coor[2], &coor[3],&coor[4], &coor[5]);
-                                            printf( AZUL69"Tuyas %i, %i;Casa %i, %i;Universidad %i, %i , hay %i pacientes de covid en su zona\n"RESET,coor[0], coor[1],coor[2], coor[3],coor[4], coor[5]);
+                                            printf( AZUL69"Tuyas %i,%i; Casa %i,%i; Universidad %i,%i \n"RESET,coor[0], coor[1],coor[2], coor[3],coor[4], coor[5]);
                                             fclose(pf);
                                         }
 
                                             default:
-                                            printf("Introduzca una letra v%clida\n",160);
-                                            printf("\n\nPuede continuar usando el ");
+                                            printf(AZUL69"Introduzca una letra v%clida\n",160);
+                                            printf(ITALIC"\n\nPuede continuar usando el "RESET);
                                             a=1;
                                             break;
 
@@ -609,7 +627,7 @@ int main(){
                                     int py[10];
                                     pf = fopen("coordenadas.txt", "r");
                                     fscanf(pf, "%i, %i, %i, %i, %i, %i",&coor[0], &coor[1],&coor[2], &coor[3],&coor[4], &coor[5]);
-                                    printf( AZUL69"Tuyas %i, %i;Casa %i, %i;Universidad %i, %i , hay %i pacientes de covid en su zona\n"RESET,coor[0], coor[1],coor[2], coor[3],coor[4], coor[5], NP);
+                                    printf( AZUL69"Tuyas %i,%i; Casa %i,%i; Universidad %i,%i , hay %i pacientes de covid en su zona\n"RESET,coor[0], coor[1],coor[2], coor[3],coor[4], coor[5], NP);
                                     xu = coor[0];
                                     yu = coor[1];
                                     c1 = coor[2];
@@ -661,55 +679,57 @@ int main(){
                                                 }
 
                                              printf("\n");
-                                             printf( AZUL69"\n\nPuede continuar usando el "RESET);
+                                             printf( AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
                                              menus (menu);
                                 break;
                                 case 2:
 
                                     LIMP;
-                                    printf (AZUL69"Direcci%cn\n"RESET,162);
-                                    printf(AZUL24"1 para casa, 2 para universidad, 3 para punto concreto, 4 para ir atr%cs\n"RESET,160);
+                                    printf (AZUL69"Direcci%cn\n",162);
+                                    printf("1 para casa, 2 para universidad, 3 para punto concreto, 4 para ir atr%cs\n"RESET,160);
                                     scanf("%i",&punto);
                                     switch (punto)
                                     {
                                     case 1:
                                         direccion(c1,c2,xu,yu);
-                                        printf(AZUL20"\n\nPuede continuar usando el "RESET);
+                                        printf(AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
                                         menus (menu);
                                     break;
 
                                     case 2:
                                         direccion(u1,u2,xu,yu);
-                                        printf(AZUL20"\n\nPuede continuar usando el "RESET);
+                                        printf(AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
                                         menus (menu);
                                     break;
 
                                     case 3:
-                                        printf (AZUL24"Escriba las coordenadas que quieres saber su dirección.\n");
-                                        printf("x:\n");
+                                        printf (AZUL69"Escriba las coordenadas que quieres saber su dirección.\n");
+                                        printf("x:\n"RESET);
                                         scanf("%i",&x1);
-                                        printf("\ny:\n");
+                                        printf(AZUL69"\ny:\n"RESET);
                                         scanf("%i",&y1);
-                                        printf("\n"RESET);
+                                        printf("\n");
+
                                         direccion(x1,y1,xu,yu);
-                                        printf(AZUL20"\n\nPuede continuar usando el "RESET);
+                                        printf(AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
                                         menus (menu);
+
                                     break;
 
                                     case 4:
-                                        printf(AZUL20"\n\nPuede continuar usando el "RESET);
+                                        printf(AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
                                         menus (menu);
                                     break;
 
                                     default:
-                                        printf(AZUL24"Introduzca un n%cmero v%clido\n",163,160);
+                                        printf(AZUL69"Introduzca un n%cmero v%clido\n"RESET,163,160);
                                         break;
-                                    printf("\n\nPuede continuar usando el "RESET);
+                                    printf(AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
                                     menus (menu);
                                     }
                                 break;
                                 case 3:
-                                    printf (AZUL69"Localizaci%cn\n"RESET,162);
+                                    printf (AZUL69"Localizaci%cn\n",162);
 
 
                                         srand(time(NULL));
@@ -726,15 +746,15 @@ int main(){
                                                         printf(". ");
                                             }
 
-                                        printf(AZUL24"\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i."RESET,xu,yu,c1,c2,u1,u2); //Imprime coordenadas
+                                        printf(AZUL69"\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",xu,yu,c1,c2,u1,u2); //Imprime coordenadas
 
                                         if(xu==c1&&yu==c2)
-                                            printf(AZUL20"\nHa llegado a casa."RESET);                     //Comprueba si el usuario está en una de las coordenadas.
+                                            printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
                                         else if(xu==u1&&yu==u2)
-                                            printf(AZUL20"\nHa llegado a su universidad."RESET);
+                                            printf("\nHa llegado a su universidad.");
 
 
-                                    printf(AZUL69"\n\nPuede continuar usando el "RESET);
+                                    printf(AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
                                     menus (menu);
                                 break;
 
@@ -1441,10 +1461,10 @@ void copio_fichero()                                              //copio el fic
         }
     }
 }
-void editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas totales; ed es el numero de linea que quiero modificar; edit decide si edito fecha o recordatorio
+int editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas totales; ed es el numero de linea que quiero modificar; edit decide si edito fecha o recordatorio
 {
 
-    int j,nd,nm,na;
+    int j,nd,nm,na,numTip;
     char nuevoRec[20], nuevoTip[20];
     FILE *orig, *co;
     int d,m,a;
@@ -1458,15 +1478,104 @@ void editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas to
         if(j==ed){
                 if(edit=='r'){
                     printf(AZUL31"Escriba el nuvo nombre de recordatorio (tipo_de_recordatorio y recordatorio, separados por un espacio):\n"RESET);
-                    scanf("%s %s",&nuevoTip, &nuevoRec);
-                    fscanf(orig, "%i;%i;%i;%s;%s\n",
-                        &d, &m, &a, &tip, &rec);
-                    fprintf(co,"%i;%i;%i;%s;%s\n",
-                         d, m, a, nuevoTip, nuevoRec);
+                    printf("Tipo de recordatorio:\n1-Examen\n2-Cumpleaños\n3-Festivo\n4-Otro tipo\n5-(Sin tipo específico)\n");
+                    numTip=numero_entero(1,5);
+                    if(numTip==FIN) return -2;
+                    if(numTip==ERRORES) return -3;
+                    if(numTip==1) {
+                        nuevoTip[0]='E';
+                        nuevoTip[1]='x';
+                        nuevoTip[2]='a';
+                        nuevoTip[3]='m';
+                        nuevoTip[4]='e';
+                        nuevoTip[5]='n';
+
+                        printf("Asignatura: ");
+                        scanf(" %s",&nuevoRec);
+
+                        fscanf(orig, "%i;%i;%i;%[^;];%s\n",
+                            &d, &m, &a, &tip, &rec);
+                        fprintf(co,"%i;%i;%i;%s;%s\n",
+                             d, m, a, nuevoTip, nuevoRec);
+                    }
+                    else if(numTip==2) {
+                        nuevoTip[0]='C';
+                        nuevoTip[1]='u';
+                        nuevoTip[2]='m';
+                        nuevoTip[3]='p';
+                        nuevoTip[4]='l';
+                        nuevoTip[5]='e';
+                        //tip[6]='a';
+                        //tip[7]='n';
+                        //tip[8]='o';
+                        //tip[9]='s';
+
+                        printf("Nombre del cumpleañero: ");
+                        scanf(" %s",&nuevoRec);
+
+                        fscanf(orig, "%i;%i;%i;%[^;];%s\n",
+                            &d, &m, &a, &tip, &rec);
+                        fprintf(co,"%i;%i;%i;%s;%s\n",
+                             d, m, a, nuevoTip, nuevoRec);
+                    }
+                    else if(numTip==3) {
+                        nuevoTip[0]='F';
+                        nuevoTip[1]='e';
+                        nuevoTip[2]='s';
+                        nuevoTip[3]='t';
+                        nuevoTip[4]='i';
+                        nuevoTip[5]='v';
+                        nuevoTip[6]='o';
+
+                        printf("Nombre del festivo: ");
+                        scanf(" %s",&nuevoRec);
+
+                        fscanf(orig, "%i;%i;%i;%[^;];%s\n",
+                            &d, &m, &a, &tip, &rec);
+                        fprintf(co,"%i;%i;%i;%s;%s\n",
+                             d, m, a, nuevoTip, nuevoRec);
+                    }
+                    else if(numTip==4) {
+                        printf("Otro tipo: ");
+                        scanf(" %s",&nuevoTip);
+                        printf("Recordatorio: ");
+                        scanf(" %s",&nuevoRec);
+
+                        fscanf(orig, "%i;%i;%i;%[^;];%s\n",
+                            &d, &m, &a, &tip, &rec);
+                        fprintf(co,"%i;%i;%i;%s;%s\n",
+                             d, m, a, nuevoTip, nuevoRec);
+                    }
+                    else if(numTip==5) {
+                        tip[0]=' ';
+                        printf("Recordatorio: ");
+                        scanf(" %s",&nuevoRec);
+
+                        fscanf(orig, "%i;%i;%i;%[^;];%s\n",
+                            &d, &m, &a, &tip, &rec);
+                        fprintf(co,"%i;%i;%i;%s;%s\n",
+                             d, m, a, nuevoTip, nuevoRec);
+
+                    }
+                    else printf("Esa no es una opcion\n");
+
+
                 }else{
-                    printf(AZUL31"Escriba la nueva fecha (d%ca mes a%co, en forma num%crica y separadas por un espacio):\n"RESET,161,164,130);
-                    scanf("%i %i %i",&nd, &nm, &na);
-                    fscanf(orig, "%d;%d;%d;%s;%s\n",
+                    printf(AZUL31"Escriba la nueva fecha\n"RESET);
+                    printf("Día: ");
+                    nd=numero_entero(1,31);
+                    if(nd==FIN) return -2;
+                    if(nd==ERRORES) return -3;
+                    printf("Mes (en forma numerica, del 1 al 12): ");
+                    nm=numero_entero(1,12);
+                    if(nm==FIN) return -2;
+                    if(nm==ERRORES) return -3;
+                    printf("Anio: ");
+                    na=numero_entero(1000,9999);
+                    if(na==FIN) return -2;
+                    if(na==ERRORES) return -3;
+
+                    fscanf(orig, "%d;%d;%d;%[^;];%s\n",
                         &d, &m, &a, &tip, &rec);
                     fprintf(co,"%d;%d;%d;%s;%s\n",
                          nd, nm, na, tip, rec);
@@ -1484,6 +1593,7 @@ void editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas to
     fclose(orig); // Cierro ficheros
     fclose(co);
 
+    return 0;
 }
 char coincide (char a[])
 {
@@ -1499,19 +1609,19 @@ char coincide (char a[])
 void imprimir_tipo_rec (char c, int Nu)
 {
     LIMP;
-    int j=0,d,m,a;
+    int i,j=0,d,m,a;
     char tip[20],rec[20];
     char coinc;
     FILE *pf;
     pf=fopen("Recordatorios_calendario.txt","r");
-
+printf("Nu: %i\n",Nu);
     if(c=='c'||c=='C')
     {
         printf(AZUL31 "CUMPLEA%cOS:\n",165);
-        for(j=0;j<Nu;j++)
+        for(i=0;i<Nu;i++)
         {
             fscanf(pf,"%d;%d;%d;%[^;];%s\n",
-                   &d, &m, &a, &tip, &rec);
+                   &d, &m, &a, tip, rec);
 
             coinc=coincide (tip);
             if(coinc=='c')
@@ -1524,10 +1634,10 @@ void imprimir_tipo_rec (char c, int Nu)
     }else if(c=='e'||c=='E')
     {
         printf("EXAMENES:\n");
-        for(j=0;j<Nu;j++)
+        for(i=0;i<Nu;i++)
         {
             fscanf(pf,"%d;%d;%d;%[^;];%s\n",
-                   &d, &m, &a, &tip, &rec);
+                   &d, &m, &a, tip, rec);
 
             coinc=coincide (tip);
             if(coinc=='e')
@@ -1540,7 +1650,7 @@ void imprimir_tipo_rec (char c, int Nu)
     }else if(c=='f'||c=='F')
     {
         printf("FESTIVOS:\n");
-        for(j=0;j<Nu;j++)
+        for(i=0;i<Nu;i++)
         {
             fscanf(pf,"%d;%d;%d;%[^;];%s\n",
                    &d, &m, &a, &tip, &rec);
@@ -1576,12 +1686,20 @@ int escribir_recordatorio ( char modo)
         do{
             printf("Día: ");
             dia=numero_entero(1,31);
+            if(dia==FIN) return -2;
+            if(dia==ERRORES) return -3;
             printf("Mes (en forma numerica, del 1 al 12): ");
             mes=numero_entero(1,12);
+            if(mes==FIN) return -2;
+            if(mes==ERRORES) return -3;
             printf("Anio: ");
             anio=numero_entero(1000,9999);
-            printf("Tipo de recordatorio:\n1-Examen\n2-Cumpleaños\n3-Festivo\n4-Crear nuevo tipo\n5-(Sin tipo específico)\n");
-            scanf(" %i",&numTip);
+            if(anio==FIN) return -2;
+            if(anio==ERRORES) return -3;
+            printf("Tipo de recordatorio:\n1-Examen\n2-Cumpleaños\n3-Festivo\n4-Otro tipo\n5-(Sin tipo específico)\n");
+            numTip=numero_entero(1,5);
+            if(numTip==FIN) return -2;
+            if(numTip==ERRORES) return -3;
             if(numTip==1) {
                 tip[0]='E';
                 tip[1]='x';
@@ -1589,6 +1707,12 @@ int escribir_recordatorio ( char modo)
                 tip[3]='m';
                 tip[4]='e';
                 tip[5]='n';
+
+                printf("Asignatura: ");
+                scanf(" %s",&rec);
+
+                fprintf(pf,"%d;%d;%d;%s;%s\n",                 //escribo en el fichero
+                    dia,mes,anio,tip,rec);
             }
             else if(numTip==2) {
                 tip[0]='C';
@@ -1601,6 +1725,12 @@ int escribir_recordatorio ( char modo)
                 //tip[7]='n';
                 //tip[8]='o';
                 //tip[9]='s';
+
+                printf("Nombre del cumpleañero: ");
+                scanf(" %s",&rec);
+
+                fprintf(pf,"%d;%d;%d;%s;%s\n",                 //escribo en el fichero
+                    dia,mes,anio,tip,rec);
             }
             else if(numTip==3) {
                 tip[0]='F';
@@ -1610,19 +1740,35 @@ int escribir_recordatorio ( char modo)
                 tip[4]='i';
                 tip[5]='v';
                 tip[6]='o';
+
+                printf("Nombre del festivo: ");
+                scanf(" %s",&rec);
+
+                fprintf(pf,"%d;%d;%d;%s;%s\n",                 //escribo en el fichero
+                    dia,mes,anio,tip,rec);
             }
             else if(numTip==4) {
-                printf("Nuevo tipo: ");
-                scanf(" %[^\n]",&tip);
+                printf("Otro tipo: ");
+                scanf(" %s",&tip);
+                printf("Recordatorio: ");
+                scanf(" %s",&rec);
+
+                fprintf(pf,"%d;%d;%d;%s;%s\n",                 //escribo en el fichero
+                    dia,mes,anio,tip,rec);
             }
-            else if(numTip==5) tip[0]=' ';
+            else if(numTip==5) {
+                tip[0]=' ';
+                printf("Recordatorio: ");
+                scanf(" %s",&rec);
+
+                fprintf(pf,"%d;%d;%d;%s;%s\n",                 //escribo en el fichero
+                    dia,mes,anio,tip,rec);
+
+            }
             else printf("Esa no es una opcion\n");
 
-            printf("Recordatorio: ");
-            scanf(" %[^\n]",&rec);
 
-            fprintf(pf,"%d;%d;%d;%[^\n];%s\n",                 //escribo en el fichero
-                    dia,mes,anio,tip,rec);
+
 
             printf("¿Quiere escribir otro recordatorio?\n1-Si\n2-No\n");
             scanf(" %i",&nn);
@@ -1718,10 +1864,11 @@ int cuenta_caracteres (char mmm[])  // CUENTA LOS CARACTERES INTRODUCIDOS
     }
     return i;
 }
-int salir(char salir[10]){   //DETECTA SI EL USUARIO ESCIBE 'FIN'.
+int salir(char salir[10])   //DETECTA SI EL USUARIO ESCIBE 'FIN'
+{
 
      if (((salir[0]) == 'F') && ((salir[1]) == 'I') && ((salir[2]) == 'N') && (salir[3] == '\0')){
-        animacion_hasta_luego;
+        //animacion_hasta_luego();
         return -1;
      }
     return 1;
@@ -1745,7 +1892,7 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
                         if(cuenta_caracteres(mmm)>10) printf("Se escribieron %i caracteres. Como maximo debe escribir 10 caracteres.\n",cuenta_caracteres(mmm));
                         if(acotacion>0) printf("La cifra debe estar entre %i y %i.\n",minimo,maximo);
                         if(contador_errores>3){
-                            printf("Demasiados intentos, vuelva a probar mas tarde.\n");
+                            printf("Demasiados intentos, vuelva a probar mas tarde.\n\n");
                             return ERRORES; // el usuario escribió datos incorrectos varias veces seguidas
                         }
                     }
@@ -1839,7 +1986,8 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
     return nummm; // resultado en tipo float, preparado para operar con él
 
 }
-int numero_entero (int minimo, int maximo){
+int numero_entero (int minimo, int maximo)
+{
 
     int i,contador_errores=0,Ncontador=0,Pcontador=0,PP=0,t=0,acotacion=0, signo=0,entero=0;
     char m[10]; // cadena que el usuario escribirá por teclado
@@ -1851,13 +1999,13 @@ int numero_entero (int minimo, int maximo){
                 do{
                     if(contador_errores>0){  // ESCRIBE POR PANTALLA LOS ERRORES DETECTADOS
                         printf("Dato incorrecto.\n");
-                        if(t>0) printf("Debe introducir solo datos numericos (y punto si es necesario decimales).\n");
-                        if(Pcontador>1) printf("Debe introducir un punto como maximo.\n");
+                        if(t>0) printf("Debe introducir solo datos numericos.\n");
+                        if(Pcontador>1) printf("Debe introducir un punto como maximo y el número debe ser un entero.\n");
                         if(cuenta_caracteres(m)>10) printf("Se escribieron %i caracteres. Como maximo debe escribir 10 caracteres.\n",cuenta_caracteres(m));
                         if(acotacion>0) printf("La cifra debe estar entre %i y %i.\n",minimo,maximo);
                         if(entero>0) printf ("El número debe ser un entero.\n");
                         if(contador_errores>3){
-                            printf("Demasiados intentos, vuelva a probar mas tarde.\n");
+                            printf("Demasiados intentos, vuelva a probar mas tarde.\n\n");
                             return ERRORES; // el usuario escribió datos incorrectos varias veces seguidas
                         }
                     }
@@ -2163,7 +2311,7 @@ void animacion_hasta_luego()
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
             printf (CIAN "%c", c);
-            delay(0.004);
+            delay(0.002);
         }
 
         fseek(pf,0,SEEK_SET);
@@ -2211,6 +2359,7 @@ void animacion_hasta_luego()
     fclose(pf);
 }
 
+// FUNCIÓN GPS
 void direccion(int co1,int co2,int x, int y)
 {
     float distancia;
