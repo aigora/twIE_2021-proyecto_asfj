@@ -600,19 +600,19 @@ int main(){
                         break;
 
 
-                       case 3: // GPS
+                        case 3: // GPS
 
                             LIMP;
                             int i,j,xu,yu,c1,c2,u1,u2,x1,y1;
                             long int size;
 
-                            char punto,r;
+                            char punto,r,mov;
 
                             FILE *pf;
                             pf = fopen("coordenadas.txt", "r");
                              if (pf == NULL) {
                                         printf("Error al abrir el fichero de coordenadas.\n");
-                                        return -1;
+                                        break;
                                         }
                             else {
                                 fseek (pf, 0, SEEK_END);
@@ -641,8 +641,6 @@ int main(){
                                         if(xu < 0 || yu < 0 || xu>2000 || yu > 2000 ||c1 < 0 || c2 < 0 || c1>2000 || c2 > 2000||u1 < 0 || u2 < 0 || u1>2000 || u2 > 2000 || u1==c1 && u2 ==c2){
                                             LIMP;
                                             printf(AZUL69"Introduzca un n%cmero v%clido o no ponga su casa en su universidad\n",163,160);
-                                            printf("\n\nPuede continuar usando el "RESET);
-                                            a=1;
                                             break;
                                         }
                                         else{
@@ -675,8 +673,6 @@ int main(){
                                         if(xu < 0 || yu < 0 || xu>2000 || yu > 2000 ||c1 < 0 || c2 < 0 || c1>2000 || c2 > 2000||u1 < 0 || u2 < 0 || u1>2000 || u2 > 2000 || u1==c1 && u2 ==c2){
                                             LIMP;
                                             printf(AZUL69"Introduzca un n%cmero v%clido o no ponga su casa en su universidad\n",163,160);
-                                            printf(AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
-                                            a=1;
                                             break;
                                         }
                                         fclose(pf);
@@ -706,8 +702,6 @@ int main(){
                                         if(xu < 0 || yu < 0 || xu>2000 || yu > 2000 ||c1 < 0 || c2 < 0 || c1>2000 || c2 > 2000||u1 < 0 || u2 < 0 || u1>2000 || u2 > 2000 || u1==c1 && u2 ==c2){
                                             LIMP;
                                             printf(AZUL69"Introduzca un n%cmero v%clido o no ponga su casa en su universidad\n",163,160);
-                                            printf(ITALIC"\n\nPuede continuar usando el "RESET);
-                                            a=1;
                                             break;
                                         }
                                         else{
@@ -726,11 +720,10 @@ int main(){
                                             fclose(pf);
                                         }
 
-                                            default:
+                                    default:
                                             printf(AZUL69"Introduzca una letra v%clida\n",160);
-                                            printf(ITALIC"\n\nPuede continuar usando el "RESET);
-                                            a=1;
                                             break;
+
 
                                         }
                                         xu = coor[0];
@@ -744,13 +737,17 @@ int main(){
                                         }
                             menus(menu);
                             do {
+
                                     int coor[6];
-                                    int NP = rand()%5;
+                                    int NP = rand()%5,extt;
                                     int px[10];
                                     int py[10];
                                     pf = fopen("coordenadas.txt", "r");
                                     fscanf(pf, "%i, %i, %i, %i, %i, %i",&coor[0], &coor[1],&coor[2], &coor[3],&coor[4], &coor[5]);
-                                    printf( AZUL69"Tuyas %i,%i; Casa %i,%i; Universidad %i,%i , hay %i pacientes de covid en su zona\n"RESET,coor[0], coor[1],coor[2], coor[3],coor[4], coor[5], NP);
+                                    printf( AZUL69"Tuyas %i,%i; Casa %i,%i; Universidad %i,%i.\n"RESET,coor[0], coor[1],coor[2], coor[3],coor[4], coor[5]);
+                                    if(extt==0)
+                                        menus(menu);
+                                    extt=1;
                                     xu = coor[0];
                                     yu = coor[1];
                                     c1 = coor[2];
@@ -800,8 +797,8 @@ int main(){
                                                     }
                                                 }
                                                 }
-
                                              printf("\n");
+                                             printf( AZUL69"Hay %i pacientes de covid en su zona.\n"RESET,NP);
                                              printf( AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
                                              menus (menu);
                                 break;
@@ -853,7 +850,7 @@ int main(){
                                 break;
                                 case 3:
                                     printf (AZUL69"Localizaci%cn\n",162);
-
+                                    int salmov=0;
 
                                         srand(time(NULL));
                                         for(i=0;i<N;i++){
@@ -871,15 +868,177 @@ int main(){
 
                                         printf(AZUL69"\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",xu,yu,c1,c2,u1,u2); //Imprime coordenadas
 
+
                                         if(xu==c1&&yu==c2)
                                             printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
                                         else if(xu==u1&&yu==u2)
                                             printf("\nHa llegado a su universidad.");
 
+                                do {
+                                    printf("\nW para arriba,A para izquierda,S para abajo, D para derecha, E para salir.");
+                                    printf(RESET);
+                                    scanf ("%c",&mov);
+                                    switch (mov)
+                                    {
+                                        case 'w':
+                                        case 'W':
+                                            yu = yu-5;
+                                           if (yu<0){
+                                                 printf(AZUL69"Introduzca coordenadas v%clidas\n"RESET,160);
+                                            }
+                                            else{
+                                            pf = fopen("coordenadas.txt", "w");
+                                            int coor[6] = {xu,yu,c1,c2,u1,u2};
+                                        fprintf(pf, "%i, %i, %i, %i, %i, %i",coor[0], coor[1],coor[2], coor[3],coor[4], coor[5]);
+                                        fclose(pf);
+                                        srand(time(NULL));
+                                        for(i=0;i<N;i++){
+                                            printf("\n");        //Representa gráficamente.
+                                                for(j=0;j<N;j++)
+                                                    if(j==25&&i==25)
+                                                        printf("X ");
+                                                    else if (i==c2-yu+25&&j==c1-xu+25)
+                                                        printf(NEGRITA"C "RESET);
+                                                    else if (i==u2-yu+25&&j==u1-xu+25)
+                                                        printf(NEGRITA"U "RESET);
+                                                    else
+                                                        printf(". ");
+                                            }
 
-                                    printf(AZUL69 ITALIC"\n\nPuede continuar usando el "RESET);
-                                    menus (menu);
-                                break;
+                                        printf(AZUL69"\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",xu,yu,c1,c2,u1,u2); //Imprime coordenadas
+
+
+                                        if(xu==c1&&yu==c2)
+                                            printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
+                                        else if(xu==u1&&yu==u2)
+                                            printf("\nHa llegado a su universidad.");
+                                            }
+
+                                        break;
+
+                                        case 'a':
+                                        case 'A':
+                                            xu = xu-5;
+                                            if (xu<0){
+                                                 printf(AZUL69"Introduzca coordenadas v%clidas\n"RESET,160);
+                                            }
+                                            else{
+                                            pf = fopen("coordenadas.txt", "w");
+                                            int coor[6] = {xu,yu,c1,c2,u1,u2};
+                                        fprintf(pf, "%i, %i, %i, %i, %i, %i",coor[0], coor[1],coor[2], coor[3],coor[4], coor[5]);
+                                        fclose(pf);
+                                        srand(time(NULL));
+                                        for(i=0;i<N;i++){
+                                            printf("\n");        //Representa gráficamente.
+                                                for(j=0;j<N;j++)
+                                                    if(j==25&&i==25)
+                                                        printf("X ");
+                                                    else if (i==c2-yu+25&&j==c1-xu+25)
+                                                        printf(NEGRITA"C "RESET);
+                                                    else if (i==u2-yu+25&&j==u1-xu+25)
+                                                        printf(NEGRITA"U "RESET);
+                                                    else
+                                                        printf(". ");
+                                            }
+
+                                        printf(AZUL69"\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",xu,yu,c1,c2,u1,u2); //Imprime coordenadas
+
+
+                                        if(xu==c1&&yu==c2)
+                                            printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
+                                        else if(xu==u1&&yu==u2)
+                                            printf("\nHa llegado a su universidad.");
+                                            }
+
+                                        break;
+
+                                        case 's':
+                                        case 'S':
+                                            yu = yu+5;
+                                            if (yu>2000){
+                                                 printf(AZUL69"Introduzca coordenadas v%clidas\n"RESET,160);
+                                            }
+                                            else{
+                                            pf = fopen("coordenadas.txt", "w");
+                                            int coor[6] = {xu,yu,c1,c2,u1,u2};
+                                        fprintf(pf, "%i, %i, %i, %i, %i, %i",coor[0], coor[1],coor[2], coor[3],coor[4], coor[5]);
+                                        fclose(pf);
+                                        srand(time(NULL));
+                                        for(i=0;i<N;i++){
+                                            printf("\n");        //Representa gráficamente.
+                                                for(j=0;j<N;j++)
+                                                    if(j==25&&i==25)
+                                                        printf("X ");
+                                                    else if (i==c2-yu+25&&j==c1-xu+25)
+                                                        printf(NEGRITA"C "RESET);
+                                                    else if (i==u2-yu+25&&j==u1-xu+25)
+                                                        printf(NEGRITA"U "RESET);
+                                                    else
+                                                        printf(". ");
+                                            }
+
+                                        printf(AZUL69"\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",xu,yu,c1,c2,u1,u2); //Imprime coordenadas
+
+
+                                        if(xu==c1&&yu==c2)
+                                            printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
+                                        else if(xu==u1&&yu==u2)
+                                            printf("\nHa llegado a su universidad.");
+                                            }
+
+                                        break;
+
+                                        case 'd':
+                                        case 'D':
+                                            xu = xu+5;
+                                            if (yu>2000){
+                                                 printf(AZUL69"Introduzca coordenadas v%clidas\n"RESET,160);
+                                            }
+                                            else{
+                                            pf = fopen("coordenadas.txt", "w");
+                                            int coor[6] = {xu,yu,c1,c2,u1,u2};
+                                        fprintf(pf, "%i, %i, %i, %i, %i, %i",coor[0], coor[1],coor[2], coor[3],coor[4], coor[5]);
+                                        fclose(pf);
+                                        srand(time(NULL));
+                                        for(i=0;i<N;i++){
+                                            printf("\n");        //Representa gráficamente.
+                                                for(j=0;j<N;j++)
+                                                    if(j==25&&i==25)
+                                                        printf("X ");
+                                                    else if (i==c2-yu+25&&j==c1-xu+25)
+                                                        printf(NEGRITA"C "RESET);
+                                                    else if (i==u2-yu+25&&j==u1-xu+25)
+                                                        printf(NEGRITA"U "RESET);
+                                                    else
+                                                        printf(". ");
+                                            }
+
+                                        printf(AZUL69"\nCoordenadas x: %i y: %i.\nCoordenadas Casa: %i y: %i.\nCoordenadas Universidad: %i y: %i.",xu,yu,c1,c2,u1,u2); //Imprime coordenadas
+
+
+                                        if(xu==c1&&yu==c2)
+                                            printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
+                                        else if(xu==u1&&yu==u2)
+                                            printf("\nHa llegado a su universidad.");
+                                            }
+
+                                        break;
+
+                                        break;
+
+                                        case 'e':
+                                        case 'E':
+                                            salmov=0;
+                                            extt=0;
+                                        break;
+
+                                        default:
+                                            printf(AZUL69"Introduzca un n%cmero v%clido\n"RESET,163,160);
+                                        break;
+                                     }
+                                    }
+                                    while(salmov!=0);
+                                    break;
 
                                 case 4:
                                     a=1;
