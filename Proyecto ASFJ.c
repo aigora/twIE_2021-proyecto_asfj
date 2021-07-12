@@ -182,22 +182,25 @@ int main(){
 
                                         int i = 0,aa=2;
                                         //int total;
-                                        int miExtra=0, hoExtra=0;
+                                        int miExtra, hoExtra;
 
                                         printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
                                         printf(AZUL24 "Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
                                         scanf("%i %i %i",&se,&mi,&ho);
 
+                                        miExtra=0;
+                                        hoExtra=0;
+
                                         if (se>59){
                                             miExtra=se/60;
                                             se=se%60;
                                         }
-                                        mi=mi+miExtra;
+                                        mi+=miExtra;
                                         if (mi>59){
                                             hoExtra=mi/60;
                                             mi=mi%60;
                                         }
-                                        ho=ho+hoExtra;
+                                        ho+=hoExtra;
 
                                         //total=se + 60*mi + 3600*ho;
 
@@ -207,7 +210,6 @@ int main(){
 
                                        // printf("El programa terminara %i en segundos.\n", total);
                                         printf("La cuenta atr%cs terminar%c en: %i horas, %i minutos y %i segundos",160,160,ho,mi,se);
-                                        delay(2);
 
                                         cuenta_atras(se, mi, ho, aa);  //saca por pantalla la cuenta atras hasta llegar al 00:00:00
 
@@ -220,8 +222,9 @@ int main(){
 
                                 break;
                                 case 3://CICLOS DE TIEMPO
-                                    printf("Seleccione el m%ctodo que desee utilizar:\n1-.M%ctodo Pomodoro\n2-.M%ctodo T%cbata\n",130,130,130,160);
+                                    printf("Seleccione el m%ctodo que desee utilizar:\n1-.M%ctodo Pomodoro\n2-.M%ctodo T%cbata\n3-.Determinar un nuevo ciclo\n",130,130,130,160);
                                     scanf("%i",&metodo);
+
                                     if (metodo==1){
                                         LIMP;
                                         printf (AZUL24 INVERSO "M%ctodo pomodoro\n" RESET,130 );
@@ -252,12 +255,15 @@ int main(){
                                             cuenta_atras(se, mi, ho, aa);
                                         }
 
-
+                                        LIMP;
+                                        printf ("Ha terminado el ciclo\n");
 
                                         printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
                                         menus (menu);
                                     }
+
                                     else if(metodo==2){
+
                                         LIMP;
                                         printf (AZUL24 INVERSO "M%ctodo T%cbata\n" RESET,130,160 );
 
@@ -285,11 +291,95 @@ int main(){
 
                                             cuenta_atras(se, mi, ho, aa);
                                         }
+
+                                        LIMP;
+                                        printf("Ha terminado el ciclo\n");
+                                    }
+
+                                    else if (metodo==3){
+
+                                        LIMP;
+
+                                        printf(AZUL24 INVERSO "Determinar un nuevo ciclo de tiempo\n");
+
+                                        int segundos, minutos, horas, minutosExtra, horasExtra;
+                                        int Segundos, Minutos, Horas, MinutosExtra, HorasExtra;
+                                        int Series;
+
+                                        printf ("Primero determine el tiempo que desea dedicar a hacer algo\n");
+                                        printf("Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
+                                        scanf("%i %i %i",&segundos,&minutos,&horas);
+
+                                        minutosExtra=0;
+                                        horasExtra=0;
+
+                                        if (segundos>59){
+                                            minutosExtra=segundos/60;
+                                            segundos=segundos%60;
+                                        }
+                                        minutos+=minutosExtra;
+                                        if (minutos>59){
+                                            horasExtra=minutos/60;
+                                            minutos=minutos%60;
+                                        }
+                                        horas+=horasExtra;
+
+                                        printf ("Ahora determine el tiempo de descanso\n");
+                                        printf("Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
+                                        scanf("%i %i %i",&Segundos,&Minutos,&Horas);
+
+                                        MinutosExtra=0;
+                                        HorasExtra=0;
+
+                                        if (Segundos>59){
+                                            MinutosExtra=Segundos/60;
+                                            Segundos=Segundos%60;
+                                        }
+                                        Minutos+=MinutosExtra;
+                                        if (Minutos>59){
+                                            HorasExtra=Minutos/60;
+                                            Minutos=Minutos%60;
+                                        }
+                                        Horas+=HorasExtra;
+
+                                        if(segundos<0||minutos<0||horas<0||Segundos<0||Minutos<0||Horas<0) {
+                                            LIMP;
+                                            printf("No debe incluir tiempo negativo.\n");
+                                        } else{
+                                        printf("%cCu%cntas veces desea repetirlo?\n",168,160);
+                                        scanf ("%i",&Series);
+
+                                        if (Series==0) printf ("No se va a ejecutar ninguna vez su ciclo de tiempo\n");
+
+                                        delay(1);
+                                        for(i=0;i<Series;i++)
+                                        {
+                                            mi=minutos;
+                                            se=segundos;
+                                            ho=horas;
+                                            aa=7;
+                                            cuenta_atras(se, mi, ho, aa);
+
+                                            printf("Va a empezar el tiempo de descanso\n");
+                                            mi=Minutos;
+                                            se=Segundos;
+                                            ho=Horas;
+                                            aa=8;
+
+                                            cuenta_atras(se, mi, ho, aa);
+                                        }
+                                        LIMP;
+                                        printf ("Ha terminado el ciclo\n");
+                                        }
+
                                     }
                                     else //Presiona cualquier otro numero
                                         printf("Introduzca un n%cmero v%clido\n",163,160);
+
+
                                     printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
                                     menus (menu);
+                                break;
 
                                 case 4: //atras
                                     a=1;
@@ -1866,7 +1956,8 @@ void modo_cuenta_atras (int aa)
     else if (aa==4) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca descanso\n",130);
     else if (aa==5) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo T%cbata \n" RESET AZUL24 "\nToca hacer ejercicio\n",130,160);
     else if (aa==6) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo T%cbata \n" RESET AZUL24 "\nToca descanso\n",130,160);
-
+    else if (aa==7) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  Ciclo a elegir \n" RESET AZUL24 "\nToca hacer algo\n",130,160);
+    else if (aa==8) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  Ciclo a elegir \n" RESET AZUL24 "\nToca descanso\n",130,160);
 }
 
 
