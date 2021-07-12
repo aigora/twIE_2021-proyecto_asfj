@@ -182,7 +182,7 @@ int main(){
 
                                         int i = 0,aa=2;
                                         //int total;
-                                        int miExtra, hoExtra;
+                                        int miExtra=0, hoExtra=0;
 
                                         printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
                                         printf(AZUL24 "Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
@@ -192,12 +192,12 @@ int main(){
                                             miExtra=se/60;
                                             se=se%60;
                                         }
-                                        mi+=miExtra;
+                                        mi=mi+miExtra;
                                         if (mi>59){
                                             hoExtra=mi/60;
                                             mi=mi%60;
                                         }
-                                        ho+=hoExtra;
+                                        ho=ho+hoExtra;
 
                                         //total=se + 60*mi + 3600*ho;
 
