@@ -36,8 +36,8 @@
 
 #define LIMP printf("\033[2J" "\033[H")   // "limpiar la pantalla" + empezar a escribir arriba
 
-#define FIN 'F' // constantes para detectar si el usuario desea salir del programa
-#define ERRORES 'E' //constante para saber si el usuario escribió datos mal varias veces seguidas
+#define FIN 739510342 // constantes para detectar si el usuario desea salir del programa
+#define ERRORES 739516342 //constante para saber si el usuario escribió datos mal varias veces seguidas
 
 typedef struct
 {
@@ -196,8 +196,32 @@ int main(){
                                         int miExtra, hoExtra;
 
                                         printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
-                                        printf(AZUL24 "Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
-                                        scanf("%i %i %i",&se,&mi,&ho);
+                                        printf(AZUL24 "\nSegundos: ");
+                                        se=numero_entero(0,9999);
+                                        if(se==FIN) return 0;
+                                        if(se==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
+
+                                        printf(AZUL24 "Minutos: ");
+                                        mi=numero_entero(0,9999);
+                                        if(mi==FIN) return 0;
+                                        if(mi==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
+
+                                        printf(AZUL24 "Horas: ");
+                                        ho=numero_entero(0,9999);
+                                        if(ho==FIN) return 0;
+                                        if(ho==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
 
                                         miExtra=0;
                                         hoExtra=0;
@@ -220,7 +244,7 @@ int main(){
                                         }else{
 
                                        // printf("El programa terminara %i en segundos.\n", total);
-                                        printf("La cuenta atr%cs terminar%c en: %i horas, %i minutos y %i segundos",160,160,ho,mi,se);
+                                        printf("\nLa cuenta atr%cs terminar%c en: %i horas, %i minutos y %i segundos",160,160,ho,mi,se);
 
                                         cuenta_atras(se, mi, ho, aa);  //saca por pantalla la cuenta atras hasta llegar al 00:00:00
 
@@ -233,8 +257,17 @@ int main(){
 
                                 break;
                                 case 3://CICLOS DE TIEMPO
-                                    printf("Seleccione el m%ctodo que desee utilizar:\n1-.M%ctodo Pomodoro\n2-.M%ctodo T%cbata\n3-.Determinar un nuevo ciclo\n",130,130,130,160);
-                                    scanf("%i",&metodo);
+
+                                    LIMP;
+                                    printf (AZUL24 INVERSO "Ciclos de tiempo\n\n" RESET,160);
+                                    printf(AZUL24"Seleccione el m%ctodo que desee utilizar:\n1-.M%ctodo Pomodoro\n2-.M%ctodo T%cbata\n3-.Determinar un nuevo ciclo\n",130,130,130,160);
+                                    metodo=numero_entero(1,3);
+                                    if(metodo==FIN) return 0;
+                                    if(metodo==ERRORES){
+                                        printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                        menus (menu);
+                                        break;
+                                    }
 
                                     if (metodo==1){
                                         LIMP;
@@ -242,10 +275,16 @@ int main(){
 
                                         int ciclos;
                                         printf(AZUL24"%cCu%cntos ciclos de estudio desea hacer?\n"RESET ,168,160);
-                                        scanf("% i",&ciclos);
+                                        ciclos=numero_entero(0,9999);
+                                        if(ciclos==FIN) return 0;
+                                        if(ciclos==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
 
                                         printf(AZUL24"Va a empezar el M%ctodo Pomodoro\n", 130);
-                                        printf("Comienzan los %i ciclos de estudio\n" RESET, ciclos);
+                                        printf("Comienzan los %i ciclos de estudio.\n" RESET, ciclos);
 
                                         delay(2);
                                         for(i=0;i<ciclos;i++)
@@ -257,7 +296,7 @@ int main(){
 
                                             cuenta_atras(se, mi, ho, aa);
 
-                                            printf("Va a empezar el tiempo de descanso\n");
+                                            printf("\n\nVa a empezar el tiempo de descanso.\n");
                                             mi=5;
                                             se=0;
                                             ho=0;
@@ -267,7 +306,7 @@ int main(){
                                         }
 
                                         LIMP;
-                                        printf ("Ha terminado el ciclo\n");
+                                        printf ("Ha terminado el ciclo!\n");
 
                                         printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
                                         menus (menu);
@@ -294,7 +333,7 @@ int main(){
 
                                             cuenta_atras(se, mi, ho, aa);
 
-                                            printf("Va a empezar el tiempo de descanso\n");
+                                            printf(AZUL24"\n\nVa a empezar el tiempo de descanso.\n");
                                             mi=0;
                                             se=5;
                                             ho=0;
@@ -304,22 +343,47 @@ int main(){
                                         }
 
                                         LIMP;
-                                        printf("Ha terminado el ciclo\n");
+                                        printf(AZUL24"Ha terminado el ciclo!\n");
                                     }
 
                                     else if (metodo==3){
 
                                         LIMP;
 
-                                        printf(AZUL24 INVERSO "Determinar un nuevo ciclo de tiempo\n");
+                                        printf(AZUL24 INVERSO "Determinar un nuevo ciclo de tiempo\n\n"RESET);
 
                                         int segundos, minutos, horas, minutosExtra, horasExtra;
                                         int Segundos, Minutos, Horas, MinutosExtra, HorasExtra;
                                         int Series;
 
-                                        printf ("Primero determine el tiempo que desea dedicar a hacer algo\n");
-                                        printf("Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
-                                        scanf("%i %i %i",&segundos,&minutos,&horas);
+                                        printf (AZUL24 "Primero determine el tiempo que desea dedicar a hacer algo.");
+
+                                        printf(AZUL24 "\nSegundos: ");
+                                        segundos=numero_entero(0,9999);
+                                        if(segundos==FIN) return 0;
+                                        if(segundos==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
+
+                                        printf(AZUL24 "Minutos: ");
+                                        minutos=numero_entero(0,9999);
+                                        if(minutos==FIN) return 0;
+                                        if(minutos==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
+
+                                        printf(AZUL24 "Horas: ");
+                                        horas=numero_entero(0,9999);
+                                        if(horas==FIN) return 0;
+                                        if(horas==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
 
                                         minutosExtra=0;
                                         horasExtra=0;
@@ -335,9 +399,33 @@ int main(){
                                         }
                                         horas+=horasExtra;
 
-                                        printf ("Ahora determine el tiempo de descanso\n");
-                                        printf("Dime los segundos, minutos y horas que desee\n");//Hay que escribir los segundos, minutos y horas seguidos separados por un espacio
-                                        scanf("%i %i %i",&Segundos,&Minutos,&Horas);
+                                        printf ("\nAhora determine el tiempo de descanso.\n");
+                                        printf(AZUL24 "\nSegundos: ");
+                                        Segundos=numero_entero(0,9999);
+                                        if(segundos==FIN) return 0;
+                                        if(segundos==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
+
+                                        printf(AZUL24 "Minutos: ");
+                                        Minutos=numero_entero(0,9999);
+                                        if(minutos==FIN) return 0;
+                                        if(minutos==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
+
+                                        printf(AZUL24 "Horas: ");
+                                        Horas=numero_entero(0,9999);
+                                        if(horas==FIN) return 0;
+                                        if(horas==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
 
                                         MinutosExtra=0;
                                         HorasExtra=0;
@@ -358,20 +446,31 @@ int main(){
                                             printf("No debe incluir tiempo negativo.\n");
                                         } else{
                                         printf("%cCu%cntas veces desea repetirlo?\n",168,160);
-                                        scanf ("%i",&Series);
+
+                                        Series=numero_entero(0,9999);
+                                        if(Series==FIN) return 0;
+                                        if(Series==ERRORES){
+                                            printf(AZUL24 SUBRAYADO ITALIC "\nPuede continuar usando los " RESET);
+                                            menus (menu);
+                                            break;
+                                        }
 
                                         if (Series==0) printf ("No se va a ejecutar ninguna vez su ciclo de tiempo\n");
 
                                         delay(1);
+                                        LIMP;
                                         for(i=0;i<Series;i++)
                                         {
+                                            printf("\n\nVa a empezar el tiempo de hacer algo\n");
+                                            delay(0.5);
                                             mi=minutos;
                                             se=segundos;
                                             ho=horas;
                                             aa=7;
                                             cuenta_atras(se, mi, ho, aa);
 
-                                            printf("Va a empezar el tiempo de descanso\n");
+                                            printf("\n\nVa a empezar el tiempo de descanso\n");
+                                            delay(0.5);
                                             mi=Minutos;
                                             se=Segundos;
                                             ho=Horas;
@@ -380,12 +479,12 @@ int main(){
                                             cuenta_atras(se, mi, ho, aa);
                                         }
                                         LIMP;
-                                        printf ("Ha terminado el ciclo\n");
+                                        printf ("\nHa terminado el ciclo!\n");
                                         }
 
                                     }
                                     else //Presiona cualquier otro numero
-                                        printf("Introduzca un n%cmero v%clido\n",163,160);
+                                        printf("Introduzca un n%cmero v%clido.\n",163,160);
 
 
                                     printf(AZUL24 SUBRAYADO ITALIC "\n\nPuede continuar usando los ");
@@ -2476,12 +2575,12 @@ void cuenta_atras(int se, int mi, int ho, int aa)
 void modo_cuenta_atras (int aa)
 {
     if(aa==2) printf (AZUL24 INVERSO "Cuenta atr%cs\n" RESET,160);
-    else if (aa==3) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca estudiar\n",130);
-    else if (aa==4) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca descanso\n",130);
-    else if (aa==5) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo T%cbata \n" RESET AZUL24 "\nToca hacer ejercicio\n",130,160);
-    else if (aa==6) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo T%cbata \n" RESET AZUL24 "\nToca descanso\n",130,160);
-    else if (aa==7) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  Ciclo a elegir \n" RESET AZUL24 "\nToca hacer algo\n",130,160);
-    else if (aa==8) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  Ciclo a elegir \n" RESET AZUL24 "\nToca descanso\n",130,160);
+    else if (aa==3) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca estudiar.\n",130);
+    else if (aa==4) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo Pomodoro \n" RESET AZUL24 "\nToca descanso.\n",130);
+    else if (aa==5) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo T%cbata \n" RESET AZUL24 "\nToca hacer ejercicio.\n",130,160);
+    else if (aa==6) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  M%ctodo T%cbata \n" RESET AZUL24 "\nToca descanso.\n",130,160);
+    else if (aa==7) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  Ciclo a elegir \n" RESET AZUL24 "\nToca hacer algo.\n",130,160);
+    else if (aa==8) printf (AZUL24 INVERSO "Ciclos de tiempo"RESET AZUL24 SUBRAYADO NEGRITA "  Ciclo a elegir \n" RESET AZUL24 "\nToca descanso.\n",130,160);
 }
 
 
