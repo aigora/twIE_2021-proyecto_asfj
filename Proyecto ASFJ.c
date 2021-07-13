@@ -107,7 +107,7 @@ int main(){
     strftime(fechayhora, 100, "%H:%M \t\t %d/%m/%Y", tm);
 
 
-//    animacion_reloj_inteligente ();
+    animacion_reloj_inteligente ();
 
     do{
 
@@ -137,7 +137,7 @@ int main(){
                         case 1: //TEMPORIZADORES
 
                             LIMP;
-//                            animacion_temporizadores();
+                            animacion_temporizadores();
                             menus (menu);
                             do {
                             printf(RESET);
@@ -146,49 +146,49 @@ int main(){
                             if(tempo==FIN) return 0;
                             if(tempo==ERRORES){
                                 printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
-                                printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET AZUL20"5-.Suerte\n"RESET BLANCO"6-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
+                                menus(menu);
                                 break;
                             }
 
                             switch (tempo)
                             {
-                                case 1: //CRONOMETRO
-                                    LIMP;
+//                                case 1: //CRONOMETRO
+//                                    LIMP;
+//
+//                                    printf (AZUL24 INVERSO"Cron%cmetro\n"RESET,162);
+//                                    printf(AZUL24 "Pulse una vez el espacio para iniciar, otra vez para pausar si es necesario y dos veces para continuar us%cndolo.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,162,ho,mi,se);
+//
+//                                   while (getch()!='t'){
+//                                       while(!kbhit()){ //la función espera a que se presione una tecla en específico
+//                                           se++; //paso del tiempo
+//                                           if (se==60){
+//                                              se=0;
+//                                              mi++; //pasa de 59 segundos a 1:00
+//                                              if (mi==60){
+//                                                  mi=0;
+//                                                  ho++;
+//                                              }
+//                                           }
+//                                           LIMP;
+//                                           printf (AZUL24 INVERSO"Cron%cmetro\n"RESET,162);
+//                                           printf(AZUL24 "Pulse una vez el espacio para pausar si es necesario y dos veces para continuar us%cndolo.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,162,ho,mi,se);
+//
+//                                           //printf(AZUL24"[%.2i:%.2i:%.2i]"RESET,ho, mi, se);
+//                                           delay(1); //Un segundo de refresco
+//                                       }
+//                                       char pausa=getch();
+//                                       if(pausa==32){ //pausa si pulsa el espacio
+//                                           getch();
+//                                       }
+//                                   }
+//
+//                                LIMP;
+//                                printf(SUBRAYADO ITALIC "\n\nPuede continuar usando los "RESET);
+//                                menus (menu);
+//
+//                                break;
 
-                                    printf (AZUL24 INVERSO"Cron%cmetro\n"RESET,162);
-                                    printf(AZUL24 "Pulse una vez el espacio para iniciar, otra vez para pausar si es necesario y dos veces para continuar us%cndolo.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,162,ho,mi,se);
-
-                                   while (getch()!='t'){
-                                       while(!kbhit()){ //la función espera a que se presione una tecla en específico
-                                           se++; //paso del tiempo
-                                           if (se==60){
-                                              se=0;
-                                              mi++; //pasa de 59 segundos a 1:00
-                                              if (mi==60){
-                                                  mi=0;
-                                                  ho++;
-                                              }
-                                           }
-                                           LIMP;
-                                           printf (AZUL24 INVERSO"Cron%cmetro\n"RESET,162);
-                                           printf(AZUL24 "Pulse una vez el espacio para pausar si es necesario y dos veces para continuar us%cndolo.\nPulse t dos veces para terminar de usar el cron%cmetro:\n[%.2i:%.2i:%.2i]\n",160,162,ho,mi,se);
-
-                                           //printf(AZUL24"[%.2i:%.2i:%.2i]"RESET,ho, mi, se);
-                                           delay(1); //Un segundo de refresco
-                                       }
-                                       char pausa=getch();
-                                       if(pausa==32){ //pausa si pulsa el espacio
-                                           getch();
-                                       }
-                                   }
-
-                                LIMP;
-                                printf(SUBRAYADO ITALIC "\n\nPuede continuar usando los "RESET);
-                                menus (menu);
-
-                                break;
-
-                                case 2: //CUENTA ATRAS
+                                case 1: //CUENTA ATRAS
                                         LIMP;
 
                                         int i = 0,aa=2;
@@ -256,7 +256,7 @@ int main(){
 
 
                                 break;
-                                case 3://CICLOS DE TIEMPO
+                                case 2://CICLOS DE TIEMPO
 
                                     LIMP;
                                     printf (AZUL24 INVERSO "Ciclos de tiempo\n\n" RESET,160);
@@ -491,7 +491,7 @@ int main(){
                                     menus (menu);
                                 break;
 
-                                case 4: //atras
+                            case 3: //atras
                                     a=1;
                                     LIMP;
                                 break;
@@ -501,7 +501,7 @@ int main(){
 
                             }
                             }
-                            while (tempo!=4);
+                            while (tempo!=3);
                             //menu=6;
 
                         break;
@@ -509,7 +509,7 @@ int main(){
 
                         case 2: // CALENDARIO
                             LIMP;
-//                            animacion_calendario();
+                            animacion_calendario();
                             menus (menu);
                             do{
 
@@ -723,6 +723,7 @@ int main(){
                         case 3: // GPS
 
                             LIMP;
+                            animacion_GPS();
                             int i,j,xu,yu,yuu,c1,c2,c22,u1,u2,u22,x1,y1,y11,r,exxitt=0,extt=0,mov;
                             long int size;
 
@@ -1123,14 +1124,14 @@ int main(){
                                                         printf(RESET". ");
                                             }
 
-                                         printf( AZUL69"Cooredenadas:    Tuyas (%i,%i)   Casa (%i,%i)   Universidad (%i,%i)\n" RESET ,xu, 2000-yu,c1, 2000-c2,u1, 2000-u2);
+                                         printf( AZUL69"\nCooredenadas:    Tuyas (%i,%i)   Casa (%i,%i)   Universidad (%i,%i)\n" RESET ,xu, 2000-yu,c1, 2000-c2,u1, 2000-u2);
 
 
 
                                         if(xu==c1&&yu==c2)
-                                            printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
+                                            printf("\nHa llegado a casa.\n\n");                     //Comprueba si el usuario está en una de las coordenadas.
                                         else if(xu==u1&&yu==u2)
-                                            printf("\nHa llegado a su universidad.");
+                                            printf("\nHa llegado a su universidad.\n\n");
 
                                 do {
                                     printf("\nPulse 1 para derecha, 2 para abajo, 3 para izquierda, 5 para arriba y 4 para salir.\n");
@@ -1168,9 +1169,9 @@ int main(){
 
 
                                         if(xu==c1&&yu==c2)
-                                            printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
+                                            printf("\nHa llegado a casa.\n\n");                     //Comprueba si el usuario está en una de las coordenadas.
                                         else if(xu==u1&&yu==u2)
-                                            printf("\nHa llegado a su universidad.");
+                                            printf("\nHa llegado a su universidad.\n\n");
                                             }
 
                                         break;
@@ -1273,9 +1274,9 @@ int main(){
 
 
                                         if(xu==c1&&yu==c2)
-                                            printf("\nHa llegado a casa.");                     //Comprueba si el usuario está en una de las coordenadas.
+                                            printf("\nHa llegado a casa.\n\n");                     //Comprueba si el usuario está en una de las coordenadas.
                                         else if(xu==u1&&yu==u2)
-                                            printf("\nHa llegado a su universidad.");
+                                            printf("\nHa llegado a su universidad.\n\n");
                                             }
 
                                         break;
@@ -1317,7 +1318,7 @@ int main(){
 
                         case 4: // CALCULADORA
                             LIMP;
-//                            animacion_calculadora();
+                            animacion_calculadora();
                             menus (menu);
                             do{
 
@@ -1872,7 +1873,7 @@ int main(){
                         break;
                         case 5: //suerte
                             LIMP;
-//                            animacion_suerte();
+                            animacion_suerte();
                             menus (menu);
                             do {
                             printf(RESET);
@@ -2062,7 +2063,7 @@ int main(){
                             LIMP;
                             b=1;
                             printf (CIAN "Hasta luego!\n"RESET);
-//                            animacion_hasta_luego();
+                            animacion_hasta_luego();
                         break;
 
 
@@ -2106,11 +2107,11 @@ void print_fyh()    //dar la hora y dia en pantalla
 
 void menus (int menu)
 {
-    if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs\n"RESET,162,160,160);
-    else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" RESET,164,160);
-    else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET ,162,162,160);
-    else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.IVA\n12-.Atr%cs\n" RESET,130,162,162,162,160);
-    else if(menu==5) printf (AZUL45 INVERSO "SUERTE:\n\n"RESET AZUL45"1-.Cara o cruz\n2-.Dado\n3-.Baraja\n4-.Elegir uno\n5-.Atr%cs\n" RESET,160);
+    if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cuenta atr%cs\n2-.Ciclos de tiempo\n3-.Atr%cs\n\n"RESET,160,160);
+    else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n\n" RESET,164,160);
+    else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n\n" RESET ,162,162,160);
+    else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.IVA\n12-.Atr%cs\n\n" RESET,130,162,162,162,160);
+    else if(menu==5) printf (AZUL45 INVERSO "SUERTE:\n\n"RESET AZUL45"1-.Cara o cruz\n2-.Dado\n3-.Baraja\n4-.Elegir uno\n5-.Atr%cs\n\n" RESET,160);
 }
 
 void delay(float numero_segundos)
@@ -2525,12 +2526,12 @@ int escribir_recordatorio ( char modo)
                     dia,mes,anio,tip,rec);
 
             }
-            else printf("Esa no es una opcion\n");
+            else printf("Esa no es una opci%cn\n",162);
 
 
 
 
-            printf("¿Quiere escribir otro recordatorio?\n1-Si\n2-No\n");
+            printf("%cQuiere escribir otro recordatorio?\n1-Si\n2-No\n",168);
             scanf(" %i",&nn);
 
         }while (nn-1==0);
@@ -2629,7 +2630,7 @@ int salir(char salir[10])   //DETECTA SI EL USUARIO ESCIBE 'FIN'
 {
 
      if (((salir[0]) == 'F') && ((salir[1]) == 'I') && ((salir[2]) == 'N') && (salir[3] == '\0')){
-        //animacion_hasta_luego();
+        animacion_hasta_luego();
         return -1;
      }
     return 1;
@@ -2648,13 +2649,13 @@ float numero (int minimo, int maximo)  // PIDE AL USUARIO UN NUMERO ACOTADO, LO 
                 do{
                     if(contador_errores>0){  // ESCRIBE POR PANTALLA LOS ERRORES DETECTADOS
                         printf("Dato incorrecto.\n");
-                        if(tttt>0) printf("Debe introducir solo datos numericos.\n");
-                        if(Pcontador>1) printf("Debe introducir un punto como maximo.\n");
-                        if(cuenta_caracteres(mmm)>10) printf("Se escribieron %i caracteres. Como maximo debe escribir 10 caracteres.\n",cuenta_caracteres(mmm));
+                        if(tttt>0) printf("Debe introducir solo datos num%cricos.\n",130);
+                        if(Pcontador>1) printf("Debe introducir un punto como m%cximo.\n",160);
+                        if(cuenta_caracteres(mmm)>10) printf("Se escribieron %i caracteres. Como m%cximo debe escribir 10 caracteres.\n",cuenta_caracteres(mmm),160);
                         if(acotacion>0) printf("La cifra debe estar entre %i y %i.\n",minimo,maximo);
                         if(contador_errores>3){
                             LIMP;
-                            printf("Dato incorrecto.\nDemasiados intentos, vuelva a probar mas tarde.\n\n");
+                            printf("Dato incorrecto.\nDemasiados intentos, vuelva a probar m%cs tarde.\n\n",160);
                             return ERRORES; // el usuario escribió datos incorrectos varias veces seguidas
                         }
                     }
@@ -2762,14 +2763,14 @@ int numero_entero (int minimo, int maximo)
                 do{
                     if(contador_errores>0){  // ESCRIBE POR PANTALLA LOS ERRORES DETECTADOS
                         printf("Dato incorrecto.\n");
-                        if(t>0) printf("Debe introducir solo datos numericos.\n");
-                        if(Pcontador>1) printf("Debe introducir un punto como maximo y el número debe ser un entero.\n");
-                        if(cuenta_caracteres(m)>10) printf("Se escribieron %i caracteres. Como maximo debe escribir 10 caracteres.\n",cuenta_caracteres(m));
+                        if(t>0) printf("Debe introducir solo datos num%Cricos.\n",130);
+                        if(Pcontador>1) printf("Debe introducir un punto como m%Cximo y el n%Cmero debe ser un entero.\n",160,163);
+                        if(cuenta_caracteres(m)>10) printf("Se escribieron %i caracteres. Como m%cximo debe escribir 10 caracteres.\n",cuenta_caracteres(m),160);
                         if(acotacion>0) printf("La cifra debe estar entre %i y %i.\n",minimo,maximo);
-                        if(entero>0) printf ("El número debe ser un entero.\n");
+                        if(entero>0) printf ("El n%cmero debe ser un entero.\n",163);
                         if(contador_errores>3){
                             LIMP;
-                            printf("Dato incorrecto.\nDemasiados intentos, vuelva a probar mas tarde.\n\n");
+                            printf("Dato incorrecto.\nDemasiados intentos, vuelva a probar m%cs tarde.\n\n",160);
                             return ERRORES; // el usuario escribió datos incorrectos varias veces seguidas
                         }
                     }
@@ -2891,7 +2892,7 @@ void animacion_reloj_inteligente()
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
             printf (CIAN "%c", c);
-            delay(0.004);
+            delay(0.0005);
         }
 
         fseek(pf,0,SEEK_SET);
@@ -2930,6 +2931,14 @@ void animacion_reloj_inteligente()
         printf(INICIO);
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
+            printf (AZUL45 "%c", c);
+        }
+        delay(0.1);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
             printf (CIAN "%c", c);
         }
         delay(0.07);
@@ -2956,7 +2965,7 @@ void animacion_temporizadores()
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
             printf (RESET AZUL24 "%c", c);
-            delay(0.010);
+            delay(0.005);
         }
     }
     delay(0.5);
@@ -2979,7 +2988,7 @@ void animacion_calendario()
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
             printf (RESET AZUL31 "%c", c);
-            delay(0.010);
+            delay(0.005);
         }
     }
     delay(0.5);
@@ -3025,7 +3034,7 @@ void animacion_calculadora()
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
             printf (RESET AZUL20 "%c", c);
-            delay(0.010);
+            delay(0.005);
         }
     }
     delay(0.5);
@@ -3040,15 +3049,15 @@ void animacion_suerte()
     pf=fopen("animacion_suerte.txt","r");
     if(pf==NULL)                          //compruebo que se abre bien
     {
-        printf(AZUL20 "Error al abrir la animacion de la calculadora."RESET);
+        printf(AZUL45 "Error al abrir la animacion de la calculadora."RESET);
     }else
     {
         LIMP;
         fseek(pf,0,SEEK_SET);
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
-            printf (RESET AZUL20 "%c", c);
-            delay(0.010);
+            printf (RESET AZUL45 "%c", c);
+            delay(0.005);
         }
     }
     delay(0.5);
@@ -3115,6 +3124,14 @@ void animacion_hasta_luego()
         printf(INICIO);
         for(c=0; c != EOF;){ // IMPRIMIR FICHERO
             c = fgetc (pf);
+            printf (AZUL45 "%c", c);
+        }
+        delay(0.17);
+
+        fseek(pf,0,SEEK_SET);
+        printf(INICIO);
+        for(c=0; c != EOF;){ // IMPRIMIR FICHERO
+            c = fgetc (pf);
             printf (CIAN "%c", c);
         }
 
@@ -3122,6 +3139,7 @@ void animacion_hasta_luego()
     }
     delay(1.5);
     fclose(pf);
+    printf(RESET);
 }
 
 // FUNCIÓN GPS
