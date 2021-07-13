@@ -2983,24 +2983,30 @@ void animacion_hasta_luego()
 void direccion(int co1,int co2,int x, int y)
 {
     float distancia;
-    distancia = 10*sqrt(pow(x-co1,2)+pow(x-co2,2));
-    printf("Estás a %.2f metros y tienes que ir hacia ",distancia);
-    if(co1<x && co2<y)
-        printf("arriba izquierda.");
-    else if(co1>x && co2>y)
-        printf("abajo derecha.");
-    else if(co1>x && co2<y)
-        printf("arriba derecha.");
-    else if(co1<x && co2>y)
-        printf("abajo izquierda.");
-    else if(co1<x && co2==y)
-        printf(" la izquierda.");
-    else if(co1==x && co2>y)
-        printf("abajo.");
-    else if(co1==x && co2<y)
-        printf("arriba.");
-    else if(co1>x && co2==y)
-        printf("la derecha.");
-    else
-        printf(".");
+    distancia = 10*sqrt(pow(x-co1,2)+pow(y-co2,2));
+    if(co1==x && co2==y) printf("Ya estas ahí!\n");
+    else{
+
+        printf("co1: %i   co2: %i   x: %i   y: %i\n",co1,co2,x,y);
+        printf("Estás a %.2f metros y tienes que ir hacia ",distancia);
+        if(co1<x && co2<y)
+            printf("arriba izquierda.");
+        else if(co1>x && co2>y)
+            printf("abajo derecha.");
+        else if(co1>x && co2<y)
+            printf("arriba derecha.");
+        else if(co1<x && co2>y)
+            printf("abajo izquierda.");
+        else if(co1<x && co2==y)
+            printf(" la izquierda.");
+        else if(co1==x && co2>y)
+            printf("abajo.");
+        else if(co1==x && co2<y)
+            printf("arriba.");
+        else if(co1>x && co2==y)
+            printf("la derecha.");
+        else
+            printf(".");
+    }
+
 }
