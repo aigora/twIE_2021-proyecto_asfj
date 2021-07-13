@@ -905,11 +905,25 @@ int main(){
                                                     }
                                                     }
                                                 }
-                                                }
-                                             printf("\n");
-                                             printf( AZUL69"Hay %i pacientes de covid en su zona.\n"RESET,NP);
-                                             printf( AZUL69 SUBRAYADO ITALIC"\n\nPuede continuar usando el "RESET);
-                                             //menus (menu);
+                                        }
+                                         printf("\n");
+
+                                         if ((px[0]>30&&px[0]<30)&&(py[0]>30&&py[0]<30)){
+                                             printf("Hay al menos un paciente de covid muy cerca, aléjese de ahí cuanto antes!\n");
+                                         }
+                                         else if ((px[1]>30&&px[1]<30)&&(py[1]>30&&py[1]<30)){
+                                             printf("Hay al menos un paciente de covid muy cerca, aléjese de ahí cuanto antes!\n");
+                                         }
+                                         else if ((px[2]>30&&px[2]<30)&&(py[2]>30&&py[2]<30)){
+                                             printf("Hay al menos un paciente de covid muy cerca, aléjese de ahí cuanto antes!\n");
+                                         }
+                                         else if ((px[3]>30&&px[3]<30)&&(py[3]>30&&py[3]<30)){
+                                             printf("Hay al menos un paciente de covid muy cerca, aléjese de ahí cuanto antes!\n");
+                                         }
+
+                                         printf( AZUL69"Hay %i pacientes de covid en su zona.\n"RESET,NP);
+                                         printf( AZUL69 SUBRAYADO ITALIC"\n\nPuede continuar usando el "RESET);
+                                         //menus (menu);
                                 break;
                                 case 2:
 
@@ -1965,8 +1979,8 @@ void print_fyh()    //dar la hora y dia en pantalla
 
 void menus (int menu)
 {
-    if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs\n",162,160,160);
-    else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" ,164,160);
+    if(menu==1) printf (AZUL24 INVERSO "TEMPORIZADORES:\n\n" RESET AZUL24 "1-.Cron%cmetro\n2-.Cuenta atr%cs\n3-.Ciclos de tiempo\n4-.Atr%cs\n"RESET,162,160,160);
+    else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" RESET,164,160);
     else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET ,162,162,160);
     else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.IVA\n12-.Atr%cs\n" RESET,130,162,162,162,160);
     else if(menu==5) printf (AZUL20 INVERSO "SUERTE:\n\n"RESET AZUL20"1-.Cara o cruz\n2-.Dado\n3-.Baraja\n4-.Elegir uno\n5-.Atr%cs\n" RESET,160);
