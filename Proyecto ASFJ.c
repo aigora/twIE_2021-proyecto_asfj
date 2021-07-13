@@ -61,9 +61,9 @@ float potencia(float base, int exponente);
 //FUNCIONES CALENDARIO
 int imprimir_fichero(int numeracion);
 void copio_fichero();
-int editar_fichero(int nu, int ed, char edit);
+int editar_fichero(int nu, int ed, int edit);
 char coincide (char a[]);
-void imprimir_tipo_rec (char c, int nu);
+void imprimir_tipo_rec (int c, int nu);
 int escribir_recordatorio (char modo);
 void printEvento(evento x);
 int compFecha(fecha f1, fecha f2);
@@ -118,7 +118,7 @@ int main(){
 
             print_fyh();
             printf(CIAN INVERSO "%cHola de nuevo, Usuario!" RESET "\n",173);
-            printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET AZUL20"5-.Suerte\n"RESET BLANCO"6-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
+            printf(CIAN SUBRAYADO "%cEn qu%c te puedo ayudar?\n" RESET AZUL24 "1-.Temporizadores\n" RESET AZUL31 "2-.Calendario\n" RESET AZUL69 "3-.GPS\n" RESET AZUL20"4-.Calculadora\n"RESET AZUL45"5-.Suerte\n"RESET BLANCO"6-.Cerrar sesi%cn\n" RESET "\n",168,130,162);
             a=0;
             b=0;
 
@@ -400,7 +400,7 @@ int main(){
                                         horas+=horasExtra;
 
                                         printf ("\nAhora determine el tiempo de descanso.\n");
-                                        printf(AZUL24 "\nSegundos: ");
+                                        printf(AZUL24 "Segundos: ");
                                         Segundos=numero_entero(0,9999);
                                         if(segundos==FIN) return 0;
                                         if(segundos==ERRORES){
@@ -528,9 +528,9 @@ int main(){
                                     LIMP;
                                     printf (AZUL31 INVERSO"Ver recordatorios\n"RESET);
 
-                                    int j,iComp,Nu=0,ev=0;  // Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
+                                    int j,iComp,Nu=0,ev=0,opcion;  // Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy; opcion para mostrar en pantalla los recordatorios deseados;
                                     int noNumerado=0;
-                                    char coinc,c,opcion, re[15]; //coinc para comprobar si coincide el tipo de record que busco o no; c para recorrer el fichero por caracteres y contar lineas; opcion para mostrar o no todos los recordatorios en pantalla; compA y compB para comparar el tipo de rec que busco y los que existen
+                                    char coinc,c, re[15]; //coinc para comprobar si coincide el tipo de record que busco o no; c para recorrer el fichero por caracteres y contar lineas; compA y compB para comparar el tipo de rec que busco y los que existen
                                     FILE *pf;
                                     evento eventos[3];             // Vector que almacena los eventos
 
@@ -542,8 +542,8 @@ int main(){
 
                                     if(pf==NULL)                          //compruebo que se abre bien
                                         {
-                                        printf(AZUL31 "Error al abrir el fichero."RESET);
-                                        return -1;
+                                        printf(AZUL31 "Error al abrir el fichero.\n"RESET);
+                                        break;
                                     }else
                                     {
 
@@ -579,13 +579,17 @@ int main(){
                                         fclose(pf);
 
 
-                                        printf(AZUL31 "\nPulse:\n'c' para ver las fechas en las que hay cumplea%cos\n'e' para ver las fechas de examenes\n'f' para ver los festivos\n'r' para ver todos los recordatorios\nCualquier otra letra para volver atr%cs.\n\n"RESET,164,160);
-                                        scanf(" %c",&opcion);
-
-                                        if(opcion=='r'||opcion=='R')
-                                        {
-                                            imprimir_fichero(noNumerado);
+                                        printf(AZUL31 "\nEscoja una de las siguientes opciones:\n1- Ver las fechas de cumplea%cos\n2- Ver fechas de examenes\n3- Ver festivos\n4- Ver todos los recordatorios\n5- Volver atr%cs\n\n",164,160);
+                                        opcion=numero_entero(1,5);
+                                        if(opcion==FIN) return 0;
+                                        if(opcion==ERRORES){
+                                            menus(menu);
+                                            break;
                                         }
+
+
+                                        if(opcion==4) imprimir_fichero(noNumerado);
+                                        else if(opcion==5) LIMP;
                                         else imprimir_tipo_rec (opcion, Nu);
 
                                     }
@@ -608,6 +612,7 @@ int main(){
                                     if(v==-1) return 0;
                                     else if(v==-2) return 0;
                                     else if (v==-3){
+                                        printf(AZUL31 SUBRAYADO ITALIC "Puede continuar usando el " RESET,164);
                                         menus(menu);
                                         break;
                                     }
@@ -632,19 +637,35 @@ int main(){
 
                                     nu=imprimir_fichero(numerado);  //imprime todos los recordatorios numerados y devuelve el numero de lineas/recordatorios
 
-                                    while(1){
-                                        printf(AZUL31"%cQue n%cmero de recordatorio desea editar?\n"RESET,168,163);
-                                        scanf("%d",&ed);
-                                        if(ed>nu) printf(AZUL31"Ese n%cmero de recordatorio no existe.\n"RESET,163);
-                                        else break;
+
+                                    if(nu==0){
+                                        printf(AZUL31 SUBRAYADO ITALIC "Puede continuar usando el " RESET,164);
+                                        menus (menu);
+                                        break;
                                     }
 
-                                    while(1){
-                                        printf(AZUL31"Pulse f si desea cambiar la fecha o r si desea cambiar el nombre del recordatorio.\n"RESET);
-                                        scanf(" %c",&editar);
-                                        if(editar!='r'&&editar!='f') printf(AZUL31"Esa letra no es v%clida.\n"RESET,160);
-                                        else break;
+                                    printf(AZUL31"%cQue n%cmero de recordatorio desea editar?\n"RESET,168,163);
+                                    ed=numero_entero(1,nu);
+                                    if(ed==FIN) return 0;
+                                    if(ed==ERRORES){
+                                        printf(AZUL31 SUBRAYADO ITALIC "Puede continuar usando el " RESET,164);
+                                        menus (menu);
+                                        break;
                                     }
+                                    if(ed>nu) {
+                                        printf(AZUL31"Ese n%cmero de recordatorio no existe.\n"RESET,163);
+                                        break;
+                                    }
+
+                                    printf(AZUL31"Pulse: \n1- Cambiar el nombre del recordatorio\n2- Cambiar la fecha\n"RESET);
+                                    editar=numero_entero(1,2);
+                                    if(editar==FIN) return 0;
+                                    if(editar==ERRORES){
+                                        printf(AZUL31 SUBRAYADO ITALIC "Puede continuar usando el " RESET,164);
+                                        menus (menu);
+                                        break;
+                                    }
+
 
                                     copio_fichero();  //copio los recordatorios en un fichero temporal
 
@@ -658,7 +679,7 @@ int main(){
                                     else{
 
                                         LIMP;
-                                        printf(AZUL31"Ya se ha editado!\n" SUBRAYADO ITALIC "Puede continuar usando el "RESET);
+                                        printf(AZUL31"Ya se ha editado!\n\n" SUBRAYADO ITALIC "Puede continuar usando el "RESET);
                                         menus (menu);
                                     }
 
@@ -681,7 +702,7 @@ int main(){
                                         }
                                         else{
                                             LIMP;
-                                            printf(AZUL31"Ya se han creado!\n" SUBRAYADO ITALIC "Puede continuar usando el " RESET);
+                                            printf(AZUL31"Ya se han creado!\n\n" SUBRAYADO ITALIC "Puede continuar usando el " RESET);
                                             menus (menu);
                                             break;
                                         }
@@ -1869,17 +1890,17 @@ int main(){
                                 case 1: //cara o cruz
 
                                     LIMP;
-                                    printf (AZUL24 INVERSO"Lanza una moneda y dice si sale cara o cruz\n"RESET);
+                                    printf (AZUL45 INVERSO"Lanza una moneda y dice si sale cara o cruz:\n\n"RESET);
 
                                         int lanz;
                                         srand(time(NULL));
                                         lanz = rand() % 2; //Coge un numero aleatorio y calcula su modulo
                                         if(lanz==0) // Si el numero es par
-                                            printf (AZUL24"Ha salido cara\n");
+                                            printf (RESET AZUL45"Ha salido cara!\n");
                                         else // Si el numero es impar
-                                            printf (AZUL24"Ha salido cruz\n");
+                                            printf (RESET AZUL45"Ha salido cruz!\n");
 
-                                    printf(SUBRAYADO ITALIC "\nPuede continuar usando los "RESET);
+                                    printf(SUBRAYADO ITALIC "\n\nPuede continuar usando la "RESET);
                                     menus (menu);
 
                                 break;
@@ -1887,35 +1908,36 @@ int main(){
                                 case 2: //lanza un dado
 
                                      LIMP;
-                                     printf (AZUL24 INVERSO"Lanza un dado de seis lados\n"RESET);
+                                     printf (RESET AZUL45 INVERSO"Lanza un dado de seis lados:\n\n"RESET);
 
                                         int lanz1;
                                         srand(time(NULL));
                                         lanz1 = rand() % 6; //Coge un numero aleatorio entre 0 y 5
                                         if(lanz1==0)
-                                            printf ("Ha salido el 1\n");
+                                            printf (RESET AZUL45"Ha salido el 1\n");
                                         else if (lanz1==1)
-                                            printf ("Ha salido el 2\n");
+                                            printf (RESET AZUL45"Ha salido el 2\n");
                                         else if (lanz1==2)
-                                            printf ("Ha salido el 3\n");
+                                            printf (RESET AZUL45"Ha salido el 3\n");
                                         else if (lanz1==3)
-                                            printf ("Ha salido el 4\n");
+                                            printf (RESET AZUL45"Ha salido el 4\n");
                                         else if (lanz1==4)
-                                            printf ("Ha salido el 5\n");
+                                            printf (RESET AZUL45"Ha salido el 5\n");
                                         else
-                                            printf ("Ha salido el 6\n");
+                                            printf (RESET AZUL45"Ha salido el 6\n");
 
-                                     printf(SUBRAYADO ITALIC "\nPuede continuar usando los "RESET);
+                                     printf(SUBRAYADO ITALIC "\n\nPuede continuar usando la "RESET);
                                      menus (menu);
                                 break;
                                 case 3: //carta
 
                                      LIMP;
-                                     printf (AZUL24 INVERSO"Elige una carta aleatoria de la baraja espa%cola\n"RESET,168);
+                                     printf (AZUL45 INVERSO"Elige una carta aleatoria de la baraja espa%cola:\n\n"RESET,168);
 
                                      int lanz2;
                                      srand(time(NULL));
                                         lanz2 = rand() % 39; //Coge un numero aleatorio entre 0 y 39
+                                        printf(RESET AZUL45);
                                         if(lanz2==0)
                                             printf ("Ha salido el 1 de copas\n");
                                         else if (lanz2==1)
@@ -1997,23 +2019,29 @@ int main(){
                                         else
                                             printf ("Ha salido el rey de oros\n");
 
-                                     printf(SUBRAYADO ITALIC "\nPuede continuar usando los "RESET);
+                                     printf(SUBRAYADO ITALIC "\n\nPuede continuar usando la "RESET);
                                      menus (menu);
                                 break;
                                 case 4: //elegir uno
 
                                     LIMP;
-                                    printf (AZUL24 INVERSO"Elige un n%cmero aleatorio entre los deseados\n"RESET,163);
+                                    printf (AZUL45 INVERSO"Elige un n%cmero aleatorio entre los deseados\n\n"RESET,163);
 
                                     int lanz3,veces;
                                     srand(time(NULL));
 
-                                    printf ("%cEntre cu%cntos n%cmeros quiere hacer la elecci%cn?\n",168,160,163,162);
-                                    scanf ("%i",&veces);
+                                    printf (AZUL45"%cEntre cu%cntos n%cmeros quiere hacer la elecci%cn? (El 0 no se incluye)\n",168,160,163,162);
+                                    veces=numero_entero(1,9999); // EL USUARIO ESCOGE ENTRE LAS OPCIONES DEL MENÚ PRINCIPAL
+                                    if(veces==FIN) return 0;
+                                    if(veces==ERRORES){
+                                        printf(SUBRAYADO ITALIC "\n\nPuede continuar usando la "RESET);
+                                        menus (menu);
+                                        break;
+                                    }
                                     lanz3 = rand() % veces ; //Coge un numero aleatorio y calcula su modulo
-                                    printf ("Ha salido el n%cmero: %i\n",163,lanz3);
+                                    printf (AZUL45"Ha salido el n%cmero: %i\n",163,lanz3+1);
 
-                                    printf(SUBRAYADO ITALIC "\nPuede continuar usando los "RESET);
+                                    printf(SUBRAYADO ITALIC "\n\nPuede continuar usando la "RESET);
                                     menus (menu);
                                 break;
                                 case 5: //atras
@@ -2021,7 +2049,7 @@ int main(){
                                 //LIMP;
                                 break;
                                 default:
-                                     printf("Introduzca un n%cmero v%clido\n",163,160);
+                                     printf(AZUL45"Introduzca un n%cmero v%clido\n",163,160);
                                 break;
 
                             }
@@ -2082,7 +2110,7 @@ void menus (int menu)
     else if(menu==2) printf (AZUL31 INVERSO "CALENDARIO:\n\n"RESET AZUL31"1-.Ver recordatorios\n2-.A%cadir recordatorio\n3-.Editar recordatorio existente\n4-.Eliminar recordatorios existentes y empezar a crear de nuevo\n5-.Atr%cs\n" RESET,164,160);
     else if(menu==3) printf (AZUL69 INVERSO " GPS \n\n"RESET AZUL69"1-.Radar covid\n2-.Direcci%cn\n3-.Localizaci%cn\n4-.Atr%cs\n" RESET ,162,162,160);
     else if(menu==4) printf (AZUL20 INVERSO "CALCULADORA:\n\n"RESET AZUL20"1-.Sumar\n2-.Restar\n3-.Multiplicar\n4-.Dividir\n5-.Potencia\n6-.Media aritm%ctica\n7-.Media ponderada\n8-.Ecuaci%cn de segundo grado\n9-.Sistema de ecuaciones de dos inc%cgnitas\n10-.Sistema de ecuaciones de tres ingc%cngitas\n11-.IVA\n12-.Atr%cs\n" RESET,130,162,162,162,160);
-    else if(menu==5) printf (AZUL20 INVERSO "SUERTE:\n\n"RESET AZUL20"1-.Cara o cruz\n2-.Dado\n3-.Baraja\n4-.Elegir uno\n5-.Atr%cs\n" RESET,160);
+    else if(menu==5) printf (AZUL45 INVERSO "SUERTE:\n\n"RESET AZUL45"1-.Cara o cruz\n2-.Dado\n3-.Baraja\n4-.Elegir uno\n5-.Atr%cs\n" RESET,160);
 }
 
 void delay(float numero_segundos)
@@ -2117,7 +2145,7 @@ int imprimir_fichero(int numeracion)
 {
 
     int j,Nuu=0;  //Nu será el numero de lineas (recordatorios) del fichero; ev contará el numero de eventos/recordatorios para hoy
-    char c; // c para recorrer el fichero por caracteres y contar lineas; opcion para mostrar o no todos los recordatorios en pantalla
+    char c; // c para recorrer el fichero por caracteres y contar lineas;
     FILE *pf;
     evento eventos[2];             // Vector que almacena los eventos
 
@@ -2137,6 +2165,10 @@ int imprimir_fichero(int numeracion)
 
     fseek(pf,0,SEEK_SET);            //vuelvo al principio del fichero
 
+    if(Nuu==0){
+        printf("No hay recordatorios!\n\n");
+        return Nuu;
+    }
 
     if(numeracion==1){
         printf("RECORDATORIOS:\n"RESET);
@@ -2189,7 +2221,7 @@ void copio_fichero()                                              //copio el fic
         }
     }
 }
-int editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas totales; ed es el numero de linea que quiero modificar; edit decide si edito fecha o recordatorio
+int editar_fichero(int nu, int ed, int edit)   // nu es el numero de liteas totales; ed es el numero de linea que quiero modificar; edit decide si edito fecha o recordatorio
 {
 
     int j,nd,nm,na,numTip;
@@ -2204,7 +2236,7 @@ int editar_fichero(int nu, int ed, char edit)   // nu es el numero de liteas tot
     for(j=1;j<=nu;j++)                   //escribo todas las lineas del fichero
     {
         if(j==ed){
-                if(edit=='r'){
+                if(edit==1){
                     printf(AZUL31"Escriba el nuvo nombre de recordatorio (tipo_de_recordatorio y recordatorio, separados por un espacio):\n"RESET);
                     printf("Tipo de recordatorio:\n1-Examen\n2-Cumpleaños\n3-Festivo\n4-Otro tipo\n5-(Sin tipo específico)\n");
                     numTip=numero_entero(1,5);
@@ -2334,7 +2366,7 @@ char coincide (char a[])
     else x='q';
     return x;
 }
-void imprimir_tipo_rec (char c, int Nu)
+void imprimir_tipo_rec (int c, int Nu)
 {
     LIMP;
     int i,j=0,d,m,a;
@@ -2342,8 +2374,8 @@ void imprimir_tipo_rec (char c, int Nu)
     char coinc;
     FILE *pf;
     pf=fopen("Recordatorios_calendario.txt","r");
-printf("Nu: %i\n",Nu);
-    if(c=='c'||c=='C')
+
+    if(c==1)
     {
         printf(AZUL31 "CUMPLEA%cOS:\n",165);
         for(i=0;i<Nu;i++)
@@ -2359,7 +2391,7 @@ printf("Nu: %i\n",Nu);
                 j++;
             }
         }
-    }else if(c=='e'||c=='E')
+    }else if(c==2)
     {
         printf("EXAMENES:\n");
         for(i=0;i<Nu;i++)
@@ -2375,7 +2407,7 @@ printf("Nu: %i\n",Nu);
                 j++;
             }
         }
-    }else if(c=='f'||c=='F')
+    }else if(c==3)
     {
         printf("FESTIVOS:\n");
         for(i=0;i<Nu;i++)

@@ -2,7 +2,7 @@
 3;3;3333;Festivo;proban2
 4;4;4444;Cumple;c4
 5;5;5555;Examen;e5
-6;6;6666;Examen;la6
+6;6;6666;Festivo;f6
 7;7;7777;Cumple;cumple7
 8;8;8888;Festivo;fesivo8
 9;9;9999;Festivo;ff9
@@ -11,3 +11,4 @@
 12;12;1212;Examen;e12
 13;1;1313;Examen;e13
 14;2;1414;Examen;e14
+14;4;1414; ;rec14
